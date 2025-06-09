@@ -24,10 +24,11 @@ export default function ThemeBtn() {
         const savedTheme = localStorage.getItem(themeMode);
         const html = document.documentElement;
 
-        if (savedTheme === "light") {
+        if (savedTheme === "dark") {
+            html.classList.add("dark");
+        } else if (savedTheme === "light") {
             html.classList.remove("dark");
         }
-        html.classList.add("dark");
     }, []);
 
     return (
