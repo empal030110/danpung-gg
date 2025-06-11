@@ -1,9 +1,8 @@
 import { apiKey } from "@/api/key";
-import { dojangUrl } from "@/api/url/rank/dojangUrl";
 
 export default async function dojang() {
     try {
-        const response = await fetch(dojangUrl, {
+        const response = await fetch('https://open.api.nexon.com/maplestory/v1/ranking/dojang?date=2025-06-11&difficulty=0&page=1', {
             cache: 'force-cache',
             headers: {
             "x-nxopen-api-key": apiKey,
