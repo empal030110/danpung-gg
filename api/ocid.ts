@@ -1,9 +1,11 @@
 import { apiKey } from "@/api/key";
-import { dojangUrl } from "../url/rank/dojang";
+import { ocidUrl } from "./url/ocid";
 
-export default async function dojang() {
+export default async function ocid(name: string) {
+    const url = ocidUrl(name);
+
     try {
-        const response = await fetch(dojangUrl, {
+        const response = await fetch(url, {
             cache: 'force-cache',
             headers: {
                 "x-nxopen-api-key": apiKey,
@@ -17,7 +19,7 @@ export default async function dojang() {
         const data = await response.json();
         const result = Array.isArray(data) ? data : [data];
 
-        return result;
+        return result[0]['ocid'];
         } catch (error) {
         console.error("에러:", error);
         return [];
