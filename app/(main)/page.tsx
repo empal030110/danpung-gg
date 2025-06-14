@@ -1,12 +1,13 @@
 import SearchBar from "@/components/SearchBar";
 import Image from "next/image";
-import dojang from "@/api/rank/dojang";
-import ocid from "@/api/ocid";
+import { dojangUrl } from "@/api/url/apiUrl";
+import ocid from "@/api/user/ocid";
 import user from "@/api/user/user";
+import ssrFetcher from "@/api/ssrFetcher";
 
 export default async function Home() {
 	// 무릉도장 1등 정보
-	const dojangData = await dojang();
+	const dojangData = await ssrFetcher(dojangUrl);
 	const dojangUser = dojangData[0]['ranking'][0];
 
 	// 무릉도장 1등에 대한 캐릭터 정보

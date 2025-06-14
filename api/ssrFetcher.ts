@@ -1,9 +1,8 @@
 import { apiKey } from "@/api/key";
-import { dojangUrl } from "../url/rank/dojang";
 
-export default async function dojang() {
+export default async function ssrFetcher(url: string) {
     try {
-        const response = await fetch(dojangUrl, {
+        const response = await fetch(url, {
             cache: 'force-cache',
             headers: {
                 "x-nxopen-api-key": apiKey,

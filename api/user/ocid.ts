@@ -1,5 +1,5 @@
 import { apiKey } from "@/api/key";
-import { ocidUrl } from "./url/ocid";
+import { ocidUrl } from "@/api/url/apiUrl";
 
 export default async function ocid(name: string) {
     const url = ocidUrl(name);

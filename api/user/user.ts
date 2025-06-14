@@ -1,5 +1,5 @@
 import { apiKey } from "@/api/key";
-import { userUrl } from "../url/user/user";
+import { userUrl } from "@/api/url/apiUrl";
 
 export default async function user(ocid: string) {
     const url = userUrl(ocid);
