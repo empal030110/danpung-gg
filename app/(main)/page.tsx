@@ -1,8 +1,6 @@
 import SearchBar from "@/components/SearchBar";
 import Image from "next/image";
-import { dojangUrl } from "@/api/url/apiUrl";
-import ocid from "@/api/user/ocid";
-import user from "@/api/user/user";
+import { dojangUrl, ocidUrl, userUrl } from "@/api/url/apiUrl";
 import ssrFetcher from "@/api/ssrFetcher";
 
 export default async function Home() {
@@ -11,8 +9,10 @@ export default async function Home() {
 	const dojangUser = dojangData[0]['ranking'][0];
 
 	// 무릉도장 1등에 대한 캐릭터 정보
-	const dojangUserOcid = await ocid(dojangUser.character_name);
-	const dojangUserInfo = await user(dojangUserOcid);
+	const dojangUserOcidUrl = ocidUrl(dojangUser.character_name);
+	const dojangUserOcid = await ssrFetcher(dojangUserOcidUrl);
+	const dojangUserInfoUrl = userUrl(dojangUserOcid[0]['ocid'])
+	const dojangUserInfo = await ssrFetcher(dojangUserInfoUrl);
 
 	return (
 		<div className="w-full h-full">
@@ -31,7 +31,7 @@ export default async function Home() {
 						<p>{dojangUser.sub_class_name ? dojangUser.sub_class_name : dojangUser.class_name}</p>
 					</div>
 					<div>
-						<Image src={dojangUserInfo.character_image} alt={dojangUser.character_name} width={96} height={96} />
+						<Image src={dojangUserInfo[0].character_image} alt={dojangUser.character_name} width={96} height={96} />
 					</div>
 					<p className="w-full text-[18px] font-bold p-[8px] pb-[16px]">{dojangUser.dojang_floor}층</p>
 					<div className="w-full border-t border-yellow-400 bg-yellow-400 font-bold p-[8px] rounded-b-[16px]">
