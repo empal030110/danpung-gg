@@ -62,9 +62,9 @@ export default async function Home() {
 			</div>
 			<div className="w-full h-auto mt-[40px] text-center flex gap-[16px] flex-col items-center justify-center pc:flex-row">
 				{/* 랭킹 box */}
-				<RankBox data={dojangUserInfoData} color="yellow-400" />
-				<RankBox data={theseedUserInfoData} color="green-400" />
-				<RankBox data={achievementUserInfoData} color="blue-300" />
+				<RankBox data={dojangUserInfoData} color="yellow" />
+				<RankBox data={theseedUserInfoData} color="green" />
+				<RankBox data={achievementUserInfoData} color="blue" />
 			</div>
 		</div>
 	);
