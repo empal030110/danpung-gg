@@ -1,7 +1,9 @@
 import { getToDate } from '@/api/getDate';
 
 // rank
-export const dojangUrl = `https://open.api.nexon.com/maplestory/v1/ranking/dojang?date=${getToDate()}&difficulty=0&page=1`; // 무릉도장
+export const dojangUrl = `https://open.api.nexon.com/maplestory/v1/ranking/dojang?date=${getToDate()}&difficulty=1`; // 무릉도장
+export const theseedUrl = `https://open.api.nexon.com/maplestory/v1/ranking/theseed?date=${getToDate()}`; // 더시드
+export const achievementUrl = `https://open.api.nexon.com/maplestory/v1/ranking/achievement?date=${getToDate()}`; // 업적
 
 // user
 export const ocidUrl = (name: string) => {
