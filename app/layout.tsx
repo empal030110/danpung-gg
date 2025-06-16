@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
-import Head from "next/head";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,7 +30,7 @@ export const metadata: Metadata = {
 		type: "website",
 		images: [
 		{
-			url: "/danpungGG.png", // public 폴더에 위치
+			url: "/danpungGG.png",
 			width: 1200,
 			height: 630,
 			alt: "단풍지지 - 메이플 통계 플랫폼",
@@ -47,9 +46,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <Head>
-        <link rel="manifest" href="/manifest.json" />
-      </Head>
+        <head>
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="theme-color" content="#ffffff" />
+          <link rel="apple-touch-icon" href="/icons/icon192.png" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#171717] text-black dark:text-white`}>
         <div className="w-full max-w-[940px] m-auto px-[20px]">
           <Header />
