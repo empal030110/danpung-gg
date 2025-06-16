@@ -1,6 +1,6 @@
 {
-  "name": "MapleGG",
-  "short_name": "MapleGG",
+  "name": "DanpugGG",
+  "short_name": "DanpugGG",
   "description": "메이플스토리 길드 정보 조회 서비스",
   "start_url": "/",
   "display": "standalone",
