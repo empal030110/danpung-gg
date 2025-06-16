@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import Head from "next/head";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,6 +47,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <Head>
+        <link rel="manifest" href="/manifest.json" />
+      </Head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#171717] text-black dark:text-white`}>
         <div className="w-full max-w-[940px] m-auto px-[20px]">
           <Header />
