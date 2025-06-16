@@ -1,12 +1,15 @@
 {
-  "name": "DanpugGG",
-  "short_name": "DanpugGG",
-  "description": "메이플스토리 길드 정보 조회 서비스",
-  "start_url": "/",
+  "id": "/",
+  "name": "단풍지지 - 메이플스토리 통계 플랫폼",
+  "short_name": "단풍지지",
+  "description": "메이플스토리 직업 통계, 유저/길드 분석, 실시간 랭킹 제공",
+  "lang": "ko-KR",
+  "start_url": "/?source=pwa",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#171717",
   "theme_color": "#000000",
-  "orientation": "portrait",
   "icons": [
     {
       "src": "/icons/icon192.png",
@@ -20,5 +23,6 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "categories": ["productivity", "utilities", "games"]
 }
