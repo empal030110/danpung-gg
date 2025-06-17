@@ -7,3 +7,9 @@ export interface userProps {
 	trophyGrade?: string,
 	trophyScore?: number
 };
+
+export interface noticeProps {
+	title: string,
+	url: string,
+	notice_id: number,
+};

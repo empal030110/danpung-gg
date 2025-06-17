@@ -1,9 +1,10 @@
 import SearchBar from "@/components/SearchBar";
 import Image from "next/image";
-import { dojangUrl, ocidUrl, userUrl, theseedUrl, achievementUrl } from "@/api/url/apiUrl";
+import { dojangUrl, ocidUrl, userUrl, theseedUrl, achievementUrl, noticeUrl } from "@/api/url/apiUrl";
 import ssrFetcher from "@/api/ssrFetcher";
-import { userProps } from "./props/userProps";
+import { userProps } from "./props/props";
 import RankBox from "./components/RankBox";
+import InfomationBox from "./components/InformationBox";
 
 export default async function Home() {
 	// 무릉도장 1등 정보
@@ -22,7 +23,7 @@ export default async function Home() {
 	};
 
 	// 더시드 1등 정보
-	const theseedData = await await ssrFetcher(theseedUrl);
+	const theseedData = await ssrFetcher(theseedUrl);
 	const theseedUser = theseedData[0]['ranking'][0];
 	const theseedOcidUrl = ocidUrl(theseedUser.character_name);
 	const theseedUserOcid = await ssrFetcher(theseedOcidUrl);
@@ -37,7 +38,7 @@ export default async function Home() {
 	};
 
 	// 업적 1등 정보
-	const achievementData = await await ssrFetcher(achievementUrl);
+	const achievementData = await ssrFetcher(achievementUrl);
 	const achievementUser = achievementData[0]['ranking'][0];
 	const achievementOcidUrl = ocidUrl(achievementUser.character_name);
 	const achievementUserOcid = await ssrFetcher(achievementOcidUrl);
@@ -52,6 +53,9 @@ export default async function Home() {
 		trophyScore: achievementUser.trophy_score ? achievementUser.trophy_score : 0,
 	};
 
+	// 공지사항
+	const noticeData = await ssrFetcher(noticeUrl);
+
 	return (
 		<div className="w-full h-full">
 			<div className="relative w-full h-[300px] flex items-center justify-center">
@@ -65,6 +69,11 @@ export default async function Home() {
 				<RankBox data={dojangUserInfoData} color="yellow" />
 				<RankBox data={theseedUserInfoData} color="green" />
 				<RankBox data={achievementUserInfoData} color="blue" />
+			</div>
+			<div className="w-full h-auto mt-[40px]">
+				<div className="w-full">
+					<InfomationBox data={noticeData[0].notice.slice(0, 5)} InfomationTitle={'공지사항'} />
+				</div>
 			</div>
 		</div>
 	);

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { userProps } from "../props/userProps";
+import { userProps } from "../props/props";
 
 const colorInfo = {
     yellow: { border: 'border-yellow-400', bg: 'bg-yellow-400' },
