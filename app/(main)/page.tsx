@@ -1,6 +1,6 @@
 import SearchBar from "@/components/SearchBar";
 import Image from "next/image";
-import { dojangUrl, ocidUrl, userUrl, theseedUrl, achievementUrl, noticeUrl } from "@/api/url/apiUrl";
+import { dojangUrl, ocidUrl, userUrl, theseedUrl, achievementUrl, noticeUrl, updateUrl } from "@/api/url/apiUrl";
 import ssrFetcher from "@/api/ssrFetcher";
 import { userProps } from "./props/props";
 import RankBox from "./components/RankBox";
@@ -53,8 +53,9 @@ export default async function Home() {
 		trophyScore: achievementUser.trophy_score ? achievementUser.trophy_score : 0,
 	};
 
-	// 공지사항
-	const noticeData = await ssrFetcher(noticeUrl);
+	// 공지, 업데이트 정보
+	const noticeData = await ssrFetcher(noticeUrl); // 공지사항
+	const updateData = await ssrFetcher(updateUrl); // 업데이트
 
 	return (
 		<div className="w-full h-full">
@@ -70,9 +71,10 @@ export default async function Home() {
 				<RankBox data={theseedUserInfoData} color="green" />
 				<RankBox data={achievementUserInfoData} color="blue" />
 			</div>
-			<div className="w-full h-auto mt-[40px]">
-				<div className="w-full">
+			<div className="w-full h-auto mt-[40px] pb-[40px]">
+				<div className="w-full flex flex-col gap-[16px] items-center justify-center pc:flex-row pc:gap-[32px]">
 					<InfomationBox data={noticeData[0].notice.slice(0, 5)} InfomationTitle={'공지사항'} />
+					<InfomationBox data={updateData[0].update_notice.slice(0, 5)} InfomationTitle={'업데이트'} />
 				</div>
 			</div>
 		</div>

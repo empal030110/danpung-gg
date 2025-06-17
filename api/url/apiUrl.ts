@@ -18,4 +18,5 @@ export const userUrl = (ocid: string) => {
 };
 
 // notice
-export const noticeUrl = `https://open.api.nexon.com/maplestory/v1/notice`;
+export const noticeUrl = `https://open.api.nexon.com/maplestory/v1/notice`; // 공지
+export const updateUrl = `https://open.api.nexon.com/maplestory/v1/notice-update`; // 업데이트
