@@ -67,9 +67,9 @@ export default async function Home() {
 			</div>
 			<div className="w-full h-auto mt-[40px] text-center flex gap-[16px] flex-col items-center justify-center pc:flex-row">
 				{/* 랭킹 box */}
-				<RankBox data={dojangUserInfoData} color="yellow" />
-				<RankBox data={theseedUserInfoData} color="green" />
-				<RankBox data={achievementUserInfoData} color="blue" />
+				<RankBox data={dojangUserInfoData} color="yellow" rankingTitle={'무릉도장'} />
+				<RankBox data={theseedUserInfoData} color="green" rankingTitle={'더시드'} />
+				<RankBox data={achievementUserInfoData} color="blue" rankingTitle={'업적'} />
 			</div>
 			<div className="w-full h-auto mt-[40px] pb-[40px]">
 				<div className="w-full flex flex-col gap-[16px] items-center justify-center pc:flex-row pc:gap-[32px]">

@@ -10,10 +10,10 @@ const colorInfo = {
 
 type colorKey = keyof typeof colorInfo;
 
-export default function RankBox({ data, color }: { data: userProps, color: colorKey}) {
+export default function RankBox({ data, color, rankingTitle }: { data: userProps, color: colorKey, rankingTitle: string}) {
     return (
         <Link href={`/user/${data.name}`} className={`w-full max-w-[235px] flex flex-col items-center justify-center border ${colorInfo[color].border} rounded-[16px]`}>
-            <p className={`w-full p-[8px] border-b-[2px] text-[14px] ${colorInfo[color].border}`}>무릉도장 1위</p>
+            <p className={`w-full p-[8px] border-b-[2px] text-[14px] ${colorInfo[color].border}`}>{rankingTitle} 1위</p>
             <div className="w-full flex gap-[4px] items-center justify-center text-[12px] p-[8px] pt-[12px]">
                 <p>{data.name}</p>
                 <p>Lv.{data.level}</p>
