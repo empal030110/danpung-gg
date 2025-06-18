@@ -1,4 +1,4 @@
-export default function SearchPage({ params }: { params: { name: string } }) {
+export default async function SearchPage({ params }: { params: { name: string } }) {
     const name = decodeURIComponent(params.name);
 
     return (
