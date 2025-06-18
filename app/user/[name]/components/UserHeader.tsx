@@ -2,6 +2,7 @@ import { userDataProps, userStatProps } from "../../userProps/props";
 import Image from "next/image";
 import { popularityUrl, overallUrl, unionUrl, statUrl } from "@/api/url/apiUrl";
 import ssrFetcher from "@/api/ssrFetcher";
+import { charImgUrl } from "@/public/charImg/charImg";
 
 export default async function UserHeader({ data, ocid }: { data: userDataProps, ocid: string}) {
     // data는 기본 정보
@@ -30,8 +31,11 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps, 
     const combatStatData = finalStat.find((stat: userStatProps) => stat.stat_name === "전투력");
     const combatStat = Number(combatStatData.stat_value).toLocaleString();
 
+    // 직업 이미지
+    const userCharImgUrl = charImgUrl(data.characterClass);
+
     return (
-        <div className="w-full flex items-center justify-start">
+        <div className="w-full flex items-center justify-start flex-col pc:flex-row relative">
             <Image src={data.characterImage} alt={data.characterName} width={144} height={144} className="mx-[30px]" />
             <div className="flex flex-col gap-[12px]">
                 <div>
@@ -42,6 +46,7 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps, 
                     <p className="text-[24px] font-bold">{data.characterName}</p>
                 </div>
                 <div className="flex flex-col gap-[3px] text-[14px] font-semibold">
+                    <p>생성날짜 {data.characterDateCreate.split("T")[0]}</p>
                     <p>길드 {data.characterGuildName ? data.characterGuildName : '-' }</p>
                     <p>인기도 {userPopularity[0].popularity}</p>
                     <p>종합랭킹 {userOverall}위 ({userWorldOverall}위)</p>
@@ -61,6 +66,7 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps, 
                     </div>
                 </div>
             </div>
+            <Image src={userCharImgUrl} alt={data.characterClass} width={0} height={0} sizes="100vw" className="w-full max-w-[400px] h-auto pc:w-[320px] absolute top-[-50px] right-1/2 translate-x-1/2 opacity-50 z-[-1] object-contain object-top pc:right-0 pc:translate-x-0 pc:opacity-100" />
         </div>
     );
 }
