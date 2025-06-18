@@ -1,6 +1,4 @@
-import { userPageProps } from "./props/userProps";
-
-export default function SearchPage({ params }: userPageProps) {
+export default function SearchPage({ params }: { params: { name: string } }) {
     const name = decodeURIComponent(params.name);
 
     return (
