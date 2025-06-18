@@ -1,13 +1,12 @@
-interface Props {
-    params: { name: string }
-}
+import { userNameProps } from "../userProps/props";
 
-export default function SearchPage({ params }: Props) {
-    const name = decodeURIComponent(params.name);
+export default async function SearchPage({ params }: userNameProps) {
+    const { name } = await params;
+    const userName = decodeURIComponent(name);
 
     return (
         <div>
-            <p>{name}</p>
+            <p>{userName}</p>
         </div>
     );
 }
