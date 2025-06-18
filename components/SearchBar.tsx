@@ -17,7 +17,7 @@ export default function SearchBar() {
 		  return;
 		}
 
-		router.push(`/search?name=${encodeURIComponent(trimmed)}`);
+		router.push(`/user/${encodeURIComponent(trimmed)}`);
 	};
 
 	return (

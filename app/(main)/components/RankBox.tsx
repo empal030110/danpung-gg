@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { userProps } from "../props/props";
+import Link from "next/link";
 
 const colorInfo = {
     yellow: { border: 'border-yellow-400', bg: 'bg-yellow-400' },
@@ -11,7 +12,7 @@ type colorKey = keyof typeof colorInfo;
 
 export default function RankBox({ data, color }: { data: userProps, color: colorKey}) {
     return (
-        <div className={`w-full max-w-[235px] flex flex-col items-center justify-center border ${colorInfo[color].border} rounded-[16px]`}>
+        <Link href={`/user/${data.name}`} className={`w-full max-w-[235px] flex flex-col items-center justify-center border ${colorInfo[color].border} rounded-[16px]`}>
             <p className={`w-full p-[8px] border-b-[2px] text-[14px] ${colorInfo[color].border}`}>무릉도장 1위</p>
             <div className="w-full flex gap-[4px] items-center justify-center text-[12px] p-[8px] pt-[12px]">
                 <p>{data.name}</p>
@@ -30,6 +31,6 @@ export default function RankBox({ data, color }: { data: userProps, color: color
             <div className={`w-full border-t font-bold p-[8px] rounded-b-[16px] ${colorInfo[color].border} ${colorInfo[color].bg}`}>
                 상세보기
             </div>
-        </div>
+        </Link>
     );
 }
