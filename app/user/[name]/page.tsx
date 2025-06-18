@@ -1,4 +1,8 @@
-export default async function SearchPage({ params }: { params: { name: string } }) {
+interface Props {
+    params: { name: string }
+}
+
+export default async function SearchPage({ params }: Props) {
     const name = decodeURIComponent(params.name);
 
     return (
