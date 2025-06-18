@@ -10,7 +10,9 @@ export default async function ssrFetcher(url: string) {
         });
 
         if (!response.ok) {
-            throw new Error("API 요청 실패");
+            const errorText = await response.text();
+            console.error("API 실패 응답:", response.status, errorText);
+            throw new Error(`API 요청 실패 (${response.status}): ${errorText}`);
         }
 
         const data = await response.json();
