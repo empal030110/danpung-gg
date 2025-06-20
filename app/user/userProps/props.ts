@@ -23,3 +23,14 @@ export interface userStatProps {
   stat_name: string;
   stat_value: string;
 }
+
+export interface userSetOptions {
+	set_count: number;
+	set_option: string;
+}
+export interface userSetProps {
+	set_name: string,
+	total_set_count: number,
+	set_effect_info: userSetOptions[];
+	set_option_full: userSetOptions[];
+}

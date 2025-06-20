@@ -1,7 +1,8 @@
-import { ocidUrl, userUrl } from "@/api/url/apiUrl";
-import { userDataProps, userNameProps } from "../userProps/props";
+import { ocidUrl, setUrl, userUrl } from "@/api/url/apiUrl";
+import { userDataProps, userNameProps, userSetProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import UserHeader from "./components/UserHeader";
+import UserStat from "./components/UserSet";
 
 export default async function SearchPage({ params }: userNameProps) {
     const { name } = await params;
@@ -28,10 +29,18 @@ export default async function SearchPage({ params }: userNameProps) {
 		liberationQuestClearFlag: userInfoDataInfo[0].liberation_quest_clear_flag
     }
 
+	// 세트효과
+	const userSetUrl = setUrl(userOcid[0]['ocid']);
+	const userSetData = await ssrFetcher(userSetUrl);
+	const userSetEffect: userSetProps[] = userSetData[0].set_effect;
+
     return (
         <div className="w-full h-auto">
 			<div className="w-full px-[20px] py-[32px]">
 				<UserHeader data={userData} ocid={userOcid[0]['ocid']} />
+			</div>
+			<div className="w-full py-[16px] px-[48px] bg-gray-200 rounded-[8px] flex justify-center dark:bg-neutral-800 m-auto pc:m-0 pc:w-max">
+				<UserStat data={userSetEffect} />
 			</div>
         </div>
     );

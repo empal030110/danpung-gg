@@ -38,6 +38,11 @@ export const statUrl = (ocid: string) => {
     const url = `${baseUrl}/maplestory/v1/character/stat?ocid=${ocid}&date=${getYdayDate()}`;
     return url;
 };
+export const setUrl = (ocid: string) => {
+    // 장착중인 세트 효과
+    const url = `${baseUrl}/maplestory/v1/character/set-effect?ocid=${ocid}&date=${getYdayDate()}`;
+    return url;
+}
 
 // notice
 export const noticeUrl = `${baseUrl}/maplestory/v1/notice`; // 공지
