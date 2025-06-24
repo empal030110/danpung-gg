@@ -32,7 +32,7 @@ export default function UserStat({ data }: { data: userSetProps[] }) {
                                 {effect.set_option_full.map((option) => (
                                     <div key={option.set_count} className="flex flex-col items-start gap-[2px]">
                                         <p className="text-[12px] text-[#ccff00]">{option.set_count}세트효과</p>
-                                        <div className="text-[11px]">{option.set_option}</div>
+                                        <div className="text-[11px] text-white">{option.set_option}</div>
                                     </div>
                                 ))}
                             </div>
