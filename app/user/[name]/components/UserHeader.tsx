@@ -22,7 +22,7 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps, 
     // 유니온
     const userUnionUrl = unionUrl(ocid);
     const userUnionData = await ssrFetcher(userUnionUrl);
-    const userUnionLevel = userUnionData[0].union_level.toLocaleString();
+    const userUnionLevel = userUnionData[0].union_level ? userUnionData[0].union_level.toLocaleString() : 0;
 
     // 전투력 정보
     const userStatUrl = statUrl(ocid);

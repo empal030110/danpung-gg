@@ -43,6 +43,11 @@ export const setUrl = (ocid: string) => {
     const url = `${baseUrl}/maplestory/v1/character/set-effect?ocid=${ocid}&date=${getYdayDate()}`;
     return url;
 }
+export const abilityUrl = (ocid: string) => {
+    // 어빌리티 정보
+    const url = `${baseUrl}/maplestory/v1/character/ability?ocid=${ocid}&date=${getYdayDate()}`;
+    return url;
+}
 
 // notice
 export const noticeUrl = `${baseUrl}/maplestory/v1/notice`; // 공지

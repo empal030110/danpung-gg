@@ -34,3 +34,13 @@ export interface userSetProps {
 	set_effect_info: userSetOptions[];
 	set_option_full: userSetOptions[];
 }
+
+export interface ability {
+  ability_no: string;
+  ability_grade: '레전드리' | '유니크' | '에픽';
+  ability_value: string;
+}
+export interface abilityProps {
+  ability_preset_grade: '레전드리' | '유니크' | '에픽';
+  ability_info: ability[];
+}
