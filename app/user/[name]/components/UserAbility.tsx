@@ -41,7 +41,7 @@ export default function UserAbility({
             </div>
             <div className="flex items-center justify-center gap-[8px] mb-[12px]">
                 {[1, 2, 3].map((num) => (
-                    <button key={num} onClick={() => setSelectedPreset(num === 1 ? preset1 : num === 2 ? preset2 : preset3)} className={`text-[14px] px-[10px] py-[4px] rounded-[6px] font-semibold border ${selectedPreset === (num === 1 ? preset1 : num === 2 ? preset2 : preset3) ? "bg-neutral-800 text-white" : "bg-neutral-200 text-black"}`}>
+                    <button key={num} onClick={() => setSelectedPreset(num === 1 ? preset1 : num === 2 ? preset2 : preset3)} className={`text-[14px] px-[10px] py-[4px] rounded-[6px] font-semibold cursor-pointer border ${selectedPreset === (num === 1 ? preset1 : num === 2 ? preset2 : preset3) ? "bg-neutral-800 text-white" : "bg-neutral-200 text-black"}`}>
                         {num}
                     </button>
                 ))}
