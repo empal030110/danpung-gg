@@ -16,15 +16,7 @@ function getAbilityGradeColor(grade: string) {
     }
 }
 
-export default function UserAbility({
-    preset1,
-    preset2,
-    preset3,
-}: {
-    preset1: abilityProps;
-    preset2: abilityProps;
-    preset3: abilityProps;
-}) {
+export default function UserAbility({ preset1, preset2, preset3}: { preset1: abilityProps; preset2: abilityProps; preset3: abilityProps; }) {
     const [selectedPreset, setSelectedPreset] = useState<abilityProps>(preset1);
 
     const currentData = selectedPreset.ability_info;

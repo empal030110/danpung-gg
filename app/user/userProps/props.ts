@@ -44,3 +44,20 @@ export interface abilityProps {
   ability_preset_grade: '레전드리' | '유니크' | '에픽';
   ability_info: ability[];
 }
+
+export interface itemProps {
+  additional_potential_option_1?: string,
+  additional_potential_option_2?: string,
+  additional_potential_option_3?: string,
+  additional_potential_option_flag?: string,
+  additional_potential_option_grade?: string,
+  item_equipment_slot?: string,
+  item_icon?: string,
+  item_name?: string,
+  potential_option_1?: string,
+  potential_option_2?: string,
+  potential_option_3?: string,
+  potential_option_flag?: string,
+  potential_option_grade?: string,
+  starforce?: string,
+}

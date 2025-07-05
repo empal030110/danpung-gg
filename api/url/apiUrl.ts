@@ -1,4 +1,4 @@
-import { getToDate, getYdayDate } from '@/api/getDate';
+import { getToDate } from '@/api/getDate';
 
 const baseUrl = 'https://open.api.nexon.com';
 
@@ -20,7 +20,7 @@ export const userUrl = (ocid: string) => {
 };
 export const popularityUrl = (ocid: string) => {
     // 유저 인기도
-    const url = `${baseUrl}/maplestory/v1/character/popularity?ocid=${ocid}&date=${getYdayDate()}`;
+    const url = `${baseUrl}/maplestory/v1/character/popularity?ocid=${ocid}`;
     return url;
 };
 export const overallUrl = (ocid: string, world?: string) => {
@@ -30,22 +30,27 @@ export const overallUrl = (ocid: string, world?: string) => {
 };
 export const unionUrl = (ocid: string) => {
     // 유저 유니온 기본 정보
-    const url = `${baseUrl}/maplestory/v1/user/union?ocid=${ocid}&date=${getYdayDate()}`;
+    const url = `${baseUrl}/maplestory/v1/user/union?ocid=${ocid}`;
     return url;
 };
 export const statUrl = (ocid: string) => {
     // 유저 스탯 정보
-    const url = `${baseUrl}/maplestory/v1/character/stat?ocid=${ocid}&date=${getYdayDate()}`;
+    const url = `${baseUrl}/maplestory/v1/character/stat?ocid=${ocid}`;
     return url;
 };
 export const setUrl = (ocid: string) => {
     // 장착중인 세트 효과
-    const url = `${baseUrl}/maplestory/v1/character/set-effect?ocid=${ocid}&date=${getYdayDate()}`;
+    const url = `${baseUrl}/maplestory/v1/character/set-effect?ocid=${ocid}`;
     return url;
 }
 export const abilityUrl = (ocid: string) => {
     // 어빌리티 정보
-    const url = `${baseUrl}/maplestory/v1/character/ability?ocid=${ocid}&date=${getYdayDate()}`;
+    const url = `${baseUrl}/maplestory/v1/character/ability?ocid=${ocid}`;
+    return url;
+}
+export const itemUrl = (ocid: string) => {
+    // 장착한 아이템 정보
+    const url = `${baseUrl}/maplestory/v1/character/item-equipment?ocid=${ocid}`;
     return url;
 }
 
