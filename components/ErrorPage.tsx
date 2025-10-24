@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
+import { DotLoader } from "react-spinners"
 
 export default function ErrorPage() {
     const [count, setCount] = useState(3);
@@ -21,7 +22,8 @@ export default function ErrorPage() {
     }, []);
 
     return (
-        <div className="flex flex-col justify-center items-center gap-[16px]">
+        <div className="w-full h-full flex flex-col justify-center items-center gap-[16px] mt-[100px]">
+            <DotLoader color="red" />
             <div className="text-[50px]">Oops!</div>
             <div>{count}초 뒤 재시도 합니다.</div>
         </div>
