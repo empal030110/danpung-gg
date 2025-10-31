@@ -19,7 +19,7 @@ export default async function ssrFetcher(url: string) {
         const result = Array.isArray(data) ? data : [data];
 
         return result;
-        } catch (error) {
+    } catch (error) {
         console.error("에러:", error);
         return [];
     }
