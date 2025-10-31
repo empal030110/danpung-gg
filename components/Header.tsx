@@ -1,6 +1,6 @@
 import Image from "next/image";
 import ThemeBtn from "./header/ThemeBtn";
-import NavBar from "./header/NavBar";
+// import NavBar from "./header/NavBar";
 
 export default function Header() {
 	return (
@@ -9,7 +9,8 @@ export default function Header() {
             	<Image src={"/logo.png"} alt={"단풍지지"} width={120} height={25} className="dark:invert" />
 				<ThemeBtn />
 			</div>
-			<NavBar />
+			{/* <NavBar /> */}
+			<div className="py-[16px] border-t border-neutral-600"></div>
 		</div>	
 	);
 }
