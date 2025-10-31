@@ -21,7 +21,7 @@ export default function UserStat({ data }: { data: userSetProps[] }) {
         <div>
             <p className="font-bold mb-[8px]">세트효과</p>
             <div className="flex flex-col gap-[8px]">
-                {data.map((effect: userSetProps) => (
+                {data.filter((effect: userSetProps) => effect.total_set_count > 1).map((effect: userSetProps) => (
                     <div key={effect.set_name} className="relative">
                         <div className="flex gap-[8px] cursor-pointer hover:underline" onClick={() => setClick(effect.set_name)}>
                             <p className="font-bold">{effect.total_set_count}</p>
