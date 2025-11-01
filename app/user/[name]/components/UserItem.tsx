@@ -22,13 +22,13 @@ export default function UserItem({ preset1 = [], preset2 = [], preset3 = [], and
                 {(currentPreset && currentPreset.length) && (
                     <div>
                         {/* 무보엠 */}
-                        <div className="grid grid-cols-2 gap-x-[8px]">
+                        <div className="pc:grid pc:grid-cols-2 pc:gap-x-[8px]">
                             <ItemBox item={filterItem(currentPreset, "무기")} />
                             <ItemBox item={filterItem(currentPreset, "보조무기")} />
                             <ItemBox item={filterItem(currentPreset, "엠블렘")} />
                         </div>
                         {/* 방어구 */}
-                        <div className="grid grid-cols-2 gap-x-[8px]">
+                        <div className="pc:grid pc:grid-cols-2 pc:gap-x-[8px]">
                             <ItemBox item={filterItem(currentPreset, "모자")} />
                             <ItemBox item={filterItem(currentPreset, "상의")} />
                             <ItemBox item={filterItem(currentPreset, "하의")} />
@@ -38,7 +38,7 @@ export default function UserItem({ preset1 = [], preset2 = [], preset3 = [], and
                             <ItemBox item={filterItem(currentPreset, "신발")} />
                         </div>
                         {/* 장신구 */}
-                        <div className="grid grid-cols-2 gap-x-[8px]">
+                        <div className="pc:grid pc:grid-cols-2 pc:gap-x-[8px]">
                             <ItemBox item={filterItem(currentPreset, "펜던트")} />
                             <ItemBox item={filterItem(currentPreset, "펜던트2")} />
                             <ItemBox item={filterItem(currentPreset, "얼굴장식")} />
