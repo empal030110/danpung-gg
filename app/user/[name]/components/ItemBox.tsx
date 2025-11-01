@@ -2,8 +2,10 @@ import { itemProps } from "../../userProps/props";
 import Image from "next/image";
 
 export default function ItemBox({item = [], android = false}: {item: itemProps[]; android?: boolean}) {
-    if (!android && (!item || item.length) === 0) return null;
+    if (!android && (!item || item.length) === 0) return null; // 아이템 정보가 없으면 노출 X
     const filterItem = item[0];
+    
+    if (android && !filterItem.android_name) return null; // 안드로이드 정보가 없으면 노출 X
 
     if (android) {
         return (
