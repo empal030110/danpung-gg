@@ -60,4 +60,11 @@ export interface itemProps {
   potential_option_flag?: string,
   potential_option_grade?: string,
   starforce?: string,
+  android_name?: string,
+  android_icon?: string,
+}
+
+export interface androidProps {
+  android_name?: string,
+  android_icon?: string,
 }

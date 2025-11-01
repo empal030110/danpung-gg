@@ -53,6 +53,11 @@ export const itemUrl = (ocid: string) => {
     const url = `${baseUrl}/maplestory/v1/character/item-equipment?ocid=${ocid}`;
     return url;
 }
+export const androidUrl = (ocid: string) => {
+    // 장착한 안드로이드 정보
+    const url = `${baseUrl}/maplestory/v1/character/android-equipment?ocid=${ocid}`;
+    return url;
+}
 
 // notice
 export const noticeUrl = `${baseUrl}/maplestory/v1/notice`; // 공지

@@ -1,5 +1,5 @@
-import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl } from "@/api/url/apiUrl";
-import { itemProps, userDataProps, userNameProps, userSetProps } from "../userProps/props";
+import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl } from "@/api/url/apiUrl";
+import { androidProps, itemProps, userDataProps, userNameProps, userSetProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import UserHeader from "./components/UserHeader";
 import UserStat from "./components/UserSet";
@@ -95,6 +95,15 @@ export default async function SearchPage({ params }: userNameProps) {
 		starforce: item.starforce,
 	}));
 
+	// 장착한 안드로이드
+	const userAndroidUrl = androidUrl(userOcid[0]['ocid']);
+	const userAndroidData = await ssrFetcher(userAndroidUrl);
+	const userAndroid: androidProps[] = userAndroidData.map(item => ({
+		android_name: item.android_name,
+		android_icon: item.android_icon,
+	}));
+	
+
     return (
         <div className="w-full h-auto pb-[40px]">
 			<div className="w-full px-[20px] py-[32px]">
@@ -110,7 +119,7 @@ export default async function SearchPage({ params }: userNameProps) {
 					</div>
 				</div>
 				<div className="w-full bg-gray-200 rounded-[8px] dark:bg-neutral-800">
-					<UserItem preset1={userItemPreset1} preset2={userItemPreset2} preset3={userItemPreset3} />
+					<UserItem preset1={userItemPreset1} preset2={userItemPreset2} preset3={userItemPreset3} android={userAndroid} />
 				</div>
 			</div>
         </div>
