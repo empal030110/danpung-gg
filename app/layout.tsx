@@ -51,7 +51,6 @@ export default function RootLayout({
           <link rel="manifest" href="/manifest.json" />
           <meta name="theme-color" content="#171717" />
           <link rel="apple-touch-icon" href="/icons/icon192.png" />
-          <script type="text/javascript" src="https://openapi.nexon.com/js/analytics.js?app_id=201402" async></script>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#171717] text-black dark:text-white`}>
         <div className="w-full max-w-[940px] m-auto px-[20px]">
