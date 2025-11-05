@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from "react";
-import { androidProps, itemProps } from "../../userProps/props";
+import { androidProps, itemProps, titleProps } from "../../userProps/props";
 import { filterItem } from "../utils/filterItem";
 import ItemBox from "./ItemBox";
 
-export default function UserItem({ preset1 = [], preset2 = [], preset3 = [], android = []}: { preset1?: itemProps[]; preset2?: itemProps[]; preset3?: itemProps[]; android?: androidProps[]; }) {
+export default function UserItem({ preset1 = [], preset2 = [], preset3 = [], android = [], title = []}: { preset1?: itemProps[]; preset2?: itemProps[]; preset3?: itemProps[]; android?: androidProps[]; title?: titleProps[]; }) {
     const [selectedPreset, setSelectedPreset] = useState(1);
     const currentPreset = selectedPreset === 1 ? preset1 : selectedPreset === 2 ? preset2 : preset3;
 
@@ -52,6 +52,7 @@ export default function UserItem({ preset1 = [], preset2 = [], preset3 = [], and
                             <ItemBox item={filterItem(currentPreset, "기계 심장")} />
                             <ItemBox item={filterItem(android, "안드로이드")} android={true} />
                             <ItemBox item={filterItem(currentPreset, "포켓 아이템")} />
+                            <ItemBox item={filterItem(title, "칭호")} title={true} />
                             <ItemBox item={filterItem(currentPreset, "훈장")} />
                             <ItemBox item={filterItem(currentPreset, "뱃지")} />
                         </div>

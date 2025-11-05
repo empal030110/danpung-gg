@@ -60,8 +60,15 @@ export interface itemProps {
   potential_option_flag?: string,
   potential_option_grade?: string,
   starforce?: string,
+  title_name?: string,
+  title_icon?: string,
   android_name?: string,
   android_icon?: string,
+}
+
+export interface titleProps {
+  title_name?: string,
+  title_icon?: string,
 }
 
 export interface androidProps {
