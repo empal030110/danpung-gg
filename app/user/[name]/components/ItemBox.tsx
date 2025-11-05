@@ -35,7 +35,7 @@ export default function ItemBox({item = [], android = false, title = false}: {it
     return (
         <div className="border border-neutral-400 p-[12px] rounded-[8px] mb-[8px]">
             <div className={`flex justify-start items-center gap-[8px] ${filterItem.potential_option_grade ? 'mb-[8px]' : 'h-full'}`}>
-                <Image src={filterItem?.item_icon || ""} alt={filterItem?.item_name || ""} width={40} height={40} loading="lazy" />
+                <Image src={filterItem?.item_icon || ""} alt={filterItem?.item_name || ""} width={30} height={30} style={{width: "30px", height: "30px", objectFit: "contain"}} loading="lazy" />
                 <div className="flex flex-col gap-[2px]">
                     {Number(filterItem?.starforce) > 0 && (<div className="w-max flex items-center justify-start text-[12px] px-[8px] py-[2px] bg-yellow-200 rounded-[6px] text-amber-500 font-bold">{filterItem?.starforce}성</div>)}
                     <p className="text-[14px]">{filterItem.item_name}</p>
