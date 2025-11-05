@@ -106,13 +106,6 @@ npm start
 
 ---
 
-## 이미지/도메인 설정
-- `next.config.ts`에 허용 도메인 등록
-  - `open.api.nexon.com`, `file.chuchu.gg`
-- 외부 이미지 사용 시 위 도메인 내에서만 Next Image 최적화 허용
-
----
-
 ## 코드 가이드/패턴
 - 데이터 패턴: `ssrFetcher`는 응답을 배열 형태로 정규화하여 `[data]` 또는 `data[]` 형태를 일관되게 반환합니다.
 - 날짜 유틸: `getToDate()`는 KST 기준 오늘, 랭킹 API 쿼리에 사용됩니다.
