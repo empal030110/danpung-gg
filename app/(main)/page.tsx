@@ -2,6 +2,7 @@ import SearchBar from "@/components/SearchBar";
 import Image from "next/image";
 import { dojangUrl, ocidUrl, userUrl, theseedUrl, achievementUrl, noticeUrl, updateUrl } from "@/api/url/apiUrl";
 import ssrFetcher from "@/api/ssrFetcher";
+import ssrRankingFetcher from "@/api/ssrRankingFetcher";
 import { userProps } from "./props/props";
 import RankBox from "./components/RankBox";
 import InfomationBox from "./components/InformationBox";
@@ -10,7 +11,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function Home() {
 	// 무릉도장 1등 정보
-	const dojangData = await ssrFetcher(dojangUrl);
+	const dojangData = await ssrRankingFetcher(dojangUrl);
 	const dojangUser = dojangData[0]['ranking'][0];
 	const dojangUserOcidUrl = ocidUrl(dojangUser.character_name);
 	const dojangUserOcid = await ssrFetcher(dojangUserOcidUrl);
@@ -25,7 +26,7 @@ export default async function Home() {
 	};
 
 	// 더시드 1등 정보
-	const theseedData = await ssrFetcher(theseedUrl);
+	const theseedData = await ssrRankingFetcher(theseedUrl);
 	const theseedUser = theseedData[0]['ranking'][0];
 	const theseedOcidUrl = ocidUrl(theseedUser.character_name);
 	const theseedUserOcid = await ssrFetcher(theseedOcidUrl);
@@ -40,7 +41,7 @@ export default async function Home() {
 	};
 
 	// 업적 1등 정보
-	const achievementData = await ssrFetcher(achievementUrl);
+	const achievementData = await ssrRankingFetcher(achievementUrl);
 	const achievementUser = achievementData[0]['ranking'][0];
 	const achievementOcidUrl = ocidUrl(achievementUser.character_name);
 	const achievementUserOcid = await ssrFetcher(achievementOcidUrl);
