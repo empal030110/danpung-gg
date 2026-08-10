@@ -24,6 +24,12 @@ export const metadata: Metadata = {
     creator: "empal03",
     publisher: "empal03",
 
+    verification: {
+        other: {
+            "naver-site-verification": "d77e2b48492c5ab7becba5cec13e268567b9d472",
+        },
+    },
+
     openGraph: {
 		title: "단풍지지 - 메이플스토리 통계 & 분석 플랫폼",
 		description: "메이플스토리 직업 통계, 길드 분석, 유저 정보 등을 제공하는 단풍지지 플랫폼입니다.",
