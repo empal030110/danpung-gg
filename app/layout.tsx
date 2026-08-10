@@ -56,6 +56,9 @@ export default function RootLayout({
         <div className="w-full max-w-[940px] m-auto px-[20px]">
           <Header />
           {children}
+          <div className="w-full py-[24px] mt-[40px] border-t border-neutral-600 text-center text-[12px] text-neutral-500 dark:text-neutral-400">
+            본 서비스는 NEXON Open API를 이용하여 제작되었으며, 넥슨 및 메이플스토리와 공식적으로 제휴되어 있지 않습니다.
+          </div>
           <Analytics />
         </div>
       </body>
