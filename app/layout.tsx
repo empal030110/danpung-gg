@@ -15,18 +15,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    metadataBase: new URL("https://maple-gg.vercel.app"),
+    metadataBase: new URL("https://www.danpung.shop"),
     title: "단풍지지 - 메이플스토리 통계 & 분석 플랫폼",
     description: "메이플스토리 직업 통계, 길드 분석, 유저 정보 등을 제공하는 단풍지지 플랫폼입니다.",
     keywords: ["메이플스토리", "직업 통계", "길드 분석", "단풍지지", "MapleStory", "danpungGG"],
-	  authors: [{ name: "empal03", url: "https://maple-gg.vercel.app" }],
+	  authors: [{ name: "empal03", url: "https://www.danpung.shop" }],
     creator: "empal03",
     publisher: "empal03",
 
     openGraph: {
 		title: "단풍지지 - 메이플스토리 통계 & 분석 플랫폼",
 		description: "메이플스토리 직업 통계, 길드 분석, 유저 정보 등을 제공하는 단풍지지 플랫폼입니다.",
-		url: "https://maple-gg.vercel.app",
+		url: "https://www.danpung.shop",
 		siteName: "단풍지지",
 		locale: "ko_KR",
 		type: "website",
