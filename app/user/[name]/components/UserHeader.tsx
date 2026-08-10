@@ -10,11 +10,11 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps, 
     const userPopularity = await ssrFetcher(userPopularityUrl);
 
     // 랭킹
-    const userOverallUrl = overallUrl(ocid); // 전체 랭킹
+    const userOverallUrl = overallUrl(ocid, data.worldName); // 전체 랭킹
     const userOverallData = await ssrFetcher(userOverallUrl);
     const userOverall = userOverallData[0].ranking[0] ? userOverallData[0].ranking[0].ranking.toLocaleString() : '-';
 
-    const userWorldOverallUrl = overallUrl(ocid, data.worldName); // 월드 랭킹
+    const userWorldOverallUrl = overallUrl(ocid, data.worldName, true); // 월드 랭킹
     const userWorldOverallData = await ssrFetcher(userWorldOverallUrl);
     const userWorldOverall = userWorldOverallData[0].ranking[0] ? userWorldOverallData[0].ranking[0].ranking.toLocaleString() : '-';
     
