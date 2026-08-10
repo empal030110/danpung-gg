@@ -3,7 +3,7 @@ import { apiKey } from "@/api/key";
 export default async function ssrFetcher(url: string) {
     try {
         const response = await fetch(url, {
-            cache: 'force-cache',
+            next: { revalidate: 3600 },
             headers: {
                 "x-nxopen-api-key": apiKey,
             },
