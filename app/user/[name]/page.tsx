@@ -98,8 +98,8 @@ export default async function SearchPage({ params }: userNameProps) {
 	// 장착한 칭호 (title)
 	const title: titleProps[] = [
 		{
-			title_name: userItemData[0].title.title_name,
-			title_icon: userItemData[0].title.title_icon,
+			title_name: userItemData[0].title?.title_name,
+			title_icon: userItemData[0].title?.title_icon,
 		}
 	];
 
