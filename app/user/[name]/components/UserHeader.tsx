@@ -13,11 +13,11 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps, 
     // 랭킹
     const userOverallUrl = overallUrl(ocid); // 전체 랭킹
     const userOverallData = await ssrFetcher(userOverallUrl);
-    const userOverall = userOverallData[0].ranking[0].ranking.toLocaleString();
+    const userOverall = userOverallData[0].ranking[0] ? userOverallData[0].ranking[0].ranking.toLocaleString() : '-';
 
     const userWorldOverallUrl = overallUrl(ocid, data.worldName); // 월드 랭킹
     const userWorldOverallData = await ssrFetcher(userWorldOverallUrl);
-    const userWorldOverall = userWorldOverallData[0].ranking[0].ranking.toLocaleString();
+    const userWorldOverall = userWorldOverallData[0].ranking[0] ? userWorldOverallData[0].ranking[0].ranking.toLocaleString() : '-';
     
     // 유니온
     const userUnionUrl = unionUrl(ocid);
