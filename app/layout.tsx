@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+    metadataBase: new URL("https://maple-gg.vercel.app"),
     title: "단풍지지 - 메이플스토리 통계 & 분석 플랫폼",
     description: "메이플스토리 직업 통계, 길드 분석, 유저 정보 등을 제공하는 단풍지지 플랫폼입니다.",
     keywords: ["메이플스토리", "직업 통계", "길드 분석", "단풍지지", "MapleStory", "danpungGG"],

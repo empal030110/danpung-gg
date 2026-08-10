@@ -6,6 +6,8 @@ import { userProps } from "./props/props";
 import RankBox from "./components/RankBox";
 import InfomationBox from "./components/InformationBox";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
 	// 무릉도장 1등 정보
 	const dojangData = await ssrFetcher(dojangUrl);
