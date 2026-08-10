@@ -28,7 +28,7 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps, 
     const userStatData = await ssrFetcher(userStatUrl);
     const finalStat = userStatData[0].final_stat;
     const combatStatData = finalStat.find((stat: userStatProps) => stat.stat_name === "전투력");
-    const combatStat = Number(combatStatData.stat_value).toLocaleString();
+    const combatStat = combatStatData ? Number(combatStatData.stat_value).toLocaleString() : '-';
 
     return (
         <div className="w-full flex items-center justify-center flex-col pc:flex-row relative">
