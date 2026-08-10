@@ -61,6 +61,7 @@ export default async function SearchPage({ params }: userNameProps) {
 		potential_option_flag: item.potential_option_flag,
 		potential_option_grade: item.potential_option_grade,
 		starforce: item.starforce,
+		special_ring_level: item.special_ring_level,
 	}));
 	const userItemPreset2: itemProps[] = userItemData[0].item_equipment_preset_2.map((item: itemProps) => ({
 		additional_potential_option_1: item.additional_potential_option_1,
@@ -77,6 +78,7 @@ export default async function SearchPage({ params }: userNameProps) {
 		potential_option_flag: item.potential_option_flag,
 		potential_option_grade: item.potential_option_grade,
 		starforce: item.starforce,
+		special_ring_level: item.special_ring_level,
 	}));
 	const userItemPreset3: itemProps[] = userItemData[0].item_equipment_preset_3.map((item: itemProps) => ({
 		additional_potential_option_1: item.additional_potential_option_1,
@@ -93,6 +95,7 @@ export default async function SearchPage({ params }: userNameProps) {
 		potential_option_flag: item.potential_option_flag,
 		potential_option_grade: item.potential_option_grade,
 		starforce: item.starforce,
+		special_ring_level: item.special_ring_level,
 	}));
 
 	// 장착한 칭호 (title)

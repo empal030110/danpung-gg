@@ -8,6 +8,11 @@ import ItemBox from "./ItemBox";
 export default function UserItem({ preset1 = [], preset2 = [], preset3 = [], android = [], title = []}: { preset1?: itemProps[]; preset2?: itemProps[]; preset3?: itemProps[]; android?: androidProps[]; title?: titleProps[]; }) {
     const [selectedPreset, setSelectedPreset] = useState(1);
     const currentPreset = selectedPreset === 1 ? preset1 : selectedPreset === 2 ? preset2 : preset3;
+    const specialRing = currentPreset.find(
+        (item) =>
+            item.item_equipment_slot === '예비 특수 반지' &&
+            (item.item_name === '컨티뉴어스 링' || item.item_name === '리스트레인트 링')
+    );
 
     return (
         <div>
@@ -45,10 +50,10 @@ export default function UserItem({ preset1 = [], preset2 = [], preset3 = [], and
                             <ItemBox item={filterItem(currentPreset, "눈장식")} />
                             <ItemBox item={filterItem(currentPreset, "귀고리")} />
                             <ItemBox item={filterItem(currentPreset, "벨트")} />
-                            <ItemBox item={filterItem(currentPreset, "반지1")} />
-                            <ItemBox item={filterItem(currentPreset, "반지2")} />
-                            <ItemBox item={filterItem(currentPreset, "반지3")} />
-                            <ItemBox item={filterItem(currentPreset, "반지4")} />
+                            <ItemBox item={filterItem(currentPreset, "반지1")} specialRing={specialRing} />
+                            <ItemBox item={filterItem(currentPreset, "반지2")} specialRing={specialRing} />
+                            <ItemBox item={filterItem(currentPreset, "반지3")} specialRing={specialRing} />
+                            <ItemBox item={filterItem(currentPreset, "반지4")} specialRing={specialRing} />
                             <ItemBox item={filterItem(currentPreset, "기계 심장")} />
                             <ItemBox item={filterItem(android, "안드로이드")} android={true} />
                             <ItemBox item={filterItem(currentPreset, "포켓 아이템")} />

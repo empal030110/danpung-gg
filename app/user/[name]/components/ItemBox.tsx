@@ -1,7 +1,7 @@
 import { itemProps } from "../../userProps/props";
 import Image from "next/image";
 
-export default function ItemBox({item = [], android = false, title = false}: {item: itemProps[]; android?: boolean; title?: boolean;}) {
+export default function ItemBox({item = [], android = false, title = false, specialRing}: {item: itemProps[]; android?: boolean; title?: boolean; specialRing?: itemProps;}) {
     if (!android && !title && (!item || item.length) === 0) return null; // 아이템 정보가 없으면 노출 X
     const filterItem = item[0];
     
@@ -38,7 +38,16 @@ export default function ItemBox({item = [], android = false, title = false}: {it
                 <Image src={filterItem?.item_icon || ""} alt={filterItem?.item_name || ""} width={30} height={30} style={{width: "30px", height: "30px", objectFit: "contain"}} loading="lazy" />
                 <div className="flex flex-col gap-[2px]">
                     {Number(filterItem?.starforce) > 0 && (<div className="w-max flex items-center justify-start text-[12px] px-[8px] py-[2px] bg-yellow-200 rounded-[6px] text-amber-500 font-bold">{filterItem?.starforce}성</div>)}
-                    <p className="text-[14px]">{filterItem.item_name}</p>
+                    <p className="text-[14px]">
+                        {filterItem.item_name}
+                        {Number(filterItem.special_ring_level) > 0 && ` Lv.${filterItem.special_ring_level}`}
+                    </p>
+                    {specialRing && (filterItem.item_name === '컨티뉴어스 링' || filterItem.item_name === '리스트레인트 링') && (
+                        <p className="text-[12px] text-neutral-500 dark:text-neutral-400">
+                            {specialRing.item_name}
+                            {Number(specialRing.special_ring_level) > 0 && ` Lv.${specialRing.special_ring_level}`}
+                        </p>
+                    )}
                 </div>
             </div>
             {filterItem.potential_option_grade && (

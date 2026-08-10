@@ -64,6 +64,7 @@ export interface itemProps {
   title_icon?: string,
   android_name?: string,
   android_icon?: string,
+  special_ring_level?: number,
 }
 
 export interface titleProps {
