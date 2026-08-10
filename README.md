@@ -82,8 +82,8 @@ yarn
 ```
 
 2) Nexon Open API Key 설정
-- 간단 실행: `api/key.ts`의 `apiKey` 값을 본인 키로 교체
-- 보안형(권장): `.env.local`에 `NX_OPEN_API_KEY=...` 설정 후 `ssrFetcher`에서 참조하도록 변경
+- `.env.example`을 `.env.local`로 복사한 뒤 `NX_OPEN_API_KEY=...` 값을 본인 키로 교체
+- `.env.local`은 `.gitignore`에 포함되어 커밋되지 않습니다
 
 3) 개발 서버
 ```bash

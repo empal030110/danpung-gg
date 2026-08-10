@@ -1,1 +1,5 @@
-export const apiKey = 'test_d3c692d69ce47a0a9ebbfdf6d5d8316f7b29e257438d70fdfcdc612243820ab2efe8d04e6d233bd35cf2fabdeb93fb0d';
+if (!process.env.NX_OPEN_API_KEY) {
+    throw new Error("NX_OPEN_API_KEY 환경 변수가 설정되지 않았습니다. .env.local을 확인하세요.");
+}
+
+export const apiKey = process.env.NX_OPEN_API_KEY;
