@@ -23,8 +23,8 @@ export const popularityUrl = (ocid: string) => {
     const url = `${baseUrl}/maplestory/v1/character/popularity?ocid=${ocid}`;
     return url;
 };
-const challengerWorlds = ['에오스', '헬리오스']; // 챌린저스 월드는 world_type 파라미터가 필요함
 
+const challengerWorlds = ['에오스', '헬리오스']; // 챌린저스 월드는 world_type 파라미터가 필요함
 export const overallUrl = (ocid: string, characterWorld: string, filterByWorld?: boolean) => {
     // 유저 랭킹 (filterByWorld가 true면 월드 랭킹, 아니면 전체 랭킹)
     const worldName = filterByWorld ? `&world_name=${encodeURIComponent(characterWorld)}` : '';
