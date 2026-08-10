@@ -2,7 +2,6 @@ import { userDataProps, userStatProps } from "../../userProps/props";
 import Image from "next/image";
 import { popularityUrl, overallUrl, unionUrl, statUrl } from "@/api/url/apiUrl";
 import ssrFetcher from "@/api/ssrFetcher";
-import { charImgUrl } from "@/public/charImg/charImg";
 
 export default async function UserHeader({ data, ocid }: { data: userDataProps, ocid: string}) {
     // data는 기본 정보
@@ -31,12 +30,9 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps, 
     const combatStatData = finalStat.find((stat: userStatProps) => stat.stat_name === "전투력");
     const combatStat = Number(combatStatData.stat_value).toLocaleString();
 
-    // 직업 이미지
-    const userCharImgUrl = charImgUrl(data.characterClass);
-
     return (
-        <div className="w-full flex items-center justify-start flex-col pc:flex-row relative">
-            <Image src={data.characterImage} alt={data.characterName} width={144} height={144} className="mx-[30px]" />
+        <div className="w-full flex items-center justify-center flex-col pc:flex-row relative">
+            <Image src={data.characterImage} alt={data.characterName} width={300} height={300} className="mx-[30px]" />
             <div className="flex flex-col gap-[12px]">
                 <div>
                     <div className="flex gap-[6px] text-[13px] text-[#f9f9f9] font-bold mb-[6px]">
@@ -66,7 +62,6 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps, 
                     </div>
                 </div>
             </div>
-            <Image src={userCharImgUrl} alt={data.characterClass} width={0} height={0} sizes="100vw" className="w-full max-w-[400px] h-auto pc:w-[320px] absolute top-[-50px] right-1/2 translate-x-1/2 opacity-50 z-[-1] object-contain object-top pc:right-0 pc:translate-x-0 pc:opacity-100" />
         </div>
     );
 }

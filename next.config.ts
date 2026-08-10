@@ -4,8 +4,7 @@ import withPWA from "next-pwa";
 const nextConfig: NextConfig = {
   images: {
     domains: [
-      "open.api.nexon.com",
-      "file.chuchu.gg"
+      "open.api.nexon.com"
     ],
   },
 };
