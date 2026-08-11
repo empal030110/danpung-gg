@@ -24,6 +24,14 @@ export const metadata: Metadata = {
     creator: "empal03",
     publisher: "empal03",
 
+    icons: {
+        icon: [
+            { url: "/favicon.ico", sizes: "any" },
+            { url: "/icons/icon192.png", type: "image/png", sizes: "192x192" },
+        ],
+        apple: "/icons/icon192.png",
+    },
+
     verification: {
         other: {
             "naver-site-verification": "d77e2b48492c5ab7becba5cec13e268567b9d472",
@@ -58,7 +66,6 @@ export default function RootLayout({
         <head>
           <link rel="manifest" href="/manifest.json" />
           <meta name="theme-color" content="#171717" />
-          <link rel="apple-touch-icon" href="/icons/icon192.png" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#171717] text-black dark:text-white`}>
         <div className="w-full max-w-[940px] m-auto px-[20px]">
