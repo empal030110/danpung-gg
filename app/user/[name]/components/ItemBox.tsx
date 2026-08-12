@@ -1,4 +1,5 @@
 import { itemProps } from "../../userProps/props";
+import { cutOptionName } from "@/api/cutOptionName";
 import Image from "next/image";
 
 export default function ItemBox({item = [], android = false, title = false, specialRing}: {item: itemProps[]; android?: boolean; title?: boolean; specialRing?: itemProps;}) {
@@ -53,17 +54,17 @@ export default function ItemBox({item = [], android = false, title = false, spec
             {filterItem.potential_option_grade && (
                 <div className="flex flex-wrap text-[12px] gap-[4px]">
                     <p>잠재</p>
-                    {filterItem.potential_option_1 && (<p className={`${filterItem.potential_option_grade === '레전드리' ? 'text-green-400' : filterItem.potential_option_grade === '유니크' ? 'text-yellow-400' : filterItem.potential_option_grade === '에픽' ? 'text-purple-400' : 'text-blue-300'}`}>{filterItem.potential_option_1}</p>)}
-                    {filterItem.potential_option_2 && (<p className={`${filterItem.potential_option_grade === '레전드리' ? 'text-green-400' : filterItem.potential_option_grade === '유니크' ? 'text-yellow-400' : filterItem.potential_option_grade === '에픽' ? 'text-purple-400' : 'text-blue-300'}`}>{filterItem.potential_option_2}</p>)}
-                    {filterItem.potential_option_3 && (<p className={`${filterItem.potential_option_grade === '레전드리' ? 'text-green-400' : filterItem.potential_option_grade === '유니크' ? 'text-yellow-400' : filterItem.potential_option_grade === '에픽' ? 'text-purple-400' : 'text-blue-300'}`}>{filterItem.potential_option_3}</p>)}
+                    {filterItem.potential_option_1 && (<p className={`${filterItem.potential_option_grade === '레전드리' ? 'text-green-400' : filterItem.potential_option_grade === '유니크' ? 'text-yellow-400' : filterItem.potential_option_grade === '에픽' ? 'text-purple-400' : 'text-blue-300'}`}>{cutOptionName(filterItem.potential_option_1)}</p>)}
+                    {filterItem.potential_option_2 && (<p className={`${filterItem.potential_option_grade === '레전드리' ? 'text-green-400' : filterItem.potential_option_grade === '유니크' ? 'text-yellow-400' : filterItem.potential_option_grade === '에픽' ? 'text-purple-400' : 'text-blue-300'}`}>{cutOptionName(filterItem.potential_option_2)}</p>)}
+                    {filterItem.potential_option_3 && (<p className={`${filterItem.potential_option_grade === '레전드리' ? 'text-green-400' : filterItem.potential_option_grade === '유니크' ? 'text-yellow-400' : filterItem.potential_option_grade === '에픽' ? 'text-purple-400' : 'text-blue-300'}`}>{cutOptionName(filterItem.potential_option_3)}</p>)}
                 </div>
             )}
             {filterItem.additional_potential_option_grade && (
                 <div className="flex flex-wrap text-[12px] gap-[4px] mt-[4px]">
                     <p>에디</p>
-                    {filterItem.additional_potential_option_1 && (<p className={`${filterItem.additional_potential_option_grade === '레전드리' ? 'text-green-400' : filterItem.additional_potential_option_grade === '유니크' ? 'text-yellow-400' : filterItem.additional_potential_option_grade === '에픽' ? 'text-purple-400' : 'text-blue-300'}`}>{filterItem.additional_potential_option_1}</p>)}
-                    {filterItem.additional_potential_option_2 && (<p className={`${filterItem.additional_potential_option_grade === '레전드리' ? 'text-green-400' : filterItem.additional_potential_option_grade === '유니크' ? 'text-yellow-400' : filterItem.additional_potential_option_grade === '에픽' ? 'text-purple-400' : 'text-blue-300'}`}>{filterItem.additional_potential_option_2}</p>)}
-                    {filterItem.additional_potential_option_3 && (<p className={`${filterItem.additional_potential_option_grade === '레전드리' ? 'text-green-400' : filterItem.additional_potential_option_grade === '유니크' ? 'text-yellow-400' : filterItem.additional_potential_option_grade === '에픽' ? 'text-purple-400' : 'text-blue-300'}`}>{filterItem.additional_potential_option_3}</p>)}
+                    {filterItem.additional_potential_option_1 && (<p className={`${filterItem.additional_potential_option_grade === '레전드리' ? 'text-green-400' : filterItem.additional_potential_option_grade === '유니크' ? 'text-yellow-400' : filterItem.additional_potential_option_grade === '에픽' ? 'text-purple-400' : 'text-blue-300'}`}>{cutOptionName(filterItem.additional_potential_option_1)}</p>)}
+                    {filterItem.additional_potential_option_2 && (<p className={`${filterItem.additional_potential_option_grade === '레전드리' ? 'text-green-400' : filterItem.additional_potential_option_grade === '유니크' ? 'text-yellow-400' : filterItem.additional_potential_option_grade === '에픽' ? 'text-purple-400' : 'text-blue-300'}`}>{cutOptionName(filterItem.additional_potential_option_2)}</p>)}
+                    {filterItem.additional_potential_option_3 && (<p className={`${filterItem.additional_potential_option_grade === '레전드리' ? 'text-green-400' : filterItem.additional_potential_option_grade === '유니크' ? 'text-yellow-400' : filterItem.additional_potential_option_grade === '에픽' ? 'text-purple-400' : 'text-blue-300'}`}>{cutOptionName(filterItem.additional_potential_option_3)}</p>)}
                 </div>
             )}
         </div>
