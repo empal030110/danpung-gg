@@ -67,7 +67,7 @@ export default function RootLayout({
           <meta name="theme-color" content="#171717" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#171717] text-black dark:text-white`}>
-        <div className="w-full max-w-[940px] m-auto px-[20px]">
+        <div className="w-full max-w-[940px] m-auto px-[20px] pc:px-0">
           <Header />
           {children}
           <div className="w-full py-[24px] mt-[40px] border-t border-neutral-600 text-center text-[12px] text-neutral-500 dark:text-neutral-400">
