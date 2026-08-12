@@ -9,17 +9,11 @@ export default function UserStat({ data }: { data: userSetProps[] }) {
     const setClick = (setName: string) => {
         const newSet = selectedSet === setName ? null : setName;
         setSelectedSet(newSet);
-
-        if (newSet) {
-            setTimeout(() => {
-                setSelectedSet(null);
-            }, 3000);
-        }
     };
 
     return (
-        <div>
-            <p className="font-bold mb-[8px]">세트효과</p>
+        <div className="w-full">
+            <p className="font-bold mb-[8px] text-center">세트효과</p>
             <div className="flex flex-col gap-[8px]">
                 {data.filter((effect: userSetProps) => effect.total_set_count > 1).map((effect: userSetProps) => (
                     <div key={effect.set_name} className="relative">
@@ -28,11 +22,15 @@ export default function UserStat({ data }: { data: userSetProps[] }) {
                             <p>{effect.set_name}</p>
                         </div>
                         {selectedSet === effect.set_name && (
-                            <div className="flex flex-col gap-[4px] absolute bottom-[110%] bg-[#111111] p-[16px] rounded-[16px]">
+                            <div className="flex flex-col gap-[4px] absolute bottom-[110%] bg-[#111111] p-[16px] rounded-[16px] w-full max-h-[500px] overflow-y-auto">
                                 {effect.set_option_full.map((option) => (
                                     <div key={option.set_count} className="flex flex-col items-start gap-[2px]">
                                         <p className="text-[12px] text-[#ccff00]">{option.set_count}세트효과</p>
-                                        <div className="text-[11px] text-white">{option.set_option}</div>
+                                        <div className="text-[11px] text-white flex flex-col">
+                                            {option.set_option.split(',').map((line, idx) => (
+                                                <span key={idx}>{line.trim()}</span>
+                                            ))}
+                                        </div>
                                     </div>
                                 ))}
                             </div>
