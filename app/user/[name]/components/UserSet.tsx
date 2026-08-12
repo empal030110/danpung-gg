@@ -22,7 +22,7 @@ export default function UserStat({ data }: { data: userSetProps[] }) {
                             <p>{effect.set_name}</p>
                         </div>
                         {selectedSet === effect.set_name && (
-                            <div className="flex flex-col gap-[4px] absolute bottom-[110%] bg-[#111111] p-[16px] rounded-[16px] w-full max-h-[500px] overflow-y-auto">
+                            <div className="flex flex-col gap-[4px] absolute bottom-[110%] bg-[#111111] p-[16px] rounded-[16px] w-full max-h-[500px] overflow-y-auto scrollbar-hide">
                                 {effect.set_option_full.map((option) => (
                                     <div key={option.set_count} className="flex flex-col items-start gap-[2px]">
                                         <p className="text-[12px] text-[#ccff00]">{option.set_count}세트효과</p>
