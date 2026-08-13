@@ -19,8 +19,8 @@ export default function RankBox({ data, color, rankingTitle }: { data: userProps
                 <p>Lv.{data.level}</p>
                 <p>{data.className}</p>
             </div>
-            <div>
-                <Image src={data.img} alt={data.name} width={96} height={96} />
+            <div className="w-[96px] h-[96px] overflow-hidden flex items-center justify-center">
+                <Image src={data.img} alt={data.name} width={96} height={96} className="scale-[2]" priority />
             </div>
             <p className="w-full text-[18px] font-bold p-[8px] pb-[16px] flex items-center justify-center gap-[2px]">
                 {data.floor ? `${data.floor}층` : `${data.trophyGrade}`}

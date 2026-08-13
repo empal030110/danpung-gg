@@ -12,7 +12,7 @@ export default function FavoriteButton({ characterName }: { characterName: strin
         <button
             type="button"
             onClick={() => toggleFavorite(characterName)}
-            className="absolute top-[16px] right-[16px] text-yellow-400 cursor-pointer"
+            className="absolute top-[40px] right-[40px] text-yellow-400 cursor-pointer"
         >
             {isFavorite ? <FaStar size={24} /> : <FaRegStar size={24} />}
         </button>
