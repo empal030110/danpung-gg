@@ -110,7 +110,7 @@ export default function SearchBar() {
 						)
 					) : (
 						favorites.length > 0 ? (
-							<div className="flex flex-col gap-[2px] max-h-[180px] overflow-y-auto">
+							<div className="flex flex-col gap-[2px] max-h-[180px] overflow-y-auto scrollbar-hide">
 								{favorites.map((name) => (
 									<div key={name} onClick={() => goToUser(name)} className="flex items-center justify-between gap-[8px] px-[8px] py-[6px] rounded-[8px] cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-800">
 										<span className="text-[14px] text-black dark:text-white">{name}</span>
