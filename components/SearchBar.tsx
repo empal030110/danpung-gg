@@ -3,13 +3,19 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FiSearch, FiX } from "react-icons/fi";
+import { FaStar } from "react-icons/fa";
 import { useRecentSearchStore } from '@/store/useRecentSearchStore';
+import { useFavoriteStore } from '@/store/useFavoriteStore';
+
+type DropdownTab = 'recent' | 'favorite';
 
 export default function SearchBar() {
 	const router = useRouter();
 	const [inputValue, setInputValue] = useState('');
 	const [showRecent, setShowRecent] = useState(false);
+	const [activeTab, setActiveTab] = useState<DropdownTab>('recent');
 	const { recentSearches, addSearch, removeSearch, clearSearches } = useRecentSearchStore();
+	const { favorites, removeFavorite, clearFavorites } = useFavoriteStore();
 
 	const goToUser = (name: string) => {
 		addSearch(name); // 최근 검색어 클릭 재검색 시에도 최신순으로 다시 올라가도록 매번 기록
@@ -40,38 +46,91 @@ export default function SearchBar() {
 					value={inputValue}
 					onChange={(e) => setInputValue(e.target.value)}
 					onFocus={() => setShowRecent(true)}
-					onBlur={() => setTimeout(() => setShowRecent(false), 150)} // 약간 지연 후 닫음
+					onBlur={() => setShowRecent(false)}
 					className="w-full border py-[12px] px-[16px] rounded-[12px] bg-[#fff] text-black dark:bg-[#171717] dark:text-white"
 				/>
 				<button type="submit" className="absolute right-[16px] text-neutral-500 dark:text-neutral-400 cursor-pointer">
 					<FiSearch size={16} />
 				</button>
 			</form>
-			{showRecent && recentSearches.length > 0 && (
-				<div className="absolute top-full left-[20px] right-[20px] mt-[4px] bg-white dark:bg-[#171717] border rounded-[12px] p-[12px] z-10 border-[1px] border-black dark:border-white">
+			{showRecent && (recentSearches.length > 0 || favorites.length > 0) && (
+				<div
+					onMouseDown={(e) => e.preventDefault()} // 내부 클릭이 input blur를 유발해 드롭다운이 닫히는 것을 방지
+					className="absolute top-full left-[20px] right-[20px] mt-[4px] bg-white dark:bg-[#171717] border border-black dark:border-white rounded-[12px] p-[12px] z-10"
+				>
 					<div className="flex items-center justify-between mb-[8px]">
-						<p className="text-[12px] text-neutral-500 dark:text-neutral-400">최근 검색어</p>
-						<button type="button" onClick={clearSearches} className="text-[12px] text-neutral-500 dark:text-neutral-400 cursor-pointer hover:underline">
-							전체삭제
-						</button>
+						<div className="flex gap-[12px]">
+							<button
+								type="button"
+								onClick={() => setActiveTab('recent')}
+								className={`text-[12px] cursor-pointer ${activeTab === 'recent' ? 'font-bold text-black dark:text-white' : 'text-neutral-500 dark:text-neutral-400'}`}
+							>
+								최근 검색어
+							</button>
+							<button
+								type="button"
+								onClick={() => setActiveTab('favorite')}
+								className={`text-[12px] cursor-pointer ${activeTab === 'favorite' ? 'font-bold text-black dark:text-white' : 'text-neutral-500 dark:text-neutral-400'}`}
+							>
+								즐겨찾기
+							</button>
+						</div>
+						{activeTab === 'recent' && recentSearches.length > 0 && (
+							<button type="button" onClick={clearSearches} className="text-[12px] text-neutral-500 dark:text-neutral-400 cursor-pointer hover:underline">
+								전체삭제
+							</button>
+						)}
+						{activeTab === 'favorite' && favorites.length > 0 && (
+							<button type="button" onClick={clearFavorites} className="text-[12px] text-neutral-500 dark:text-neutral-400 cursor-pointer hover:underline">
+								전체삭제
+							</button>
+						)}
 					</div>
-					<div className="flex flex-col gap-[2px]">
-						{recentSearches.map((name) => (
-							<div key={name} onClick={() => goToUser(name)} className="flex items-center justify-between gap-[8px] px-[8px] py-[6px] rounded-[8px] cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-800">
-								<span className="text-[14px] text-black dark:text-white">{name}</span>
-								<button
-									type="button"
-									onClick={(e) => {
-										e.stopPropagation(); // 상위 항목의 재검색 클릭으로 전파되지 않도록 막음
-										removeSearch(name);
-									}}
-									className="text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 cursor-pointer"
-								>
-									<FiX size={14} />
-								</button>
+					{activeTab === 'recent' ? (
+						recentSearches.length > 0 ? (
+							<div className="flex flex-col gap-[2px]">
+								{recentSearches.map((name) => (
+									<div key={name} onClick={() => goToUser(name)} className="flex items-center justify-between gap-[8px] px-[8px] py-[6px] rounded-[8px] cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-800">
+										<span className="text-[14px] text-black dark:text-white">{name}</span>
+										<button
+											type="button"
+											onClick={(e) => {
+												e.stopPropagation(); // 상위 항목의 재검색 클릭으로 전파되지 않도록 막음
+												removeSearch(name);
+											}}
+											className="text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 cursor-pointer"
+										>
+											<FiX size={14} />
+										</button>
+									</div>
+								))}
 							</div>
-						))}
-					</div>
+						) : (
+							<p className="text-[12px] text-neutral-400 py-[8px]">최근 검색어가 없습니다.</p>
+						)
+					) : (
+						favorites.length > 0 ? (
+							<div className="flex flex-col gap-[2px] max-h-[180px] overflow-y-auto">
+								{favorites.map((name) => (
+									<div key={name} onClick={() => goToUser(name)} className="flex items-center justify-between gap-[8px] px-[8px] py-[6px] rounded-[8px] cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-800">
+										<span className="text-[14px] text-black dark:text-white">{name}</span>
+										<button
+											type="button"
+											onClick={(e) => {
+												e.stopPropagation(); // 상위 항목의 재검색 클릭으로 전파되지 않도록 막음
+												removeFavorite(name);
+											}}
+											className="text-yellow-400 cursor-pointer"
+										>
+											<FaStar size={12} />
+										</button>
+									</div>
+								))}
+							</div>
+						) : (
+							<p className="text-[12px] text-neutral-400 py-[8px]">즐겨찾기가 없습니다.</p>
+						)
+					)}
 				</div>
 			)}
 		</div>

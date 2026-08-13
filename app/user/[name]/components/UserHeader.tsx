@@ -3,6 +3,7 @@ import Image from "next/image";
 import { popularityUrl, overallUrl, unionUrl, statUrl } from "@/api/url/apiUrl";
 import ssrFetcher from "@/api/ssrFetcher";
 import ssrRankingFetcher from "@/api/ssrRankingFetcher";
+import FavoriteButton from "./FavoriteButton";
 
 export default async function UserHeader({ data, ocid }: { data: userDataProps, ocid: string}) {
     // data는 기본 정보
@@ -31,7 +32,10 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps, 
 
     return (
         <div className="w-full flex items-center justify-center flex-col pc:flex-row relative">
-            <Image src={data.characterImage} alt={data.characterName} width={300} height={300} className="mx-[30px]" />
+            <div className="mx-[30px] border border-neutral-400 rounded-[8px] relative">
+                <Image src={data.characterImage} alt={data.characterName} width={300} height={300} />
+                <FavoriteButton characterName={data.characterName} />
+            </div>
             <div className="flex flex-col gap-[12px]">
                 <div>
                     <div className="flex gap-[6px] text-[13px] text-[#f9f9f9] font-bold mb-[6px]">
