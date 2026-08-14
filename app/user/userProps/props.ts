@@ -45,6 +45,8 @@ export interface abilityProps {
   ability_info: ability[];
 }
 
+export type presetNumberProps = number;
+
 export interface itemProps {
   additional_potential_option_1?: string,
   additional_potential_option_2?: string,

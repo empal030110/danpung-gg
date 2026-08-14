@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from "react";
-import { androidProps, itemProps, titleProps } from "../../userProps/props";
+import { androidProps, itemProps, presetNumberProps, titleProps } from "../../userProps/props";
 import { filterItem } from "../utils/filterItem";
 import ItemBox from "./ItemBox";
 
-export default function UserItem({ preset1 = [], preset2 = [], preset3 = [], android = [], title = []}: { preset1?: itemProps[]; preset2?: itemProps[]; preset3?: itemProps[]; android?: androidProps[]; title?: titleProps[]; }) {
-    const [selectedPreset, setSelectedPreset] = useState(1);
+export default function UserItem({ presetNumber = 0, preset1 = [], preset2 = [], preset3 = [], android = [], title = []}: { presetNumber?: presetNumberProps; preset1?: itemProps[]; preset2?: itemProps[]; preset3?: itemProps[]; android?: androidProps[]; title?: titleProps[]; }) {
+    const [selectedPreset, setSelectedPreset] = useState(presetNumber !== 0 ? presetNumber : 1); // presetNumber가 없으면 1번을 기본으로
     const currentPreset = selectedPreset === 1 ? preset1 : selectedPreset === 2 ? preset2 : preset3;
     const specialRing = currentPreset.find(
         (item) =>

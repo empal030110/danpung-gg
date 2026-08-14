@@ -46,6 +46,7 @@ export default async function SearchPage({ params }: userNameProps) {
 	// 장착한 아이템
 	const userItemUrl = itemUrl(userOcid[0]['ocid'])
 	const userItemData = await ssrFetcher(userItemUrl);
+	const presetNumber = userItemData[0].preset_no;
 	const userItemPreset1: itemProps[] = userItemData[0].item_equipment_preset_1.map((item: itemProps) => ({
 		additional_potential_option_1: item.additional_potential_option_1,
 		additional_potential_option_2: item.additional_potential_option_2,
@@ -130,7 +131,7 @@ export default async function SearchPage({ params }: userNameProps) {
 					</div>
 				</div>
 				<div className="w-full bg-gray-200 rounded-[8px] dark:bg-neutral-800">
-					<UserItem preset1={userItemPreset1} preset2={userItemPreset2} preset3={userItemPreset3} android={userAndroid} title={title} />
+					<UserItem presetNumber={presetNumber} preset1={userItemPreset1} preset2={userItemPreset2} preset3={userItemPreset3} android={userAndroid} title={title} />
 				</div>
 			</div>
         </div>
