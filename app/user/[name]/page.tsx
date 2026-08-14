@@ -39,6 +39,7 @@ export default async function SearchPage({ params }: userNameProps) {
 	// 어빌리티
 	const userAbilityUrl = abilityUrl(userOcid[0]['ocid']);
 	const userAbilityData = await ssrFetcher(userAbilityUrl);
+	const abilityPresetNumber = userAbilityData[0].preset_no;
 	const abilityPreset1 = userAbilityData[0].ability_preset_1;
 	const abilityPreset2 = userAbilityData[0].ability_preset_2;
 	const abilityPreset3 = userAbilityData[0].ability_preset_3;
@@ -127,7 +128,7 @@ export default async function SearchPage({ params }: userNameProps) {
 						<UserStat data={userSetEffect} />
 					</div>
 					<div className="w-full py-[16px] px-[20px] bg-gray-200 rounded-[8px] flex justify-center dark:bg-neutral-800 m-auto pc:m-0">
-						<UserAbility preset1={abilityPreset1} preset2={abilityPreset2} preset3={abilityPreset3} />
+						<UserAbility presetNumber={abilityPresetNumber} preset1={abilityPreset1} preset2={abilityPreset2} preset3={abilityPreset3} />
 					</div>
 				</div>
 				<div className="w-full bg-gray-200 rounded-[8px] dark:bg-neutral-800">

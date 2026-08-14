@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { abilityProps } from "../../userProps/props";
+import { abilityProps, presetNumberProps } from "../../userProps/props";
 
 function getAbilityGradeColor(grade: string) {
     switch (grade) {
@@ -16,8 +16,9 @@ function getAbilityGradeColor(grade: string) {
     }
 }
 
-export default function UserAbility({ preset1, preset2, preset3}: { preset1: abilityProps; preset2: abilityProps; preset3: abilityProps; }) {
-    const [selectedPreset, setSelectedPreset] = useState<abilityProps>(preset1);
+export default function UserAbility({ presetNumber = 0, preset1, preset2, preset3}: { presetNumber?: presetNumberProps; preset1: abilityProps; preset2: abilityProps; preset3: abilityProps; }) {
+    const initialPreset = presetNumber === 2 ? preset2 : presetNumber === 3 ? preset3 : preset1; // presetNumber가 없으먼 1이면 1번을 기본으로
+    const [selectedPreset, setSelectedPreset] = useState<abilityProps>(initialPreset);
 
     const currentData = selectedPreset.ability_info;
 
