@@ -1,11 +1,12 @@
-import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl } from "@/api/url/apiUrl";
-import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps } from "../userProps/props";
+import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl } from "@/api/url/apiUrl";
+import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import UserHeader from "./components/UserHeader";
 import UserStat from "./components/UserSet";
 import UserAbility from "./components/UserAbility";
 import UserItem from "./components/UserItem";
 import UserSymbol from "./components/UserSymbol";
+import UserPet from "./components/UserPet";
 
 export default async function SearchPage({ params }: userNameProps) {
     const { name } = await params;
@@ -131,7 +132,22 @@ export default async function SearchPage({ params }: userNameProps) {
 		android_name: item.android_name,
 		android_icon: item.android_icon,
 	}));
-	
+
+	// 장착한 펫
+	const userPetUrl = petUrl(userOcid[0]['ocid']);
+	const userPetData = await ssrFetcher(userPetUrl);
+	const userPets: petProps[] = [1, 2, 3]
+		.map((num) => ({
+			pet_name: userPetData[0][`pet_${num}_name`],
+			pet_icon: userPetData[0][`pet_${num}_icon`],
+			pet_type: userPetData[0][`pet_${num}_pet_type`],
+			// 개별 펫 장비가 없으면 월드 공유 펫 장비를 대신 사용
+			pet_equipment: userPetData[0][`pet_${num}_equipment`]?.item_name
+				? userPetData[0][`pet_${num}_equipment`]
+				: userPetData[0][`world_share_pet_${num}_equipment`],
+		}))
+		.filter((pet) => pet.pet_name);
+
 
     return (
         <div className="w-full h-auto pb-[40px]">
@@ -150,8 +166,13 @@ export default async function SearchPage({ params }: userNameProps) {
 						<UserAbility presetNumber={abilityPresetNumber} preset1={abilityPreset1} preset2={abilityPreset2} preset3={abilityPreset3} />
 					</div>
 				</div>
-				<div className="w-full bg-gray-200 rounded-[8px] dark:bg-neutral-800">
-					<UserItem presetNumber={presetNumber} preset1={userItemPreset1} preset2={userItemPreset2} preset3={userItemPreset3} android={userAndroid} title={title} />
+				<div className="w-full flex flex-col gap-[16px]">
+					<div className="w-full bg-gray-200 rounded-[8px] dark:bg-neutral-800">
+						<UserItem presetNumber={presetNumber} preset1={userItemPreset1} preset2={userItemPreset2} preset3={userItemPreset3} android={userAndroid} title={title} />
+					</div>
+					<div className="w-full py-[16px] px-[20px] bg-gray-200 rounded-[8px] dark:bg-neutral-800">
+						<UserPet pets={userPets} />
+					</div>
 				</div>
 			</div>
         </div>

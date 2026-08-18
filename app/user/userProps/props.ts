@@ -84,3 +84,19 @@ export interface symbolProps {
   symbol_level?: number,
   symbol_force?: string,
 }
+
+export interface petEquipmentOption {
+  option_type: string,
+  option_value: string,
+}
+export interface petEquipmentProps {
+  item_name?: string | null,
+  item_icon?: string | null,
+  item_option?: petEquipmentOption[],
+}
+export interface petProps {
+  pet_name?: string,
+  pet_icon?: string,
+  pet_type?: string,
+  pet_equipment?: petEquipmentProps,
+}

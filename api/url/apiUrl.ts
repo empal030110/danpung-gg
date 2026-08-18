@@ -65,6 +65,11 @@ export const symbolUrl = (ocid: string) => {
     const url = `${baseUrl}/maplestory/v1/character/symbol-equipment?ocid=${ocid}`;
     return url;
 }
+export const petUrl = (ocid: string) => {
+    // 장착한 펫 정보
+    const url = `${baseUrl}/maplestory/v1/character/pet-equipment?ocid=${ocid}`;
+    return url;
+}
 
 // notice
 export const noticeUrl = `${baseUrl}/maplestory/v1/notice`; // 공지
