@@ -78,3 +78,9 @@ export interface androidProps {
   android_name?: string,
   android_icon?: string,
 }
+
+export interface symbolProps {
+  symbol_icon?: string,
+  symbol_level?: number,
+  symbol_force?: string,
+}

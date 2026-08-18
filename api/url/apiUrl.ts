@@ -60,6 +60,11 @@ export const androidUrl = (ocid: string) => {
     const url = `${baseUrl}/maplestory/v1/character/android-equipment?ocid=${ocid}`;
     return url;
 }
+export const symbolUrl = (ocid: string) => {
+    // 장착한 심볼 정보
+    const url = `${baseUrl}/maplestory/v1/character/symbol-equipment?ocid=${ocid}`;
+    return url;
+}
 
 // notice
 export const noticeUrl = `${baseUrl}/maplestory/v1/notice`; // 공지

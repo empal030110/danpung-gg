@@ -1,10 +1,11 @@
-import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl } from "@/api/url/apiUrl";
-import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps } from "../userProps/props";
+import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl } from "@/api/url/apiUrl";
+import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import UserHeader from "./components/UserHeader";
 import UserStat from "./components/UserSet";
 import UserAbility from "./components/UserAbility";
 import UserItem from "./components/UserItem";
+import UserSymbol from "./components/UserSymbol";
 
 export default async function SearchPage({ params }: userNameProps) {
     const { name } = await params;
@@ -35,6 +36,21 @@ export default async function SearchPage({ params }: userNameProps) {
 	const userSetUrl = setUrl(userOcid[0]['ocid']);
 	const userSetData = await ssrFetcher(userSetUrl);
 	const userSetEffect: userSetProps[] = userSetData[0].set_effect;
+
+	// 심볼
+	const userSymbolUrl = symbolUrl(userOcid[0]['ocid']);
+	const userSymbolData = await ssrFetcher(userSymbolUrl);
+	const toSymbolProps = (symbol: { symbol_icon?: string; symbol_level?: number; symbol_force?: string }): symbolProps => ({
+		symbol_icon: symbol.symbol_icon,
+		symbol_level: symbol.symbol_level,
+		symbol_force: symbol.symbol_force,
+	});
+	const arcaneSymbols: symbolProps[] = userSymbolData[0].symbol
+		.filter((symbol: { symbol_name?: string }) => symbol.symbol_name?.startsWith('아케인심볼'))
+		.map(toSymbolProps);
+	const authenticSymbols: symbolProps[] = userSymbolData[0].symbol
+		.filter((symbol: { symbol_name?: string }) => !symbol.symbol_name?.startsWith('아케인심볼'))
+		.map(toSymbolProps);
 
 	// 어빌리티
 	const userAbilityUrl = abilityUrl(userOcid[0]['ocid']);
@@ -126,6 +142,9 @@ export default async function SearchPage({ params }: userNameProps) {
 				<div className="flex flex-col flex-auto gap-[16px] w-full pc:max-w-[320px]">
 					<div className="w-full py-[16px] px-[48px] bg-gray-200 rounded-[8px] flex justify-center dark:bg-neutral-800 m-auto pc:m-0">
 						<UserStat data={userSetEffect} />
+					</div>
+					<div className="w-full py-[16px] px-[20px] bg-gray-200 rounded-[8px] flex justify-center dark:bg-neutral-800 m-auto pc:m-0">
+						<UserSymbol arcane={arcaneSymbols} authentic={authenticSymbols} />
 					</div>
 					<div className="w-full py-[16px] px-[20px] bg-gray-200 rounded-[8px] flex justify-center dark:bg-neutral-800 m-auto pc:m-0">
 						<UserAbility presetNumber={abilityPresetNumber} preset1={abilityPreset1} preset2={abilityPreset2} preset3={abilityPreset3} />
