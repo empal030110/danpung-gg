@@ -1,58 +1,34 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { FiSearch, FiX } from "react-icons/fi";
+import { FiX } from "react-icons/fi";
 import { FaStar } from "react-icons/fa";
+import { useCharacterSearch } from '@/hooks/useCharacterSearch';
 import { useRecentSearchStore } from '@/store/useRecentSearchStore';
 import { useFavoriteStore } from '@/store/useFavoriteStore';
+import SearchForm from './SearchForm';
 
 type DropdownTab = 'recent' | 'favorite';
 
 export default function SearchBar() {
-	const router = useRouter();
-	const [inputValue, setInputValue] = useState('');
+	const { inputValue, setInputValue, goToUser, handleSubmit } = useCharacterSearch();
 	const [showRecent, setShowRecent] = useState(false);
 	const [activeTab, setActiveTab] = useState<DropdownTab>('recent');
-	const { recentSearches, addSearch, removeSearch, clearSearches } = useRecentSearchStore();
+	const { recentSearches, removeSearch, clearSearches } = useRecentSearchStore();
 	const { favorites, removeFavorite, clearFavorites } = useFavoriteStore();
-
-	const goToUser = (name: string) => {
-		addSearch(name); // 최근 검색어 클릭 재검색 시에도 최신순으로 다시 올라가도록 매번 기록
-		router.push(`/user/${encodeURIComponent(name)}`);
-	};
-
-	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
-
-		const trimmed = inputValue.replace(/\s+/g, '');
-		if (!trimmed) {
-		  alert('캐릭터 이름을 입력하세요.');
-		  return;
-		}
-
-		goToUser(trimmed);
-	};
 
 	return (
 		<div className="w-full max-w-[550px] px-[20px] relative">
 			<p className="text-center text-[14px] mb-[16px]">
 				메이플스토리 캐릭터 정보 검색 서비스
 			</p>
-			<form onSubmit={handleSubmit} className="relative flex items-center w-full">
-				<input
-					type="text"
-					placeholder="캐릭터 이름을 입력하세요"
-					value={inputValue}
-					onChange={(e) => setInputValue(e.target.value)}
-					onFocus={() => setShowRecent(true)}
-					onBlur={() => setShowRecent(false)}
-					className="w-full border py-[12px] px-[16px] rounded-[12px] bg-[#fff] text-black dark:bg-[#171717] dark:text-white"
-				/>
-				<button type="submit" className="absolute right-[16px] text-neutral-500 dark:text-neutral-400 cursor-pointer">
-					<FiSearch size={16} />
-				</button>
-			</form>
+			<SearchForm
+				inputValue={inputValue}
+				onChange={setInputValue}
+				onSubmit={handleSubmit}
+				onFocus={() => setShowRecent(true)}
+				onBlur={() => setShowRecent(false)}
+			/>
 			{showRecent && (recentSearches.length > 0 || favorites.length > 0) && (
 				<div
 					onMouseDown={(e) => e.preventDefault()} // 내부 클릭이 input blur를 유발해 드롭다운이 닫히는 것을 방지
