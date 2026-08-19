@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { abilityProps, presetNumberProps } from "../../userProps/props";
+import PresetTabs from "@/components/PresetTabs";
 
 function getAbilityGradeColor(grade: string) {
     switch (grade) {
@@ -21,6 +22,8 @@ export default function UserAbility({ presetNumber = 0, preset1, preset2, preset
     const [selectedPreset, setSelectedPreset] = useState<abilityProps>(initialPreset);
 
     const currentData = selectedPreset.ability_info;
+    const activePresetNum = selectedPreset === preset1 ? 1 : selectedPreset === preset2 ? 2 : 3;
+    const selectPreset = (num: number) => setSelectedPreset(num === 1 ? preset1 : num === 2 ? preset2 : preset3);
 
     return (
         <div className="w-full">
@@ -32,12 +35,8 @@ export default function UserAbility({ presetNumber = 0, preset1, preset2, preset
                     </div>
                 ))}
             </div>
-            <div className="flex items-center justify-center gap-[8px] mb-[12px]">
-                {[1, 2, 3].map((num) => (
-                    <button key={num} onClick={() => setSelectedPreset(num === 1 ? preset1 : num === 2 ? preset2 : preset3)} className={`text-[14px] px-[10px] py-[4px] rounded-[6px] font-semibold cursor-pointer border ${selectedPreset === (num === 1 ? preset1 : num === 2 ? preset2 : preset3) ? "bg-neutral-800 text-white" : "bg-neutral-200 text-black"}`}>
-                        {num}
-                    </button>
-                ))}
+            <div className="flex items-center justify-center mb-[12px]">
+                <PresetTabs active={activePresetNum} onSelect={selectPreset} fullWidth />
             </div>
         </div>
     );

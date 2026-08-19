@@ -4,6 +4,7 @@ import { useState } from "react";
 import { androidProps, itemProps, presetNumberProps, titleProps } from "../../userProps/props";
 import { filterItem } from "../utils/filterItem";
 import ItemBox from "./ItemBox";
+import PresetTabs from "@/components/PresetTabs";
 
 export default function UserItem({ presetNumber = 0, preset1 = [], preset2 = [], preset3 = [], android = [], title = []}: { presetNumber?: presetNumberProps; preset1?: itemProps[]; preset2?: itemProps[]; preset3?: itemProps[]; android?: androidProps[]; title?: titleProps[]; }) {
     const [selectedPreset, setSelectedPreset] = useState(presetNumber !== 0 ? presetNumber : 1); // presetNumber가 없으면 1번을 기본으로
@@ -16,12 +17,8 @@ export default function UserItem({ presetNumber = 0, preset1 = [], preset2 = [],
 
     return (
         <div>
-            <div className="flex items-center justify-end gap-[8px] m-[12px]">
-                {[1, 2, 3].map((num) => (
-                    <button key={num} onClick={() => setSelectedPreset(num)} className={`text-[14px] px-[10px] py-[4px] rounded-[6px] font-semibold cursor-pointer border ${selectedPreset === num ? "bg-neutral-800 text-white" : "bg-neutral-200 text-black"}`}>
-                        프리셋 {num}
-                    </button>
-                ))}
+            <div className="flex items-center justify-end m-[12px]">
+                <PresetTabs active={selectedPreset} onSelect={setSelectedPreset} labelPrefix="프리셋 " />
             </div>
             <div className="px-[16px]">
                 {(currentPreset && currentPreset.length) && (
