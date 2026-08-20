@@ -1,5 +1,5 @@
-import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl } from "@/api/url/apiUrl";
-import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps } from "../userProps/props";
+import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl } from "@/api/url/apiUrl";
+import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import UserHeader from "./components/UserHeader";
 import UserItemTabs from "./components/UserItemTabs";
@@ -144,13 +144,18 @@ export default async function SearchPage({ params }: userNameProps) {
 		}))
 		.filter((pet) => pet.pet_name);
 
-	// 하이퍼 스탯
+	// 하이퍼 스탯 (프리셋 1/2/3 전체를 내려서 UserHyperStat에서 전환할 수 있게 함)
 	const userHyperStatUrl = hyperStatUrl(userOcid[0]['ocid']);
 	const userHyperStatData = await ssrFetcher(userHyperStatUrl);
-	const hyperStatPresetNo = Number(userHyperStatData[0].use_preset_no) || 1;
+	const hyperStatPresetNo = Number(userHyperStatData[0].use_preset_no) || 1; // 캐릭터가 실제로 사용 중인 기본 프리셋 번호
 	const userHyperStatPreset1: hyperStatEntryProps[] = userHyperStatData[0].hyper_stat_preset_1 ?? [];
 	const userHyperStatPreset2: hyperStatEntryProps[] = userHyperStatData[0].hyper_stat_preset_2 ?? [];
 	const userHyperStatPreset3: hyperStatEntryProps[] = userHyperStatData[0].hyper_stat_preset_3 ?? [];
+
+	// 기본/상세 스탯 (final_stat 배열 하나를 UserBasicStat/UserDetailStat에서 각자 필요한 항목만 골라 씀)
+	const userStatUrl = statUrl(userOcid[0]['ocid']);
+	const userStatData = await ssrFetcher(userStatUrl);
+	const userStat: userStatProps[] = userStatData[0].final_stat;
 
     return (
         <div className="w-full h-auto pb-[40px]">
@@ -176,6 +181,7 @@ export default async function SearchPage({ params }: userNameProps) {
 				userHyperStatPreset1={userHyperStatPreset1}
 				userHyperStatPreset2={userHyperStatPreset2}
 				userHyperStatPreset3={userHyperStatPreset3}
+				userStat={userStat}
 			/>
         </div>
     );

@@ -8,8 +8,10 @@ import UserAbility from "./UserAbility";
 import UserItem from "./UserItem";
 import UserPet from "./UserPet";
 import UserHyperStat from "./UserHyperStat";
+import UserBasicStat from "./UserBasicStat";
+import UserDetailStat from "./UserDetailStat";
 import SidebarBox from "@/components/SidebarBox";
-import { abilityProps, androidProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, symbolProps, titleProps, userSetProps } from "../../userProps/props";
+import { abilityProps, androidProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, symbolProps, titleProps, userSetProps, userStatProps } from "../../userProps/props";
 
 interface UserItemTabsProps {
     userSetEffect: userSetProps[];
@@ -30,6 +32,7 @@ interface UserItemTabsProps {
     userHyperStatPreset1: hyperStatEntryProps[];
     userHyperStatPreset2: hyperStatEntryProps[];
     userHyperStatPreset3: hyperStatEntryProps[];
+    userStat: userStatProps[];
 }
 
 export default function UserItemTabs({
@@ -51,6 +54,7 @@ export default function UserItemTabs({
     userHyperStatPreset1,
     userHyperStatPreset2,
     userHyperStatPreset3,
+    userStat,
 }: UserItemTabsProps) {
     const [activeTab, setActiveTab] = useState(0);
 
@@ -90,11 +94,11 @@ export default function UserItemTabs({
                     <div className="w-full flex flex-col gap-[16px]">
                         <SidebarBox className="px-[20px] flex-col items-start">
                             <p className="font-bold mb-[8px]">기본 스탯</p>
-                            <p className="text-[12px] text-neutral-500 dark:text-neutral-400">준비 중</p>
+                            <UserBasicStat stats={userStat} />
                         </SidebarBox>
                         <SidebarBox className="px-[20px] flex-col items-start">
                             <p className="font-bold mb-[8px]">상세 스탯</p>
-                            <p className="text-[12px] text-neutral-500 dark:text-neutral-400">준비 중</p>
+                            <UserDetailStat stats={userStat} />
                         </SidebarBox>
                     </div>
                 </div>

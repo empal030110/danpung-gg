@@ -53,7 +53,10 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps, 
                 <div className="flex gap-[16px]">
                     <div>
                         <p>레벨</p>
-                        <p className="text-[20px] font-bold">LV.{data.characterLevel}</p>
+                        <div>
+                            <p className="text-[20px] font-bold">LV.{data.characterLevel}</p>
+                            <p className="text-[12px] text-neutral-400">({data.characterExpRate}%)</p>
+                        </div>
                     </div>
                     <div>
                         <p>유니온</p>
