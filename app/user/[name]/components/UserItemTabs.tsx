@@ -7,8 +7,9 @@ import UserSymbol from "./UserSymbol";
 import UserAbility from "./UserAbility";
 import UserItem from "./UserItem";
 import UserPet from "./UserPet";
+import UserHyperStat from "./UserHyperStat";
 import SidebarBox from "@/components/SidebarBox";
-import { abilityProps, androidProps, itemProps, petProps, presetNumberProps, symbolProps, titleProps, userSetProps } from "../../userProps/props";
+import { abilityProps, androidProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, symbolProps, titleProps, userSetProps } from "../../userProps/props";
 
 interface UserItemTabsProps {
     userSetEffect: userSetProps[];
@@ -25,6 +26,10 @@ interface UserItemTabsProps {
     userAndroid: androidProps[];
     title: titleProps[];
     userPets: petProps[];
+    hyperStatPresetNo: presetNumberProps;
+    userHyperStatPreset1: hyperStatEntryProps[];
+    userHyperStatPreset2: hyperStatEntryProps[];
+    userHyperStatPreset3: hyperStatEntryProps[];
 }
 
 export default function UserItemTabs({
@@ -42,6 +47,10 @@ export default function UserItemTabs({
     userAndroid,
     title,
     userPets,
+    hyperStatPresetNo,
+    userHyperStatPreset1,
+    userHyperStatPreset2,
+    userHyperStatPreset3,
 }: UserItemTabsProps) {
     const [activeTab, setActiveTab] = useState(0);
 
@@ -75,7 +84,7 @@ export default function UserItemTabs({
                     <div className="w-full pc:max-w-[320px]">
                         <SidebarBox className="px-[20px] flex-col items-start">
                             <p className="font-bold mb-[8px]">하이퍼 스탯</p>
-                            <p className="text-[12px] text-neutral-500 dark:text-neutral-400">준비 중</p>
+                            <UserHyperStat presetNumber={hyperStatPresetNo} preset1={userHyperStatPreset1} preset2={userHyperStatPreset2} preset3={userHyperStatPreset3} />
                         </SidebarBox>
                     </div>
                     <div className="w-full flex flex-col gap-[16px]">

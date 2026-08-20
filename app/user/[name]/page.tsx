@@ -1,5 +1,5 @@
-import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl } from "@/api/url/apiUrl";
-import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps } from "../userProps/props";
+import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl } from "@/api/url/apiUrl";
+import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import UserHeader from "./components/UserHeader";
 import UserItemTabs from "./components/UserItemTabs";
@@ -144,6 +144,13 @@ export default async function SearchPage({ params }: userNameProps) {
 		}))
 		.filter((pet) => pet.pet_name);
 
+	// 하이퍼 스탯
+	const userHyperStatUrl = hyperStatUrl(userOcid[0]['ocid']);
+	const userHyperStatData = await ssrFetcher(userHyperStatUrl);
+	const hyperStatPresetNo = Number(userHyperStatData[0].use_preset_no) || 1;
+	const userHyperStatPreset1: hyperStatEntryProps[] = userHyperStatData[0].hyper_stat_preset_1 ?? [];
+	const userHyperStatPreset2: hyperStatEntryProps[] = userHyperStatData[0].hyper_stat_preset_2 ?? [];
+	const userHyperStatPreset3: hyperStatEntryProps[] = userHyperStatData[0].hyper_stat_preset_3 ?? [];
 
     return (
         <div className="w-full h-auto pb-[40px]">
@@ -165,6 +172,10 @@ export default async function SearchPage({ params }: userNameProps) {
 				userAndroid={userAndroid}
 				title={title}
 				userPets={userPets}
+				hyperStatPresetNo={hyperStatPresetNo}
+				userHyperStatPreset1={userHyperStatPreset1}
+				userHyperStatPreset2={userHyperStatPreset2}
+				userHyperStatPreset3={userHyperStatPreset3}
 			/>
         </div>
     );

@@ -100,3 +100,10 @@ export interface petProps {
   pet_type?: string,
   pet_equipment?: petEquipmentProps,
 }
+
+export interface hyperStatEntryProps {
+  stat_type: string,
+  stat_point: number | null,
+  stat_level: number,
+  stat_increase: string | null,
+}

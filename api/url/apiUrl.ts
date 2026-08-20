@@ -70,6 +70,11 @@ export const petUrl = (ocid: string) => {
     const url = `${baseUrl}/maplestory/v1/character/pet-equipment?ocid=${ocid}`;
     return url;
 }
+export const hyperStatUrl = (ocid: string) => {
+    // 하이퍼 스탯 정보
+    const url = `${baseUrl}/maplestory/v1/character/hyper-stat?ocid=${ocid}`;
+    return url;
+}
 
 // notice
 export const noticeUrl = `${baseUrl}/maplestory/v1/notice`; // 공지
