@@ -67,6 +67,11 @@ export default function RootLayout({
           <link rel="manifest" href="/manifest.json" />
           <meta name="theme-color" content="#171717" />
           <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6300700013993932"
+            crossOrigin="anonymous"
+          />
+          <script
             dangerouslySetInnerHTML={{
               __html: `(function() {
                 var theme = localStorage.getItem('theme');
