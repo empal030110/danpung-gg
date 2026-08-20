@@ -2,12 +2,7 @@ import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, p
 import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import UserHeader from "./components/UserHeader";
-import UserStat from "./components/UserSet";
-import UserAbility from "./components/UserAbility";
-import UserItem from "./components/UserItem";
-import UserSymbol from "./components/UserSymbol";
-import UserPet from "./components/UserPet";
-import SidebarBox from "@/components/SidebarBox";
+import UserItemTabs from "./components/UserItemTabs";
 
 export default async function SearchPage({ params }: userNameProps) {
     const { name } = await params;
@@ -155,27 +150,22 @@ export default async function SearchPage({ params }: userNameProps) {
 			<div className="w-full px-[20px] py-[32px]">
 				<UserHeader data={userData} ocid={userOcid[0]['ocid']} />
 			</div>
-			<div className="flex gap-[16px] flex-col pc:flex-row">
-				<div className="flex flex-col flex-auto gap-[16px] w-full pc:max-w-[320px]">
-					<SidebarBox className="px-[48px]">
-						<UserStat data={userSetEffect} />
-					</SidebarBox>
-					<SidebarBox className="px-[20px]">
-						<UserSymbol arcane={arcaneSymbols} authentic={authenticSymbols} />
-					</SidebarBox>
-					<SidebarBox className="px-[20px]">
-						<UserAbility presetNumber={abilityPresetNumber} preset1={abilityPreset1} preset2={abilityPreset2} preset3={abilityPreset3} />
-					</SidebarBox>
-				</div>
-				<div className="w-full flex flex-col gap-[16px]">
-					<div className="w-full bg-gray-200 rounded-[8px] dark:bg-neutral-800">
-						<UserItem presetNumber={presetNumber} preset1={userItemPreset1} preset2={userItemPreset2} preset3={userItemPreset3} android={userAndroid} title={title} />
-					</div>
-					<div className="w-full py-[16px] px-[20px] bg-gray-200 rounded-[8px] dark:bg-neutral-800">
-						<UserPet pets={userPets} />
-					</div>
-				</div>
-			</div>
+			<UserItemTabs
+				userSetEffect={userSetEffect}
+				arcaneSymbols={arcaneSymbols}
+				authenticSymbols={authenticSymbols}
+				abilityPresetNumber={abilityPresetNumber}
+				abilityPreset1={abilityPreset1}
+				abilityPreset2={abilityPreset2}
+				abilityPreset3={abilityPreset3}
+				presetNumber={presetNumber}
+				userItemPreset1={userItemPreset1}
+				userItemPreset2={userItemPreset2}
+				userItemPreset3={userItemPreset3}
+				userAndroid={userAndroid}
+				title={title}
+				userPets={userPets}
+			/>
         </div>
     );
 }
