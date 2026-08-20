@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
+import Link from "next/link";
 import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
@@ -82,8 +83,9 @@ export default function RootLayout({
         <div className="w-full max-w-[940px] m-auto px-[20px] pc:px-0">
           <Header />
           {children}
-          <div className="w-full py-[24px] mt-[40px] border-t border-neutral-600 text-center text-[12px] text-neutral-500 dark:text-neutral-400">
-            본 서비스는 NEXON Open API를 이용하여 제작되었으며, 넥슨 및 메이플스토리와 공식적으로 제휴되어 있지 않습니다.
+          <div className="w-full py-[24px] mt-[40px] border-t border-neutral-600 flex flex-col items-center gap-[8px] text-center text-[12px] text-neutral-500 dark:text-neutral-400">
+            <p>본 서비스는 NEXON Open API를 이용하여 제작되었으며, 넥슨 및 메이플스토리와 공식적으로 제휴되어 있지 않습니다.</p>
+            <Link href="/privacy" className="underline hover:text-neutral-700 dark:hover:text-neutral-200">개인정보처리방침</Link>
           </div>
           <Analytics />
           <Script src="https://openapi.nexon.com/js/analytics.js?app_id=324464" strategy="afterInteractive" />
