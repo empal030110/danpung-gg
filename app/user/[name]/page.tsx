@@ -7,6 +7,7 @@ import UserAbility from "./components/UserAbility";
 import UserItem from "./components/UserItem";
 import UserSymbol from "./components/UserSymbol";
 import UserPet from "./components/UserPet";
+import SidebarBox from "@/components/SidebarBox";
 
 export default async function SearchPage({ params }: userNameProps) {
     const { name } = await params;
@@ -156,15 +157,15 @@ export default async function SearchPage({ params }: userNameProps) {
 			</div>
 			<div className="flex gap-[16px] flex-col pc:flex-row">
 				<div className="flex flex-col flex-auto gap-[16px] w-full pc:max-w-[320px]">
-					<div className="w-full py-[16px] px-[48px] bg-gray-200 rounded-[8px] flex justify-center dark:bg-neutral-800 m-auto pc:m-0">
+					<SidebarBox className="px-[48px]">
 						<UserStat data={userSetEffect} />
-					</div>
-					<div className="w-full py-[16px] px-[20px] bg-gray-200 rounded-[8px] flex justify-center dark:bg-neutral-800 m-auto pc:m-0">
+					</SidebarBox>
+					<SidebarBox className="px-[20px]">
 						<UserSymbol arcane={arcaneSymbols} authentic={authenticSymbols} />
-					</div>
-					<div className="w-full py-[16px] px-[20px] bg-gray-200 rounded-[8px] flex justify-center dark:bg-neutral-800 m-auto pc:m-0">
+					</SidebarBox>
+					<SidebarBox className="px-[20px]">
 						<UserAbility presetNumber={abilityPresetNumber} preset1={abilityPreset1} preset2={abilityPreset2} preset3={abilityPreset3} />
-					</div>
+					</SidebarBox>
 				</div>
 				<div className="w-full flex flex-col gap-[16px]">
 					<div className="w-full bg-gray-200 rounded-[8px] dark:bg-neutral-800">
