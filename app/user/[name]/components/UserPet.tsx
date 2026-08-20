@@ -22,16 +22,27 @@ export default function UserPet({ pets = [] }: { pets?: petProps[] }) {
                                     <p className="text-[14px] font-bold">{pet.pet_name}</p>
                                 </div>
                             </div>
-                            {equipment?.item_name && (
-                                <div className="flex items-center gap-[8px] mt-[8px] pt-[8px] border-t border-neutral-400">
-                                    <Image src={equipment.item_icon || ""} alt={equipment.item_name} width={30} height={30} />
-                                    <div className="text-[12px]">
-                                        <p>{equipment.item_name}</p>
-                                        {attack && <p>공격력 +{attack}</p>}
-                                        {magic && <p>마력 +{magic}</p>}
-                                    </div>
-                                </div>
-                            )}
+                            <div className="flex items-center gap-[8px] mt-[8px] pt-[8px] border-t border-neutral-400">
+                                {equipment?.item_name ? (
+                                    <>
+                                        <Image src={equipment.item_icon || ""} alt={equipment.item_name} width={30} height={30} />
+                                        <div className="text-[12px]">
+                                            <p>{equipment.item_name}</p>
+                                            {attack && <p>공격력 +{attack}</p>}
+                                            {magic && <p>마력 +{magic}</p>}
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className="w-[30px] h-[30px] bg-neutral-300 rounded-[4px]"></div>
+                                        <div className="text-[12px]">
+                                            <p>-</p>
+                                            <p>공격력 +0</p>
+                                            <p>마력 +0</p>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
                         </div>
                     );
                 })}
