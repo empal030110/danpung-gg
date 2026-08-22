@@ -1,5 +1,5 @@
-import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl } from "@/api/url/apiUrl";
-import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps } from "../userProps/props";
+import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl } from "@/api/url/apiUrl";
+import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import UserHeader from "./components/UserHeader";
 import UserInfoTabs from "./components/UserInfoTabs";
@@ -157,6 +157,11 @@ export default async function SearchPage({ params }: userNameProps) {
 	const userStatData = await ssrFetcher(userStatUrl);
 	const userStat: userStatProps[] = userStatData[0].final_stat;
 
+	// 6차 스킬
+	const userSkillUrl = skillUrl(userOcid[0]['ocid'], '6');
+	const userSkillData = await ssrFetcher(userSkillUrl);
+	const userSkills: skillProps[] = userSkillData[0].character_skill ?? [];
+
     return (
         <div className="w-full h-auto pb-[40px]">
 			<div className="w-full px-[20px] py-[32px]">
@@ -182,6 +187,7 @@ export default async function SearchPage({ params }: userNameProps) {
 				userHyperStatPreset2={userHyperStatPreset2}
 				userHyperStatPreset3={userHyperStatPreset3}
 				userStat={userStat}
+				userSkills={userSkills}
 			/>
         </div>
     );

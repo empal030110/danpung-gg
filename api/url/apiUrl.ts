@@ -75,6 +75,11 @@ export const hyperStatUrl = (ocid: string) => {
     const url = `${baseUrl}/maplestory/v1/character/hyper-stat?ocid=${ocid}`;
     return url;
 }
+export const skillUrl = (ocid: string, grade: string) => {
+    // 스킬 정보 (grade: 스킬 차수)
+    const url = `${baseUrl}/maplestory/v1/character/skill?ocid=${ocid}&character_skill_grade=${grade}`;
+    return url;
+}
 
 // notice
 export const noticeUrl = `${baseUrl}/maplestory/v1/notice`; // 공지

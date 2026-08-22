@@ -107,3 +107,9 @@ export interface hyperStatEntryProps {
   stat_level: number,
   stat_increase: string | null,
 }
+
+export interface skillProps {
+  skill_name: string,
+  skill_level: number,
+  skill_icon: string,
+}

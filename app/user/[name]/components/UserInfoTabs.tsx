@@ -10,8 +10,9 @@ import UserPet from "./UserPet";
 import UserHyperStat from "./UserHyperStat";
 import UserBasicStat from "./UserBasicStat";
 import UserDetailStat from "./UserDetailStat";
+import UserSkill from "./UserSkill";
 import SidebarBox from "@/components/SidebarBox";
-import { abilityProps, androidProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, symbolProps, titleProps, userSetProps, userStatProps } from "../../userProps/props";
+import { abilityProps, androidProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, userSetProps, userStatProps } from "../../userProps/props";
 
 interface UserInfoTabsProps {
     userSetEffect: userSetProps[];
@@ -33,6 +34,7 @@ interface UserInfoTabsProps {
     userHyperStatPreset2: hyperStatEntryProps[];
     userHyperStatPreset3: hyperStatEntryProps[];
     userStat: userStatProps[];
+    userSkills: skillProps[];
 }
 
 export default function UserItemTabs({
@@ -55,6 +57,7 @@ export default function UserItemTabs({
     userHyperStatPreset2,
     userHyperStatPreset3,
     userStat,
+    userSkills,
 }: UserInfoTabsProps) {
     const [activeTab, setActiveTab] = useState(0);
 
@@ -103,10 +106,10 @@ export default function UserItemTabs({
                     </div>
                 </div>
             ) : (
-                <div className="flex gap-[16px] flex-col pc:flex-row">
+                <div className="w-full">
                     <SidebarBox className="px-[20px] flex-col items-start">
-                        <p className="font-bold mb-[8px]">스킬</p>
-                        <p className="text-[12px] text-neutral-500 dark:text-neutral-400">준비 중</p>
+                        <p className="font-bold mb-[8px]">6차 스킬</p>
+                        <UserSkill skills={userSkills} />
                     </SidebarBox>
                 </div>
             )}
