@@ -158,9 +158,14 @@ export default async function SearchPage({ params }: userNameProps) {
 	const userStat: userStatProps[] = userStatData[0].final_stat;
 
 	// 6차 스킬
-	const userSkillUrl = skillUrl(userOcid[0]['ocid'], '6');
-	const userSkillData = await ssrFetcher(userSkillUrl);
-	const userSkills: skillProps[] = userSkillData[0].character_skill ?? [];
+	const userSkillUrl6 = skillUrl(userOcid[0]['ocid'], '6');
+	const userSkillData6 = await ssrFetcher(userSkillUrl6);
+	const userSkills6: skillProps[] = userSkillData6[0].character_skill ?? [];
+
+	// 5차 스킬
+	const userSkillUrl5 = skillUrl(userOcid[0]['ocid'], '5');
+	const userSkillData5 = await ssrFetcher(userSkillUrl5);
+	const userSkills5: skillProps[] = userSkillData5[0].character_skill ?? [];
 
     return (
         <div className="w-full h-auto pb-[40px]">
@@ -187,7 +192,8 @@ export default async function SearchPage({ params }: userNameProps) {
 				userHyperStatPreset2={userHyperStatPreset2}
 				userHyperStatPreset3={userHyperStatPreset3}
 				userStat={userStat}
-				userSkills={userSkills}
+				userSkills6={userSkills6}
+				userSkills5={userSkills5}
 			/>
         </div>
     );

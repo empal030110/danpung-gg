@@ -34,7 +34,8 @@ interface UserInfoTabsProps {
     userHyperStatPreset2: hyperStatEntryProps[];
     userHyperStatPreset3: hyperStatEntryProps[];
     userStat: userStatProps[];
-    userSkills: skillProps[];
+    userSkills6: skillProps[];
+    userSkills5: skillProps[];
 }
 
 export default function UserItemTabs({
@@ -57,7 +58,8 @@ export default function UserItemTabs({
     userHyperStatPreset2,
     userHyperStatPreset3,
     userStat,
-    userSkills,
+    userSkills6,
+    userSkills5,
 }: UserInfoTabsProps) {
     const [activeTab, setActiveTab] = useState(0);
 
@@ -106,10 +108,14 @@ export default function UserItemTabs({
                     </div>
                 </div>
             ) : (
-                <div className="w-full">
+                <div className="w-full flex flex-col gap-[16px]">
                     <SidebarBox className="px-[20px] flex-col items-start">
                         <p className="font-bold mb-[8px]">6차 스킬</p>
-                        <UserSkill skills={userSkills} />
+                        <UserSkill skills={userSkills6} />
+                    </SidebarBox>
+                    <SidebarBox className="px-[20px] flex-col items-start">
+                        <p className="font-bold mb-[8px]">5차 스킬</p>
+                        <UserSkill skills={userSkills5} />
                     </SidebarBox>
                 </div>
             )}
