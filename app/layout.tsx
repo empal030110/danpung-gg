@@ -66,12 +66,9 @@ export default function RootLayout({
         <head>
           <link rel="manifest" href="/manifest.json" />
           <meta name="theme-color" content="#171717" />
+          {/* 애드센스 로더가 head의 스크립트 태그를 자기 용도로 덮어써서 하이드레이션 diff가 발생 -> 이 노드는 비교 대상에서 제외 */}
           <script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6300700013993932"
-            crossOrigin="anonymous"
-          />
-          <script
+            suppressHydrationWarning
             dangerouslySetInnerHTML={{
               __html: `(function() {
                 var theme = localStorage.getItem('theme');
@@ -94,6 +91,13 @@ export default function RootLayout({
           </div>
           <Analytics />
           <Script src="https://openapi.nexon.com/js/analytics.js?app_id=324464" strategy="afterInteractive" />
+          {/* next/script가 head 삽입/실행을 직접 관리해서, 손으로 쓴 <script>와 달리 애드센스 로더가 head를 건드려도 하이드레이션 충돌이 안 남 */}
+          <Script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6300700013993932"
+            crossOrigin="anonymous"
+            strategy="beforeInteractive"
+          />
         </div>
       </body>
     </html>
