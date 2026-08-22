@@ -13,6 +13,7 @@ import UserDetailStat from "./UserDetailStat";
 import UserSkill from "./UserSkill";
 import SidebarBox from "@/components/SidebarBox";
 import { abilityProps, androidProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, userSetProps, userStatProps } from "../../userProps/props";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 interface UserInfoTabsProps {
     userSetEffect: userSetProps[];
@@ -62,6 +63,8 @@ export default function UserItemTabs({
     userSkills5,
 }: UserInfoTabsProps) {
     const [activeTab, setActiveTab] = useState(0);
+    const [showSkill6, setShowSkill6] = useState(true);
+    const [showSkill5, setShowSkill5] = useState(false);
 
     return (
         <div className="w-full z-10">
@@ -110,12 +113,18 @@ export default function UserItemTabs({
             ) : (
                 <div className="w-full flex flex-col gap-[16px]">
                     <SidebarBox className="px-[20px] flex-col items-start">
-                        <p className="font-bold mb-[8px]">6차 스킬</p>
-                        <UserSkill skills={userSkills6} />
+                        <button type="button" onClick={() => setShowSkill6((prev) => !prev)} className="w-full flex justify-between items-center mb-[24px] cursor-pointer">
+                            <p className="font-bold">6차 스킬</p>
+                            {showSkill6 ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
+                        </button>
+                        {showSkill6 && <UserSkill skills={userSkills6} />}
                     </SidebarBox>
                     <SidebarBox className="px-[20px] flex-col items-start">
-                        <p className="font-bold mb-[8px]">5차 스킬</p>
-                        <UserSkill skills={userSkills5} />
+                        <button type="button" onClick={() => setShowSkill5((prev) => !prev)} className="w-full flex justify-between items-center mb-[24px] cursor-pointer">
+                            <p className="font-bold">5차 스킬</p>
+                            {showSkill5 ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
+                        </button>
+                        {showSkill5 && <UserSkill skills={userSkills5} />}
                     </SidebarBox>
                 </div>
             )}
