@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { skillProps } from "../../userProps/props";
 
-export default function UserSkill({ skills = [] }: { skills?: skillProps[] }) {
-    if (!skills.length) return null;
+export default function UserSkill({ skills = [], grade }: { skills?: skillProps[]; grade: string }) {
+    if (!skills.length) return <p className="text-[12px] text-neutral-500 dark:text-neutral-400">{grade} 스킬 정보가 없습니다.</p>;
 
     return (
         <div className="w-full grid grid-cols-2 pc:grid-cols-4 gap-[8px]">

@@ -151,14 +151,14 @@ export default function UserItemTabs({
                             <p className="font-bold">6차 스킬</p>
                             {showSkill6 ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
                         </button>
-                        {showSkill6 && <UserSkill skills={userSkills6} />}
+                        {showSkill6 && <UserSkill skills={userSkills6} grade="6차" />}
                     </SidebarBox>
                     <SidebarBox className="px-[20px] flex-col items-start">
                         <button type="button" onClick={() => setShowSkill5((prev) => !prev)} className="w-full flex justify-between items-center mb-[24px] cursor-pointer">
                             <p className="font-bold">5차 스킬</p>
                             {showSkill5 ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
                         </button>
-                        {showSkill5 && <UserSkill skills={userSkills5} />}
+                        {showSkill5 && <UserSkill skills={userSkills5} grade="5차" />}
                     </SidebarBox>
                     <SidebarBox className="px-[20px] flex-col items-start">
                         <UserLinkSkill presetNumber={linkSkillPresetNo} preset1={userLinkSkillPreset1} preset2={userLinkSkillPreset2} preset3={userLinkSkillPreset3} />
