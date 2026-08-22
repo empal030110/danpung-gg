@@ -16,6 +16,7 @@ import UserLinkSkill from "./UserLinkSkill";
 import SidebarBox from "@/components/SidebarBox";
 import { abilityProps, androidProps, hexaStatCoreProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, userSetProps, userStatProps } from "../../userProps/props";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import NotInfoText from "@/components/NotInfoText";
 
 interface UserInfoTabsProps {
     userSetEffect: userSetProps[];
@@ -103,7 +104,12 @@ export default function UserItemTabs({
                             <UserItem presetNumber={presetNumber} preset1={userItemPreset1} preset2={userItemPreset2} preset3={userItemPreset3} android={userAndroid} title={title} />
                         </div>
                         <div className="w-full py-[16px] px-[20px] bg-gray-200 rounded-[8px] dark:bg-neutral-800">
-                            <UserPet pets={userPets} />
+                            {userPets.length > 0 ? (
+                                <UserPet pets={userPets} />
+                            ) : (
+                                <NotInfoText>장착된 펫 정보가 없습니다.</NotInfoText>
+                            )}
+                            
                         </div>
                     </div>
                 </div>

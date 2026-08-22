@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { skillProps } from "../../userProps/props";
+import NotInfoText from "@/components/NotInfoText";
 
 export default function UserSkill({ skills = [], grade }: { skills?: skillProps[]; grade: string }) {
-    if (!skills.length) return <p className="text-[12px] text-neutral-500 dark:text-neutral-400">{grade} 스킬 정보가 없습니다.</p>;
+    if (!skills.length) return <NotInfoText>{grade} 스킬 정보가 없습니다.</NotInfoText>;
 
     return (
         <div className="w-full grid grid-cols-2 pc:grid-cols-4 gap-[8px]">
