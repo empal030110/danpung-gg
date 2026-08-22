@@ -85,6 +85,11 @@ export const hexaStatUrl = (ocid: string) => {
     const url = `${baseUrl}/maplestory/v1/character/hexamatrix-stat?ocid=${ocid}`;
     return url;
 }
+export const linkSkillUrl = (ocid: string) => {
+    // 링크 스킬 정보
+    const url = `${baseUrl}/maplestory/v1/character/link-skill?ocid=${ocid}`;
+    return url;
+}
 
 // notice
 export const noticeUrl = `${baseUrl}/maplestory/v1/notice`; // 공지

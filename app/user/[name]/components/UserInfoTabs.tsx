@@ -12,6 +12,7 @@ import UserBasicStat from "./UserBasicStat";
 import UserDetailStat from "./UserDetailStat";
 import UserSkill from "./UserSkill";
 import UserHexaStat from "./UserHexaStat";
+import UserLinkSkill from "./UserLinkSkill";
 import SidebarBox from "@/components/SidebarBox";
 import { abilityProps, androidProps, hexaStatCoreProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, userSetProps, userStatProps } from "../../userProps/props";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
@@ -41,6 +42,9 @@ interface UserInfoTabsProps {
     hexaStatCore1?: hexaStatCoreProps;
     hexaStatCore2?: hexaStatCoreProps;
     hexaStatCore3?: hexaStatCoreProps;
+    userLinkSkillPreset1: skillProps[];
+    userLinkSkillPreset2: skillProps[];
+    userLinkSkillPreset3: skillProps[];
 }
 
 export default function UserItemTabs({
@@ -68,6 +72,9 @@ export default function UserItemTabs({
     hexaStatCore1,
     hexaStatCore2,
     hexaStatCore3,
+    userLinkSkillPreset1,
+    userLinkSkillPreset2,
+    userLinkSkillPreset3,
 }: UserInfoTabsProps) {
     const [activeTab, setActiveTab] = useState(0);
     const [showSkill6, setShowSkill6] = useState(true);
@@ -150,6 +157,9 @@ export default function UserItemTabs({
                             {showSkill5 ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
                         </button>
                         {showSkill5 && <UserSkill skills={userSkills5} />}
+                    </SidebarBox>
+                    <SidebarBox className="px-[20px] flex-col items-start">
+                        <UserLinkSkill preset1={userLinkSkillPreset1} preset2={userLinkSkillPreset2} preset3={userLinkSkillPreset3} />
                     </SidebarBox>
                 </div>
             )}

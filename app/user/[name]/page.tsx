@@ -1,4 +1,4 @@
-import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl } from "@/api/url/apiUrl";
+import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl, linkSkillUrl } from "@/api/url/apiUrl";
 import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps, hexaStatCoreProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import UserHeader from "./components/UserHeader";
@@ -174,6 +174,13 @@ export default async function SearchPage({ params }: userNameProps) {
 	const hexaStatCore2: hexaStatCoreProps | undefined = userHexaStatData[0].character_hexa_stat_core_2?.[0];
 	const hexaStatCore3: hexaStatCoreProps | undefined = userHexaStatData[0].character_hexa_stat_core_3?.[0];
 
+	// 장착 링크 스킬
+	const userLinkSkillUrl = linkSkillUrl(userOcid[0]['ocid']);
+	const userLinkSkillData = await ssrFetcher(userLinkSkillUrl);
+	const userLinkSkillPreset1: skillProps[] = userLinkSkillData[0].character_link_skill_preset_1 ?? [];
+	const userLinkSkillPreset2: skillProps[] = userLinkSkillData[0].character_link_skill_preset_2 ?? [];
+	const userLinkSkillPreset3: skillProps[] = userLinkSkillData[0].character_link_skill_preset_3 ?? [];
+
     return (
         <div className="w-full h-auto pb-[40px]">
 			<div className="w-full px-[20px] py-[32px]">
@@ -204,6 +211,9 @@ export default async function SearchPage({ params }: userNameProps) {
 				hexaStatCore1={hexaStatCore1}
 				hexaStatCore2={hexaStatCore2}
 				hexaStatCore3={hexaStatCore3}
+				userLinkSkillPreset1={userLinkSkillPreset1}
+				userLinkSkillPreset2={userLinkSkillPreset2}
+				userLinkSkillPreset3={userLinkSkillPreset3}
 			/>
         </div>
     );
