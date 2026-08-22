@@ -2,7 +2,7 @@ import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, p
 import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import UserHeader from "./components/UserHeader";
-import UserItemTabs from "./components/UserItemTabs";
+import UserInfoTabs from "./components/UserInfoTabs";
 
 export default async function SearchPage({ params }: userNameProps) {
     const { name } = await params;
@@ -162,7 +162,7 @@ export default async function SearchPage({ params }: userNameProps) {
 			<div className="w-full px-[20px] py-[32px]">
 				<UserHeader data={userData} ocid={userOcid[0]['ocid']} />
 			</div>
-			<UserItemTabs
+			<UserInfoTabs
 				userSetEffect={userSetEffect}
 				arcaneSymbols={arcaneSymbols}
 				authenticSymbols={authenticSymbols}

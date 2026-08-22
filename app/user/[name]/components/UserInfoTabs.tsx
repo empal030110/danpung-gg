@@ -13,7 +13,7 @@ import UserDetailStat from "./UserDetailStat";
 import SidebarBox from "@/components/SidebarBox";
 import { abilityProps, androidProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, symbolProps, titleProps, userSetProps, userStatProps } from "../../userProps/props";
 
-interface UserItemTabsProps {
+interface UserInfoTabsProps {
     userSetEffect: userSetProps[];
     arcaneSymbols: symbolProps[];
     authenticSymbols: symbolProps[];
@@ -55,12 +55,12 @@ export default function UserItemTabs({
     userHyperStatPreset2,
     userHyperStatPreset3,
     userStat,
-}: UserItemTabsProps) {
+}: UserInfoTabsProps) {
     const [activeTab, setActiveTab] = useState(0);
 
     return (
         <div className="w-full z-10">
-            <UserNavbar tabs={['장비', '스탯']} active={activeTab} onSelect={setActiveTab} />
+            <UserNavbar tabs={['장비', '스탯', '스킬']} active={activeTab} onSelect={setActiveTab} />
             {activeTab === 0 ? (
                 <div className="flex gap-[16px] flex-col pc:flex-row">
                     <div className="flex flex-col flex-auto gap-[16px] w-full pc:max-w-[320px]">
@@ -83,7 +83,7 @@ export default function UserItemTabs({
                         </div>
                     </div>
                 </div>
-            ) : (
+            ) : activeTab === 1 ? (
                 <div className="flex gap-[16px] flex-col pc:flex-row">
                     <div className="w-full pc:max-w-[320px]">
                         <SidebarBox className="px-[20px] flex-col items-start">
@@ -101,6 +101,13 @@ export default function UserItemTabs({
                             <UserDetailStat stats={userStat} />
                         </SidebarBox>
                     </div>
+                </div>
+            ) : (
+                <div className="flex gap-[16px] flex-col pc:flex-row">
+                    <SidebarBox className="px-[20px] flex-col items-start">
+                        <p className="font-bold mb-[8px]">스킬</p>
+                        <p className="text-[12px] text-neutral-500 dark:text-neutral-400">준비 중</p>
+                    </SidebarBox>
                 </div>
             )}
         </div>
