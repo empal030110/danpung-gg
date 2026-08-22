@@ -22,7 +22,11 @@ export default function SearchBar() {
 			<SearchForm
 				inputValue={inputValue}
 				onChange={setInputValue}
-				onSubmit={handleSubmit}
+				onSubmit={(e) => {
+					handleSubmit(e);
+					closeDropdown();
+					(document.activeElement as HTMLElement)?.blur();
+				}}
 				onFocus={openDropdown}
 				onBlur={closeDropdown}
 			/>
