@@ -1,5 +1,6 @@
 import { itemProps } from "../../userProps/props";
 import { cutOptionName } from "@/api/cutOptionName";
+import { FaStar } from "react-icons/fa";
 import Image from "next/image";
 
 export default function ItemBox({item = [], android = false, title = false, specialRing}: {item: itemProps[]; android?: boolean; title?: boolean; specialRing?: itemProps;}) {
@@ -38,7 +39,7 @@ export default function ItemBox({item = [], android = false, title = false, spec
             <div className={`flex justify-start items-center gap-[8px] ${filterItem.potential_option_grade ? 'mb-[8px]' : 'h-full'}`}>
                 <Image src={filterItem?.item_icon || ""} alt={filterItem?.item_name || ""} width={30} height={30} style={{width: "30px", height: "30px", objectFit: "contain"}} loading="lazy" />
                 <div className="flex flex-col gap-[2px]">
-                    {Number(filterItem?.starforce) > 0 && (<div className="w-max flex items-center justify-start text-[12px] px-[8px] py-[2px] bg-yellow-200 rounded-[6px] text-amber-500 font-bold">{filterItem?.starforce}성</div>)}
+                    {Number(filterItem?.starforce) > 0 && (<div className="flex gap-[2px] items-center text-[12px]"><FaStar size={12} color="oklch(85.2% 0.199 91.936)" />x{filterItem?.starforce}</div>)}
                     <p className="text-[14px]">
                         {filterItem.item_name}
                         {Number(filterItem.special_ring_level) > 0 && ` Lv.${filterItem.special_ring_level}`}
