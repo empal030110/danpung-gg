@@ -81,7 +81,7 @@ export default function RootLayout({
             }}
           />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#171717] text-black dark:text-white`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#171717] text-black dark:text-white overflow-x-hidden`}>
         <div className="w-full max-w-[940px] m-auto px-[20px] pc:px-0">
           <Header />
           {children}
