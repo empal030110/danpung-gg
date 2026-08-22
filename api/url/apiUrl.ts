@@ -80,6 +80,11 @@ export const skillUrl = (ocid: string, grade: string) => {
     const url = `${baseUrl}/maplestory/v1/character/skill?ocid=${ocid}&character_skill_grade=${grade}`;
     return url;
 }
+export const hexaStatUrl = (ocid: string) => {
+    // HEXA 스탯 정보
+    const url = `${baseUrl}/maplestory/v1/character/hexamatrix-stat?ocid=${ocid}`;
+    return url;
+}
 
 // notice
 export const noticeUrl = `${baseUrl}/maplestory/v1/notice`; // 공지

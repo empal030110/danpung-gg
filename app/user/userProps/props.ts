@@ -113,3 +113,12 @@ export interface skillProps {
   skill_level: number,
   skill_icon: string,
 }
+
+export interface hexaStatCoreProps {
+  main_stat_name: string | null,
+  main_stat_level: number,
+  sub_stat_name_1: string | null,
+  sub_stat_level_1: number,
+  sub_stat_name_2: string | null,
+  sub_stat_level_2: number,
+}
