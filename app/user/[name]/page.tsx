@@ -174,12 +174,20 @@ export default async function SearchPage({ params }: userNameProps) {
 	const hexaStatCore2: hexaStatCoreProps | undefined = userHexaStatData[0].character_hexa_stat_core_2?.[0];
 	const hexaStatCore3: hexaStatCoreProps | undefined = userHexaStatData[0].character_hexa_stat_core_3?.[0];
 
-	// 장착 링크 스킬
+	// 장착 링크 스킬 (API가 현재 프리셋 번호를 안 알려줘서, 실제 장착 중인 목록과 각 프리셋을 비교해서 몇 번인지 찾음)
 	const userLinkSkillUrl = linkSkillUrl(userOcid[0]['ocid']);
 	const userLinkSkillData = await ssrFetcher(userLinkSkillUrl);
+	const userLinkSkillEquipped: skillProps[] = userLinkSkillData[0].character_link_skill ?? [];
 	const userLinkSkillPreset1: skillProps[] = userLinkSkillData[0].character_link_skill_preset_1 ?? [];
 	const userLinkSkillPreset2: skillProps[] = userLinkSkillData[0].character_link_skill_preset_2 ?? [];
 	const userLinkSkillPreset3: skillProps[] = userLinkSkillData[0].character_link_skill_preset_3 ?? [];
+	const isSameLinkSkillSet = (preset: skillProps[]) =>
+		preset.length === userLinkSkillEquipped.length &&
+		preset.every((skill) => userLinkSkillEquipped.some((equipped) => equipped.skill_name === skill.skill_name));
+	const linkSkillPresetNo = isSameLinkSkillSet(userLinkSkillPreset1) ? 1
+		: isSameLinkSkillSet(userLinkSkillPreset2) ? 2
+		: isSameLinkSkillSet(userLinkSkillPreset3) ? 3
+		: 1;
 
     return (
         <div className="w-full h-auto pb-[40px]">
@@ -211,6 +219,7 @@ export default async function SearchPage({ params }: userNameProps) {
 				hexaStatCore1={hexaStatCore1}
 				hexaStatCore2={hexaStatCore2}
 				hexaStatCore3={hexaStatCore3}
+				linkSkillPresetNo={linkSkillPresetNo}
 				userLinkSkillPreset1={userLinkSkillPreset1}
 				userLinkSkillPreset2={userLinkSkillPreset2}
 				userLinkSkillPreset3={userLinkSkillPreset3}

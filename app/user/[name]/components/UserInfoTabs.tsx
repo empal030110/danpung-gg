@@ -42,6 +42,7 @@ interface UserInfoTabsProps {
     hexaStatCore1?: hexaStatCoreProps;
     hexaStatCore2?: hexaStatCoreProps;
     hexaStatCore3?: hexaStatCoreProps;
+    linkSkillPresetNo: presetNumberProps;
     userLinkSkillPreset1: skillProps[];
     userLinkSkillPreset2: skillProps[];
     userLinkSkillPreset3: skillProps[];
@@ -72,6 +73,7 @@ export default function UserItemTabs({
     hexaStatCore1,
     hexaStatCore2,
     hexaStatCore3,
+    linkSkillPresetNo,
     userLinkSkillPreset1,
     userLinkSkillPreset2,
     userLinkSkillPreset3,
@@ -159,7 +161,7 @@ export default function UserItemTabs({
                         {showSkill5 && <UserSkill skills={userSkills5} />}
                     </SidebarBox>
                     <SidebarBox className="px-[20px] flex-col items-start">
-                        <UserLinkSkill preset1={userLinkSkillPreset1} preset2={userLinkSkillPreset2} preset3={userLinkSkillPreset3} />
+                        <UserLinkSkill presetNumber={linkSkillPresetNo} preset1={userLinkSkillPreset1} preset2={userLinkSkillPreset2} preset3={userLinkSkillPreset3} />
                     </SidebarBox>
                 </div>
             )}

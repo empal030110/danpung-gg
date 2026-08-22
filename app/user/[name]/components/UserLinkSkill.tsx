@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { skillProps } from "../../userProps/props";
+import { presetNumberProps, skillProps } from "../../userProps/props";
 import PresetTabs from "@/components/PresetTabs";
 
-export default function UserLinkSkill({ preset1 = [], preset2 = [], preset3 = [] }: { preset1?: skillProps[]; preset2?: skillProps[]; preset3?: skillProps[]; }) {
-    const [selectedPreset, setSelectedPreset] = useState(1);
+export default function UserLinkSkill({ presetNumber = 0, preset1 = [], preset2 = [], preset3 = [] }: { presetNumber?: presetNumberProps; preset1?: skillProps[]; preset2?: skillProps[]; preset3?: skillProps[]; }) {
+    const [selectedPreset, setSelectedPreset] = useState(presetNumber !== 0 ? presetNumber : 1);
     const currentPreset = selectedPreset === 1 ? preset1 : selectedPreset === 2 ? preset2 : preset3;
 
     return (
