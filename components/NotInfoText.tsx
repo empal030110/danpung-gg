@@ -1,5 +1,5 @@
-export default function NotInfoText({ children }: { children: React.ReactNode }) {
+export default function NotInfoText({ children, center }: { children: React.ReactNode; center?: boolean }) {
     return (
-        <p className="text-[12px] text-neutral-500 dark:text-neutral-400">{children}</p>
+        <p className={`w-full text-[12px] text-neutral-500 dark:text-neutral-400 ${center ? 'text-center' : ''}`}>{children}</p>
     );
 }
