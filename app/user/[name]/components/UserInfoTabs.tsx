@@ -103,7 +103,7 @@ export default function UserItemTabs({
 
     return (
         <div className="w-full z-10">
-            <UserNavbar tabs={['장비', '스탯', '스킬', '유니온']} active={activeTab} onSelect={setActiveTab} />
+            <UserNavbar tabs={['장비', '스탯', '스킬', '유니온', '코디', '기타']} active={activeTab} onSelect={setActiveTab} />
             {activeTab === 0 ? (
                 <div className="flex gap-[16px] flex-col pc:flex-row">
                     <div className="flex flex-col flex-auto gap-[16px] w-full pc:max-w-[320px]">
@@ -188,7 +188,7 @@ export default function UserItemTabs({
                         <UserLinkSkill presetNumber={linkSkillPresetNo} preset1={userLinkSkillPreset1} preset2={userLinkSkillPreset2} preset3={userLinkSkillPreset3} />
                     </SidebarBox>
                 </div>
-            ) : (
+            ) : activeTab === 3 ? (
                 <div className="w-full flex flex-col gap-[16px]">
                     <SidebarBox className="px-[20px] flex-col items-start">
                         <UserUnion union={userUnion} />
@@ -201,6 +201,20 @@ export default function UserItemTabs({
                     </SidebarBox>
                     <SidebarBox className="px-[20px] flex-col items-start">
                         <UserUnionRaider raiderStats={userUnionRaiderStats} />
+                    </SidebarBox>
+                </div>
+            ) : activeTab === 4 ? (
+                <div className="w-full flex flex-col gap-[16px]">
+                    <SidebarBox className="px-[20px] flex-col items-start">
+                        <p className="font-bold mb-[8px]">코디</p>
+                        <p className="text-[12px] text-neutral-500 dark:text-neutral-400">준비 중</p>
+                    </SidebarBox>
+                </div>
+            ) : (
+                <div className="w-full flex flex-col gap-[16px]">
+                    <SidebarBox className="px-[20px] flex-col items-start">
+                        <p className="font-bold mb-[8px]">기타</p>
+                        <p className="text-[12px] text-neutral-500 dark:text-neutral-400">준비 중</p>
                     </SidebarBox>
                 </div>
             )}
