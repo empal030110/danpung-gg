@@ -1,5 +1,5 @@
-import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl, linkSkillUrl, unionUrl, unionChampionUrl } from "@/api/url/apiUrl";
-import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps, hexaStatCoreProps, userUnionProps, unionChampionProps } from "../userProps/props";
+import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl, linkSkillUrl, unionUrl, unionChampionUrl, unionArtifactUrl } from "@/api/url/apiUrl";
+import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps, hexaStatCoreProps, userUnionProps, unionChampionProps, unionArtifactEffectProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import UserHeader from "./components/UserHeader";
 import UserInfoTabs from "./components/UserInfoTabs";
@@ -209,6 +209,11 @@ export default async function SearchPage({ params }: userNameProps) {
 	}));
 	const userUnionChampionBadgeEffects: string[] = (userUnionChampionData[0].champion_badge_total_info ?? []).map((badge: { stat: string }) => badge.stat);
 
+	// 유니온 아티팩트
+	const userUnionArtifactUrl = unionArtifactUrl(userOcid[0]['ocid']);
+	const userUnionArtifactData = await ssrFetcher(userUnionArtifactUrl);
+	const userUnionArtifactEffects: unionArtifactEffectProps[] = userUnionArtifactData[0].union_artifact_effect ?? [];
+
     return (
         <div className="w-full h-auto pb-[40px]">
 			<div className="w-full px-[20px] py-[32px]">
@@ -246,6 +251,7 @@ export default async function SearchPage({ params }: userNameProps) {
 				userUnion={userUnion}
 				userUnionChampions={userUnionChampions}
 				userUnionChampionBadgeEffects={userUnionChampionBadgeEffects}
+				userUnionArtifactEffects={userUnionArtifactEffects}
 			/>
         </div>
     );

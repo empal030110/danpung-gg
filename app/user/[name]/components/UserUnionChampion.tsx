@@ -1,6 +1,6 @@
-import { unionChampionProps } from "../../userProps/props";
+import { unionArtifactEffectProps, unionChampionProps } from "../../userProps/props";
 
-export default function UserUnionChampion({ champions = [], badgeEffects = [] }: { champions?: unionChampionProps[]; badgeEffects?: string[] }) {
+export default function UserUnionChampion({ champions = [], badgeEffects = [], artifactEffects = [] }: { champions?: unionChampionProps[]; badgeEffects?: string[]; artifactEffects?: unionArtifactEffectProps[] }) {
     return (
         <div className="w-full flex flex-col pc:flex-row gap-[24px]">
             <div className="flex flex-col gap-[12px]">
@@ -16,6 +16,14 @@ export default function UserUnionChampion({ champions = [], badgeEffects = [] }:
                 <ul className="flex flex-col gap-[4px] text-[14px] list-disc pl-[16px]">
                     {badgeEffects.map((effect, idx) => (
                         <li key={idx}>{effect}</li>
+                    ))}
+                </ul>
+            </div>
+            <div>
+                <p className="font-bold mb-[8px]">아티팩트 효과</p>
+                <ul className="flex flex-col gap-[4px] text-[14px] list-disc pl-[16px]">
+                    {artifactEffects.map((effect, idx) => (
+                        <li key={idx}>Lv.{effect.level} {effect.name}</li>
                     ))}
                 </ul>
             </div>

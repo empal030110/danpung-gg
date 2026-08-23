@@ -135,3 +135,8 @@ export interface unionChampionProps {
   champion_class: string,
   champion_grade: string,
 }
+
+export interface unionArtifactEffectProps {
+  name: string,
+  level: number,
+}
