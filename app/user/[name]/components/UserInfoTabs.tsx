@@ -14,8 +14,9 @@ import UserSkill from "./UserSkill";
 import UserHexaStat from "./UserHexaStat";
 import UserLinkSkill from "./UserLinkSkill";
 import UserUnion from "./UserUnion";
+import UserUnionChampion from "./UserUnionChampion";
 import SidebarBox from "@/components/SidebarBox";
-import { abilityProps, androidProps, hexaStatCoreProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, userSetProps, userStatProps, userUnionProps } from "../../userProps/props";
+import { abilityProps, androidProps, hexaStatCoreProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, unionChampionProps, userSetProps, userStatProps, userUnionProps } from "../../userProps/props";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import NotInfoText from "@/components/NotInfoText";
 
@@ -49,6 +50,8 @@ interface UserInfoTabsProps {
     userLinkSkillPreset2: skillProps[];
     userLinkSkillPreset3: skillProps[];
     userUnion: userUnionProps;
+    userUnionChampions: unionChampionProps[];
+    userUnionChampionBadgeEffects: string[];
 }
 
 export default function UserItemTabs({
@@ -81,6 +84,8 @@ export default function UserItemTabs({
     userLinkSkillPreset2,
     userLinkSkillPreset3,
     userUnion,
+    userUnionChampions,
+    userUnionChampionBadgeEffects,
 }: UserInfoTabsProps) {
     const [activeTab, setActiveTab] = useState(0);
     const [showSkill6, setShowSkill6] = useState(true);
@@ -177,6 +182,9 @@ export default function UserItemTabs({
                 <div className="w-full flex flex-col gap-[16px]">
                     <SidebarBox className="px-[20px] flex-col items-start">
                         <UserUnion union={userUnion} />
+                    </SidebarBox>
+                    <SidebarBox className="px-[20px] flex-col items-start">
+                        <UserUnionChampion champions={userUnionChampions} badgeEffects={userUnionChampionBadgeEffects} />
                     </SidebarBox>
                 </div>
             )}

@@ -128,3 +128,10 @@ export interface userUnionProps {
   union_grade: string,
   union_artifact_level: number,
 }
+
+export interface unionChampionProps {
+  champion_slot: number,
+  champion_name: string,
+  champion_class: string,
+  champion_grade: string,
+}

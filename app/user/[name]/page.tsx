@@ -1,5 +1,5 @@
-import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl, linkSkillUrl, unionUrl } from "@/api/url/apiUrl";
-import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps, hexaStatCoreProps, userUnionProps } from "../userProps/props";
+import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl, linkSkillUrl, unionUrl, unionChampionUrl } from "@/api/url/apiUrl";
+import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps, hexaStatCoreProps, userUnionProps, unionChampionProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import UserHeader from "./components/UserHeader";
 import UserInfoTabs from "./components/UserInfoTabs";
@@ -198,6 +198,17 @@ export default async function SearchPage({ params }: userNameProps) {
 		union_artifact_level: userUnionData[0].union_artifact_level,
 	};
 
+	// 유니온 챔피언
+	const userUnionChampionUrl = unionChampionUrl(userOcid[0]['ocid']);
+	const userUnionChampionData = await ssrFetcher(userUnionChampionUrl);
+	const userUnionChampions: unionChampionProps[] = (userUnionChampionData[0].union_champion ?? []).map((champion: unionChampionProps) => ({
+		champion_slot: champion.champion_slot,
+		champion_name: champion.champion_name,
+		champion_class: champion.champion_class,
+		champion_grade: champion.champion_grade,
+	}));
+	const userUnionChampionBadgeEffects: string[] = (userUnionChampionData[0].champion_badge_total_info ?? []).map((badge: { stat: string }) => badge.stat);
+
     return (
         <div className="w-full h-auto pb-[40px]">
 			<div className="w-full px-[20px] py-[32px]">
@@ -233,6 +244,8 @@ export default async function SearchPage({ params }: userNameProps) {
 				userLinkSkillPreset2={userLinkSkillPreset2}
 				userLinkSkillPreset3={userLinkSkillPreset3}
 				userUnion={userUnion}
+				userUnionChampions={userUnionChampions}
+				userUnionChampionBadgeEffects={userUnionChampionBadgeEffects}
 			/>
         </div>
     );
