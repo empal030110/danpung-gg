@@ -29,7 +29,7 @@ export default function UserUnionStateStat({ presetNumber = 1, presets = [] }: {
 
     return (
         <div className="w-full">
-            <p className="font-bold mb-[8px]">유니온 선택 효과</p>
+            <p className="font-bold mb-[8px]">유니온</p>
             <div className="grid grid-cols-5 gap-[8px] mb-[16px]">
                 {presets.map((preset) => {
                     // 프리셋 자체는 항상 10개가 내려오지만, 캐릭터가 아직 만들지 않은 프리셋은 union_state_stat이 빈 배열로 옴 -> 선택 자체를 막음
@@ -54,12 +54,19 @@ export default function UserUnionStateStat({ presetNumber = 1, presets = [] }: {
                 })}
             </div>
             <div className="grid grid-cols-2 pc:grid-cols-4 gap-[8px]">
-                {STAT_ROWS.flat().map(([label, keyword]) => (
-                    <div key={label} className="border border-neutral-400 rounded-[8px] p-[12px] flex flex-col items-center gap-[4px]">
-                        <p className="text-[12px] text-neutral-500 dark:text-neutral-400">{label}</p>
-                        <p className="text-[16px] font-bold">{getStatValue(currentStats, keyword)}</p>
-                    </div>
-                ))}
+                {STAT_ROWS.flat().map(([label, keyword]) => {
+                    const value = getStatValue(currentStats, keyword);
+                    const hasValue = value !== '+0'; // 투자된 스탯만 강조
+                    return (
+                        <div
+                            key={label}
+                            className={`border rounded-[8px] p-[12px] flex flex-col items-center gap-[4px] ${hasValue ? 'border-black dark:border-white' : 'border-neutral-300 dark:border-neutral-700'}`}
+                        >
+                            <p className="text-[12px] text-neutral-500 dark:text-neutral-400">{label}</p>
+                            <p className="text-[16px] font-bold">{value}</p>
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );
