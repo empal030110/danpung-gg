@@ -2,13 +2,13 @@
 
 export default function UserNavbar({ tabs, active, onSelect }: { tabs: string[]; active: number; onSelect: (index: number) => void }) {
     return (
-        <div className="relative flex gap-[16px] mb-[16px] z-10">
+        <div className="relative flex gap-[16px] mb-[16px] z-10 overflow-x-auto scrollbar-hide">
             {tabs.map((label, index) => (
                 <button
                     key={label}
                     type="button"
                     onClick={() => onSelect(index)}
-                    className={`text-[20px] cursor-pointer ${active === index ? 'font-bold text-black dark:text-white' : 'text-neutral-500 dark:text-neutral-400'}`}
+                    className={`shrink-0 whitespace-nowrap text-[20px] cursor-pointer ${active === index ? 'font-bold text-black dark:text-white' : 'text-neutral-500 dark:text-neutral-400'}`}
                 >
                     {label}
                 </button>
