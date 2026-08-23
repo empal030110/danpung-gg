@@ -1,4 +1,4 @@
-import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl, linkSkillUrl, unionUrl, unionChampionUrl, unionArtifactUrl } from "@/api/url/apiUrl";
+import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl, linkSkillUrl, unionUrl, unionChampionUrl, unionArtifactUrl, unionRaiderUrl } from "@/api/url/apiUrl";
 import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps, hexaStatCoreProps, userUnionProps, unionChampionProps, unionArtifactEffectProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import UserHeader from "./components/UserHeader";
@@ -214,6 +214,11 @@ export default async function SearchPage({ params }: userNameProps) {
 	const userUnionArtifactData = await ssrFetcher(userUnionArtifactUrl);
 	const userUnionArtifactEffects: unionArtifactEffectProps[] = userUnionArtifactData[0].union_artifact_effect ?? [];
 
+	// 유니온 공격대원 효과
+	const userUnionRaiderUrl = unionRaiderUrl(userOcid[0]['ocid']);
+	const userUnionRaiderData = await ssrFetcher(userUnionRaiderUrl);
+	const userUnionRaiderStats: string[] = userUnionRaiderData[0].union_raider_stat ?? [];
+
     return (
         <div className="w-full h-auto pb-[40px]">
 			<div className="w-full px-[20px] py-[32px]">
@@ -252,6 +257,7 @@ export default async function SearchPage({ params }: userNameProps) {
 				userUnionChampions={userUnionChampions}
 				userUnionChampionBadgeEffects={userUnionChampionBadgeEffects}
 				userUnionArtifactEffects={userUnionArtifactEffects}
+				userUnionRaiderStats={userUnionRaiderStats}
 			/>
         </div>
     );

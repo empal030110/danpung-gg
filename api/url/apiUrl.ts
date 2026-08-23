@@ -45,6 +45,11 @@ export const unionArtifactUrl = (ocid: string) => {
     const url = `${baseUrl}/maplestory/v1/user/union-artifact?ocid=${ocid}`;
     return url;
 };
+export const unionRaiderUrl = (ocid: string) => {
+    // 유니온 공격대 정보
+    const url = `${baseUrl}/maplestory/v1/user/union-raider?ocid=${ocid}`;
+    return url;
+};
 export const statUrl = (ocid: string) => {
     // 유저 스탯 정보
     const url = `${baseUrl}/maplestory/v1/character/stat?ocid=${ocid}`;
