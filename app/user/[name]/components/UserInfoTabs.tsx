@@ -16,8 +16,9 @@ import UserLinkSkill from "./UserLinkSkill";
 import UserUnion from "./UserUnion";
 import UserUnionChampion from "./UserUnionChampion";
 import UserUnionRaider from "./UserUnionRaider";
+import UserUnionStateStat from "./UserUnionStateStat";
 import SidebarBox from "@/components/SidebarBox";
-import { abilityProps, androidProps, hexaStatCoreProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, unionArtifactEffectProps, unionChampionProps, userSetProps, userStatProps, userUnionProps } from "../../userProps/props";
+import { abilityProps, androidProps, hexaStatCoreProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, unionArtifactEffectProps, unionChampionProps, unionStateStatPresetProps, userSetProps, userStatProps, userUnionProps } from "../../userProps/props";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import NotInfoText from "@/components/NotInfoText";
 
@@ -55,6 +56,8 @@ interface UserInfoTabsProps {
     userUnionChampionBadgeEffects: string[];
     userUnionArtifactEffects: unionArtifactEffectProps[];
     userUnionRaiderStats: string[];
+    unionStateStatPresetNo: number;
+    unionStateStatPresets: unionStateStatPresetProps[];
 }
 
 export default function UserItemTabs({
@@ -91,6 +94,8 @@ export default function UserItemTabs({
     userUnionChampionBadgeEffects,
     userUnionArtifactEffects,
     userUnionRaiderStats,
+    unionStateStatPresetNo,
+    unionStateStatPresets,
 }: UserInfoTabsProps) {
     const [activeTab, setActiveTab] = useState(0);
     const [showSkill6, setShowSkill6] = useState(true);
@@ -190,6 +195,9 @@ export default function UserItemTabs({
                     </SidebarBox>
                     <SidebarBox className="px-[20px] flex-col items-start">
                         <UserUnionChampion champions={userUnionChampions} badgeEffects={userUnionChampionBadgeEffects} artifactEffects={userUnionArtifactEffects} />
+                    </SidebarBox>
+                    <SidebarBox className="px-[20px] flex-col items-start">
+                        <UserUnionStateStat presetNumber={unionStateStatPresetNo} presets={unionStateStatPresets} />
                     </SidebarBox>
                     <SidebarBox className="px-[20px] flex-col items-start">
                         <UserUnionRaider raiderStats={userUnionRaiderStats} />

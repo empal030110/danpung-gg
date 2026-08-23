@@ -140,3 +140,8 @@ export interface unionArtifactEffectProps {
   name: string,
   level: number,
 }
+
+export interface unionStateStatPresetProps {
+  preset_no: number,
+  union_state_stat: string[],
+}

@@ -1,5 +1,5 @@
 import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl, linkSkillUrl, unionUrl, unionChampionUrl, unionArtifactUrl, unionRaiderUrl } from "@/api/url/apiUrl";
-import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps, hexaStatCoreProps, userUnionProps, unionChampionProps, unionArtifactEffectProps } from "../userProps/props";
+import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps, hexaStatCoreProps, userUnionProps, unionChampionProps, unionArtifactEffectProps, unionStateStatPresetProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import UserHeader from "./components/UserHeader";
 import UserInfoTabs from "./components/UserInfoTabs";
@@ -218,6 +218,8 @@ export default async function SearchPage({ params }: userNameProps) {
 	const userUnionRaiderUrl = unionRaiderUrl(userOcid[0]['ocid']);
 	const userUnionRaiderData = await ssrFetcher(userUnionRaiderUrl);
 	const userUnionRaiderStats: string[] = userUnionRaiderData[0].union_raider_stat ?? [];
+	const unionStateStatPresetNo: number = userUnionRaiderData[0].use_preset_no ?? 1;
+	const unionStateStatPresets: unionStateStatPresetProps[] = userUnionRaiderData[0].union_state_stat_preset ?? [];
 
     return (
         <div className="w-full h-auto pb-[40px]">
@@ -258,6 +260,8 @@ export default async function SearchPage({ params }: userNameProps) {
 				userUnionChampionBadgeEffects={userUnionChampionBadgeEffects}
 				userUnionArtifactEffects={userUnionArtifactEffects}
 				userUnionRaiderStats={userUnionRaiderStats}
+				unionStateStatPresetNo={unionStateStatPresetNo}
+				unionStateStatPresets={unionStateStatPresets}
 			/>
         </div>
     );
