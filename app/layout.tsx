@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Link from "next/link";
 import { Analytics } from "@vercel/analytics/next"
+import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -84,6 +85,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#171717] text-black dark:text-white overflow-x-hidden`}>
         <div className="w-full max-w-[940px] m-auto px-[20px] pc:px-0">
           <Header />
+          <ServiceWorkerRegister />
           {children}
           <div className="w-full py-[24px] mt-[40px] border-t border-neutral-600 flex flex-col items-center gap-[8px] text-center text-[12px] text-neutral-500 dark:text-neutral-400">
             <p>본 서비스는 NEXON Open API를 이용하여 제작되었으며, 넥슨 및 메이플스토리와 공식적으로 제휴되어 있지 않습니다.</p>
