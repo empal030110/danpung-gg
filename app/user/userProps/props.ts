@@ -152,3 +152,9 @@ export interface cashItemProps {
   cash_item_name: string,
   cash_item_icon: string,
 }
+
+export interface achievementRankProps {
+  ranking: number,
+  trophy_score: number,
+  trophy_grade: string,
+}

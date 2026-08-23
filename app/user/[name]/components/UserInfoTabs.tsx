@@ -19,8 +19,9 @@ import UserUnionRaider from "./UserUnionRaider";
 import UserUnionStateStat from "./UserUnionStateStat";
 import UserCodi from "./UserCodi";
 import UserCodiPreset from "./UserCodiPreset";
+import UserAchievement from "./UserAchievement";
 import SidebarBox from "@/components/SidebarBox";
-import { abilityProps, androidProps, cashItemProps, hexaStatCoreProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, unionArtifactEffectProps, unionChampionProps, unionStateStatPresetProps, userSetProps, userStatProps, userUnionProps } from "../../userProps/props";
+import { abilityProps, achievementRankProps, androidProps, cashItemProps, hexaStatCoreProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, unionArtifactEffectProps, unionChampionProps, unionStateStatPresetProps, userSetProps, userStatProps, userUnionProps } from "../../userProps/props";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import NotInfoText from "@/components/NotInfoText";
 
@@ -65,6 +66,7 @@ interface UserInfoTabsProps {
     userCodiPreset1: cashItemProps[];
     userCodiPreset2: cashItemProps[];
     userCodiPreset3: cashItemProps[];
+    userAchievement?: achievementRankProps;
 }
 
 export default function UserItemTabs({
@@ -108,6 +110,7 @@ export default function UserItemTabs({
     userCodiPreset1,
     userCodiPreset2,
     userCodiPreset3,
+    userAchievement,
 }: UserInfoTabsProps) {
     const [activeTab, setActiveTab] = useState(0);
     const [showSkill6, setShowSkill6] = useState(true);
@@ -228,8 +231,8 @@ export default function UserItemTabs({
             ) : (
                 <div className="w-full flex flex-col gap-[16px]">
                     <SidebarBox className="px-[20px] flex-col items-start">
-                        <p className="font-bold mb-[8px]">기타</p>
-                        <p className="text-[12px] text-neutral-500 dark:text-neutral-400">준비 중</p>
+                        <p className="w-full font-bold mb-[8px] text-center">업적</p>
+                        <UserAchievement achievement={userAchievement} />
                     </SidebarBox>
                 </div>
             )}
