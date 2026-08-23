@@ -29,7 +29,7 @@ function CodiCell({ slot, item }: { slot: string; item?: cashItemProps }) {
     );
 }
 
-export default function UserCodi({ items = [] }: { items?: cashItemProps[] }) {
+export function CodiGrid({ items = [] }: { items?: cashItemProps[] }) {
     const findItem = (slot: string) => items.find((cashItem) => cashItem.cash_item_equipment_slot === slot);
 
     return (
@@ -39,11 +39,15 @@ export default function UserCodi({ items = [] }: { items?: cashItemProps[] }) {
                     <CodiCell key={slot} slot={slot} item={findItem(slot)} />
                 ))}
             </div>
-            <div className="grid grid-cols-4 gap-[8px]">
+            <div className="grid grid-cols-2 pc:grid-cols-4 gap-[8px]">
                 {RING_SLOTS.map((slot) => (
                     <CodiCell key={slot} slot={slot} item={findItem(slot)} />
                 ))}
             </div>
         </div>
     );
+}
+
+export default function UserCodi({ items = [] }: { items?: cashItemProps[] }) {
+    return <CodiGrid items={items} />;
 }

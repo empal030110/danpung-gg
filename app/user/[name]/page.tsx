@@ -221,10 +221,14 @@ export default async function SearchPage({ params }: userNameProps) {
 	const unionStateStatPresetNo: number = userUnionRaiderData[0].use_preset_no ?? 1;
 	const unionStateStatPresets: unionStateStatPresetProps[] = userUnionRaiderData[0].union_state_stat_preset ?? [];
 
-	// 장착 코디 (기본 코디만 우선)
+	// 장착 코디
 	const userCashItemUrl = cashItemEquipmentUrl(userOcid[0]['ocid']);
 	const userCashItemData = await ssrFetcher(userCashItemUrl);
 	const userCodiItems: cashItemProps[] = userCashItemData[0].cash_item_equipment_base ?? [];
+	const codiPresetNo: number = userCashItemData[0].preset_no ?? 1;
+	const userCodiPreset1: cashItemProps[] = userCashItemData[0].cash_item_equipment_preset_1 ?? [];
+	const userCodiPreset2: cashItemProps[] = userCashItemData[0].cash_item_equipment_preset_2 ?? [];
+	const userCodiPreset3: cashItemProps[] = userCashItemData[0].cash_item_equipment_preset_3 ?? [];
 
     return (
         <div className="w-full h-auto pb-[40px]">
@@ -268,6 +272,10 @@ export default async function SearchPage({ params }: userNameProps) {
 				unionStateStatPresetNo={unionStateStatPresetNo}
 				unionStateStatPresets={unionStateStatPresets}
 				userCodiItems={userCodiItems}
+				codiPresetNo={codiPresetNo}
+				userCodiPreset1={userCodiPreset1}
+				userCodiPreset2={userCodiPreset2}
+				userCodiPreset3={userCodiPreset3}
 			/>
         </div>
     );

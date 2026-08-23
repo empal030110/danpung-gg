@@ -18,6 +18,7 @@ import UserUnionChampion from "./UserUnionChampion";
 import UserUnionRaider from "./UserUnionRaider";
 import UserUnionStateStat from "./UserUnionStateStat";
 import UserCodi from "./UserCodi";
+import UserCodiPreset from "./UserCodiPreset";
 import SidebarBox from "@/components/SidebarBox";
 import { abilityProps, androidProps, cashItemProps, hexaStatCoreProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, unionArtifactEffectProps, unionChampionProps, unionStateStatPresetProps, userSetProps, userStatProps, userUnionProps } from "../../userProps/props";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
@@ -60,6 +61,10 @@ interface UserInfoTabsProps {
     unionStateStatPresetNo: number;
     unionStateStatPresets: unionStateStatPresetProps[];
     userCodiItems: cashItemProps[];
+    codiPresetNo: presetNumberProps;
+    userCodiPreset1: cashItemProps[];
+    userCodiPreset2: cashItemProps[];
+    userCodiPreset3: cashItemProps[];
 }
 
 export default function UserItemTabs({
@@ -99,6 +104,10 @@ export default function UserItemTabs({
     unionStateStatPresetNo,
     unionStateStatPresets,
     userCodiItems,
+    codiPresetNo,
+    userCodiPreset1,
+    userCodiPreset2,
+    userCodiPreset3,
 }: UserInfoTabsProps) {
     const [activeTab, setActiveTab] = useState(0);
     const [showSkill6, setShowSkill6] = useState(true);
@@ -211,6 +220,9 @@ export default function UserItemTabs({
                     <SidebarBox className="px-[20px] flex-col items-start">
                         <p className="font-bold mb-[8px]">기본 코디</p>
                         <UserCodi items={userCodiItems} />
+                    </SidebarBox>
+                    <SidebarBox className="px-[20px] flex-col items-start">
+                        <UserCodiPreset presetNumber={codiPresetNo} preset1={userCodiPreset1} preset2={userCodiPreset2} preset3={userCodiPreset3} />
                     </SidebarBox>
                 </div>
             ) : (
