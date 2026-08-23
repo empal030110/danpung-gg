@@ -50,6 +50,11 @@ export const unionRaiderUrl = (ocid: string) => {
     const url = `${baseUrl}/maplestory/v1/user/union-raider?ocid=${ocid}`;
     return url;
 };
+export const cashItemEquipmentUrl = (ocid: string) => {
+    // 장착 코디 정보
+    const url = `${baseUrl}/maplestory/v1/character/cashitem-equipment?ocid=${ocid}`;
+    return url;
+};
 export const statUrl = (ocid: string) => {
     // 유저 스탯 정보
     const url = `${baseUrl}/maplestory/v1/character/stat?ocid=${ocid}`;

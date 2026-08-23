@@ -1,5 +1,5 @@
-import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl, linkSkillUrl, unionUrl, unionChampionUrl, unionArtifactUrl, unionRaiderUrl } from "@/api/url/apiUrl";
-import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps, hexaStatCoreProps, userUnionProps, unionChampionProps, unionArtifactEffectProps, unionStateStatPresetProps } from "../userProps/props";
+import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl, linkSkillUrl, unionUrl, unionChampionUrl, unionArtifactUrl, unionRaiderUrl, cashItemEquipmentUrl } from "@/api/url/apiUrl";
+import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps, hexaStatCoreProps, userUnionProps, unionChampionProps, unionArtifactEffectProps, unionStateStatPresetProps, cashItemProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import UserHeader from "./components/UserHeader";
 import UserInfoTabs from "./components/UserInfoTabs";
@@ -221,6 +221,11 @@ export default async function SearchPage({ params }: userNameProps) {
 	const unionStateStatPresetNo: number = userUnionRaiderData[0].use_preset_no ?? 1;
 	const unionStateStatPresets: unionStateStatPresetProps[] = userUnionRaiderData[0].union_state_stat_preset ?? [];
 
+	// 장착 코디 (기본 코디만 우선)
+	const userCashItemUrl = cashItemEquipmentUrl(userOcid[0]['ocid']);
+	const userCashItemData = await ssrFetcher(userCashItemUrl);
+	const userCodiItems: cashItemProps[] = userCashItemData[0].cash_item_equipment_base ?? [];
+
     return (
         <div className="w-full h-auto pb-[40px]">
 			<div className="w-full px-[20px] py-[32px]">
@@ -262,6 +267,7 @@ export default async function SearchPage({ params }: userNameProps) {
 				userUnionRaiderStats={userUnionRaiderStats}
 				unionStateStatPresetNo={unionStateStatPresetNo}
 				unionStateStatPresets={unionStateStatPresets}
+				userCodiItems={userCodiItems}
 			/>
         </div>
     );

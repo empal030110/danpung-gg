@@ -145,3 +145,10 @@ export interface unionStateStatPresetProps {
   preset_no: number,
   union_state_stat: string[],
 }
+
+export interface cashItemProps {
+  cash_item_equipment_part: string,
+  cash_item_equipment_slot: string,
+  cash_item_name: string,
+  cash_item_icon: string,
+}

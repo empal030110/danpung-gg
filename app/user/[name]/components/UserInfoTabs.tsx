@@ -17,8 +17,9 @@ import UserUnion from "./UserUnion";
 import UserUnionChampion from "./UserUnionChampion";
 import UserUnionRaider from "./UserUnionRaider";
 import UserUnionStateStat from "./UserUnionStateStat";
+import UserCodi from "./UserCodi";
 import SidebarBox from "@/components/SidebarBox";
-import { abilityProps, androidProps, hexaStatCoreProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, unionArtifactEffectProps, unionChampionProps, unionStateStatPresetProps, userSetProps, userStatProps, userUnionProps } from "../../userProps/props";
+import { abilityProps, androidProps, cashItemProps, hexaStatCoreProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, unionArtifactEffectProps, unionChampionProps, unionStateStatPresetProps, userSetProps, userStatProps, userUnionProps } from "../../userProps/props";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import NotInfoText from "@/components/NotInfoText";
 
@@ -58,6 +59,7 @@ interface UserInfoTabsProps {
     userUnionRaiderStats: string[];
     unionStateStatPresetNo: number;
     unionStateStatPresets: unionStateStatPresetProps[];
+    userCodiItems: cashItemProps[];
 }
 
 export default function UserItemTabs({
@@ -96,6 +98,7 @@ export default function UserItemTabs({
     userUnionRaiderStats,
     unionStateStatPresetNo,
     unionStateStatPresets,
+    userCodiItems,
 }: UserInfoTabsProps) {
     const [activeTab, setActiveTab] = useState(0);
     const [showSkill6, setShowSkill6] = useState(true);
@@ -206,8 +209,8 @@ export default function UserItemTabs({
             ) : activeTab === 4 ? (
                 <div className="w-full flex flex-col gap-[16px]">
                     <SidebarBox className="px-[20px] flex-col items-start">
-                        <p className="font-bold mb-[8px]">코디</p>
-                        <p className="text-[12px] text-neutral-500 dark:text-neutral-400">준비 중</p>
+                        <p className="font-bold mb-[8px]">기본 코디</p>
+                        <UserCodi items={userCodiItems} />
                     </SidebarBox>
                 </div>
             ) : (
