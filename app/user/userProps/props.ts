@@ -158,3 +158,9 @@ export interface achievementRankProps {
   trophy_score: number,
   trophy_grade: string,
 }
+
+export interface dojangRankProps {
+  ranking: number,
+  dojang_floor: number,
+  dojang_time_record: number,
+}

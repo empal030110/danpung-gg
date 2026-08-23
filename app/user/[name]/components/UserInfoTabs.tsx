@@ -20,8 +20,9 @@ import UserUnionStateStat from "./UserUnionStateStat";
 import UserCodi from "./UserCodi";
 import UserCodiPreset from "./UserCodiPreset";
 import UserAchievement from "./UserAchievement";
+import UserDojang from "./UserDojang";
 import SidebarBox from "@/components/SidebarBox";
-import { abilityProps, achievementRankProps, androidProps, cashItemProps, hexaStatCoreProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, unionArtifactEffectProps, unionChampionProps, unionStateStatPresetProps, userSetProps, userStatProps, userUnionProps } from "../../userProps/props";
+import { abilityProps, achievementRankProps, androidProps, cashItemProps, dojangRankProps, hexaStatCoreProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, unionArtifactEffectProps, unionChampionProps, unionStateStatPresetProps, userSetProps, userStatProps, userUnionProps } from "../../userProps/props";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import NotInfoText from "@/components/NotInfoText";
 
@@ -67,6 +68,7 @@ interface UserInfoTabsProps {
     userCodiPreset2: cashItemProps[];
     userCodiPreset3: cashItemProps[];
     userAchievement?: achievementRankProps;
+    userDojang?: dojangRankProps;
 }
 
 export default function UserItemTabs({
@@ -111,6 +113,7 @@ export default function UserItemTabs({
     userCodiPreset2,
     userCodiPreset3,
     userAchievement,
+    userDojang,
 }: UserInfoTabsProps) {
     const [activeTab, setActiveTab] = useState(0);
     const [showSkill6, setShowSkill6] = useState(true);
@@ -233,6 +236,10 @@ export default function UserItemTabs({
                     <SidebarBox className="px-[20px] flex-col items-start">
                         <p className="w-full font-bold mb-[8px] text-center">업적</p>
                         <UserAchievement achievement={userAchievement} />
+                    </SidebarBox>
+                    <SidebarBox className="px-[20px] flex-col items-start">
+                        <p className="w-full font-bold mb-[8px] text-center">무릉도장</p>
+                        <UserDojang dojang={userDojang} />
                     </SidebarBox>
                 </div>
             )}

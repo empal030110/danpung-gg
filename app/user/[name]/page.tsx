@@ -1,5 +1,5 @@
-import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl, linkSkillUrl, unionUrl, unionChampionUrl, unionArtifactUrl, unionRaiderUrl, cashItemEquipmentUrl, achievementUrl } from "@/api/url/apiUrl";
-import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps, hexaStatCoreProps, userUnionProps, unionChampionProps, unionArtifactEffectProps, unionStateStatPresetProps, cashItemProps, achievementRankProps } from "../userProps/props";
+import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl, linkSkillUrl, unionUrl, unionChampionUrl, unionArtifactUrl, unionRaiderUrl, cashItemEquipmentUrl, achievementUrl, dojangUrl } from "@/api/url/apiUrl";
+import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps, hexaStatCoreProps, userUnionProps, unionChampionProps, unionArtifactEffectProps, unionStateStatPresetProps, cashItemProps, achievementRankProps, dojangRankProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import ssrRankingFetcher from "@/api/ssrRankingFetcher";
 import UserHeader from "./components/UserHeader";
@@ -235,6 +235,10 @@ export default async function SearchPage({ params }: userNameProps) {
 	const userAchievementData = await ssrRankingFetcher((date) => achievementUrl(date, userOcid[0]['ocid']));
 	const userAchievement: achievementRankProps | undefined = userAchievementData[0].ranking[0];
 
+	// 무릉도장 (당일 데이터가 아직 집계 전이면 전날 데이터로 재시도)
+	const userDojangData = await ssrRankingFetcher((date) => dojangUrl(date, userOcid[0]['ocid']));
+	const userDojang: dojangRankProps | undefined = userDojangData[0].ranking[0];
+
     return (
         <div className="w-full h-auto pb-[40px]">
 			<div className="w-full px-[20px] py-[32px]">
@@ -282,6 +286,7 @@ export default async function SearchPage({ params }: userNameProps) {
 				userCodiPreset2={userCodiPreset2}
 				userCodiPreset3={userCodiPreset3}
 				userAchievement={userAchievement}
+				userDojang={userDojang}
 			/>
         </div>
     );

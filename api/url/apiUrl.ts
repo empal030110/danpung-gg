@@ -1,7 +1,7 @@
 const baseUrl = 'https://open.api.nexon.com';
 
 // rank (당일 데이터가 아직 집계 전일 수 있어 date를 인자로 받아 호출부에서 재시도 가능하게 함)
-export const dojangUrl = (date: string) => `${baseUrl}/maplestory/v1/ranking/dojang?date=${date}&difficulty=1`; // 무릉도장
+export const dojangUrl = (date: string, ocid?: string) => `${baseUrl}/maplestory/v1/ranking/dojang?date=${date}&difficulty=1${ocid ? `&ocid=${ocid}` : ''}`; // 무릉도장 (ocid를 주면 해당 캐릭터만 조회)
 export const theseedUrl = (date: string) => `${baseUrl}/maplestory/v1/ranking/theseed?date=${date}`; // 더시드
 export const achievementUrl = (date: string, ocid?: string) => `${baseUrl}/maplestory/v1/ranking/achievement?date=${date}${ocid ? `&ocid=${ocid}` : ''}`; // 업적 (ocid를 주면 해당 캐릭터만 조회)
 
