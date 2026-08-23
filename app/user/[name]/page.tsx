@@ -1,5 +1,5 @@
-import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl, linkSkillUrl } from "@/api/url/apiUrl";
-import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps, hexaStatCoreProps } from "../userProps/props";
+import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl, linkSkillUrl, unionUrl } from "@/api/url/apiUrl";
+import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps, hexaStatCoreProps, userUnionProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import UserHeader from "./components/UserHeader";
 import UserInfoTabs from "./components/UserInfoTabs";
@@ -189,6 +189,15 @@ export default async function SearchPage({ params }: userNameProps) {
 		: isSameLinkSkillSet(userLinkSkillPreset3) ? 3
 		: 1;
 
+	// 유니온
+	const userUnionUrl = unionUrl(userOcid[0]['ocid']);
+	const userUnionData = await ssrFetcher(userUnionUrl);
+	const userUnion: userUnionProps = {
+		union_level: userUnionData[0].union_level,
+		union_grade: userUnionData[0].union_grade,
+		union_artifact_level: userUnionData[0].union_artifact_level,
+	};
+
     return (
         <div className="w-full h-auto pb-[40px]">
 			<div className="w-full px-[20px] py-[32px]">
@@ -223,6 +232,7 @@ export default async function SearchPage({ params }: userNameProps) {
 				userLinkSkillPreset1={userLinkSkillPreset1}
 				userLinkSkillPreset2={userLinkSkillPreset2}
 				userLinkSkillPreset3={userLinkSkillPreset3}
+				userUnion={userUnion}
 			/>
         </div>
     );

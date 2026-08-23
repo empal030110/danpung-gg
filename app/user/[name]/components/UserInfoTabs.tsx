@@ -13,8 +13,9 @@ import UserDetailStat from "./UserDetailStat";
 import UserSkill from "./UserSkill";
 import UserHexaStat from "./UserHexaStat";
 import UserLinkSkill from "./UserLinkSkill";
+import UserUnion from "./UserUnion";
 import SidebarBox from "@/components/SidebarBox";
-import { abilityProps, androidProps, hexaStatCoreProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, userSetProps, userStatProps } from "../../userProps/props";
+import { abilityProps, androidProps, hexaStatCoreProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, userSetProps, userStatProps, userUnionProps } from "../../userProps/props";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import NotInfoText from "@/components/NotInfoText";
 
@@ -47,6 +48,7 @@ interface UserInfoTabsProps {
     userLinkSkillPreset1: skillProps[];
     userLinkSkillPreset2: skillProps[];
     userLinkSkillPreset3: skillProps[];
+    userUnion: userUnionProps;
 }
 
 export default function UserItemTabs({
@@ -78,6 +80,7 @@ export default function UserItemTabs({
     userLinkSkillPreset1,
     userLinkSkillPreset2,
     userLinkSkillPreset3,
+    userUnion,
 }: UserInfoTabsProps) {
     const [activeTab, setActiveTab] = useState(0);
     const [showSkill6, setShowSkill6] = useState(true);
@@ -85,7 +88,7 @@ export default function UserItemTabs({
 
     return (
         <div className="w-full z-10">
-            <UserNavbar tabs={['장비', '스탯', '스킬']} active={activeTab} onSelect={setActiveTab} />
+            <UserNavbar tabs={['장비', '스탯', '스킬', '유니온']} active={activeTab} onSelect={setActiveTab} />
             {activeTab === 0 ? (
                 <div className="flex gap-[16px] flex-col pc:flex-row">
                     <div className="flex flex-col flex-auto gap-[16px] w-full pc:max-w-[320px]">
@@ -132,7 +135,7 @@ export default function UserItemTabs({
                         </SidebarBox>
                     </div>
                 </div>
-            ) : (
+            ) : activeTab === 2 ? (
                 <div className="w-full flex flex-col gap-[16px]">
                     <SidebarBox className="px-[20px] flex-col items-start">
                         <p className="font-bold mb-[24px]">헥사 스탯</p>
@@ -168,6 +171,12 @@ export default function UserItemTabs({
                     </SidebarBox>
                     <SidebarBox className="px-[20px] flex-col items-start">
                         <UserLinkSkill presetNumber={linkSkillPresetNo} preset1={userLinkSkillPreset1} preset2={userLinkSkillPreset2} preset3={userLinkSkillPreset3} />
+                    </SidebarBox>
+                </div>
+            ) : (
+                <div className="w-full flex flex-col gap-[16px]">
+                    <SidebarBox className="px-[20px] flex-col items-start">
+                        <UserUnion union={userUnion} />
                     </SidebarBox>
                 </div>
             )}

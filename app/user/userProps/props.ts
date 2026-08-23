@@ -122,3 +122,9 @@ export interface hexaStatCoreProps {
   sub_stat_name_2: string | null,
   sub_stat_level_2: number,
 }
+
+export interface userUnionProps {
+  union_level: number,
+  union_grade: string,
+  union_artifact_level: number,
+}
