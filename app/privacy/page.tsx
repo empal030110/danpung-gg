@@ -42,8 +42,8 @@ const sections: { title: string; body: React.ReactNode }[] = [
         title: "4. 쿠키 및 광고",
         body: (
             <p>
-                서비스는 현재 별도의 광고를 게재하지 않습니다. 향후 Google 애드센스 등 제3자 광고가 게재될 경우,
-                해당 광고 서비스는 맞춤형 광고 제공을 위해 쿠키를 사용할 수 있습니다. 이용자는 브라우저 설정 또는
+                서비스는 Google 애드센스 등 제3자 광고를 게재하고 있습니다.
+                해당 광고 서비스는 맞춤형 광고 제공을 위해 쿠키 및 광고 식별자를 사용할 수 있습니다. 이용자는 브라우저 설정 또는
                 <a href="https://adssettings.google.com" target="_blank" rel="noreferrer" className="underline mx-[4px]">
                     Google 광고 설정
                 </a>
@@ -81,7 +81,7 @@ export default function PrivacyPage() {
         <div className="w-full py-[40px] flex flex-col gap-[32px]">
             <div>
                 <h1 className="text-[24px] font-bold mb-[8px]">개인정보처리방침</h1>
-                <p className="text-[13px] text-neutral-500 dark:text-neutral-400">시행일자: 2026-08-20</p>
+                <p className="text-[13px] text-neutral-500 dark:text-neutral-400">시행일자: 2026-08-24</p>
             </div>
             <div className="flex flex-col gap-[24px] text-[14px] leading-[1.7]">
                 {sections.map((section) => (
