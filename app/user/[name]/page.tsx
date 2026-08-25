@@ -11,8 +11,72 @@ export default async function SearchPage({ params }: userNameProps) {
 
     const userOcidUrl = ocidUrl(userName);
     const userOcid = await ssrFetcher(userOcidUrl);
-    const userInfoUrl = userUrl(userOcid[0]['ocid']);
-    const userInfoDataInfo = await ssrFetcher(userInfoUrl);
+    const ocid = userOcid[0]['ocid'];
+
+    const userInfoUrl = userUrl(ocid);
+    const userSetUrl = setUrl(ocid);
+    const userSymbolUrl = symbolUrl(ocid);
+    const userAbilityUrl = abilityUrl(ocid);
+    const userItemUrl = itemUrl(ocid);
+    const userAndroidUrl = androidUrl(ocid);
+    const userPetUrl = petUrl(ocid);
+    const userHyperStatUrl = hyperStatUrl(ocid);
+    const userStatUrl = statUrl(ocid);
+    const userSkillUrl6 = skillUrl(ocid, '6');
+    const userSkillUrl5 = skillUrl(ocid, '5');
+    const userHexaStatUrl = hexaStatUrl(ocid);
+    const userLinkSkillUrl = linkSkillUrl(ocid);
+    const userUnionUrl = unionUrl(ocid);
+    const userUnionChampionUrl = unionChampionUrl(ocid);
+    const userUnionArtifactUrl = unionArtifactUrl(ocid);
+    const userUnionRaiderUrl = unionRaiderUrl(ocid);
+    const userCashItemUrl = cashItemEquipmentUrl(ocid);
+
+    // ocid를 제외한 나머지 조회는 서로 의존관계가 없어서 병렬로 요청 (순차 요청 대비 로딩 시간 대폭 단축)
+    const [
+        userInfoDataInfo,
+        userSetData,
+        userSymbolData,
+        userAbilityData,
+        userItemData,
+        userAndroidData,
+        userPetData,
+        userHyperStatData,
+        userStatData,
+        userSkillData6,
+        userSkillData5,
+        userHexaStatData,
+        userLinkSkillData,
+        userUnionData,
+        userUnionChampionData,
+        userUnionArtifactData,
+        userUnionRaiderData,
+        userCashItemData,
+        userAchievementData,
+        userDojangData,
+    ] = await Promise.all([
+        ssrFetcher(userInfoUrl),
+        ssrFetcher(userSetUrl),
+        ssrFetcher(userSymbolUrl),
+        ssrFetcher(userAbilityUrl),
+        ssrFetcher(userItemUrl),
+        ssrFetcher(userAndroidUrl),
+        ssrFetcher(userPetUrl),
+        ssrFetcher(userHyperStatUrl),
+        ssrFetcher(userStatUrl),
+        ssrFetcher(userSkillUrl6),
+        ssrFetcher(userSkillUrl5),
+        ssrFetcher(userHexaStatUrl),
+        ssrFetcher(userLinkSkillUrl),
+        ssrFetcher(userUnionUrl),
+        ssrFetcher(userUnionChampionUrl),
+        ssrFetcher(userUnionArtifactUrl),
+        ssrFetcher(userUnionRaiderUrl),
+        ssrFetcher(userCashItemUrl),
+        ssrRankingFetcher((date) => achievementUrl(date, ocid)),
+        ssrRankingFetcher((date) => dojangUrl(date, ocid)),
+    ]);
+
     const userData: userDataProps = {
 		date: userInfoDataInfo[0].date,
 		characterName: userInfoDataInfo[0].character_name,
@@ -31,13 +95,9 @@ export default async function SearchPage({ params }: userNameProps) {
     }
 
 	// 세트효과
-	const userSetUrl = setUrl(userOcid[0]['ocid']);
-	const userSetData = await ssrFetcher(userSetUrl);
 	const userSetEffect: userSetProps[] = userSetData[0].set_effect;
 
 	// 심볼
-	const userSymbolUrl = symbolUrl(userOcid[0]['ocid']);
-	const userSymbolData = await ssrFetcher(userSymbolUrl);
 	const toSymbolProps = (symbol: { symbol_icon?: string; symbol_level?: number; symbol_force?: string }): symbolProps => ({
 		symbol_icon: symbol.symbol_icon,
 		symbol_level: symbol.symbol_level,
@@ -51,16 +111,12 @@ export default async function SearchPage({ params }: userNameProps) {
 		.map(toSymbolProps);
 
 	// 어빌리티
-	const userAbilityUrl = abilityUrl(userOcid[0]['ocid']);
-	const userAbilityData = await ssrFetcher(userAbilityUrl);
 	const abilityPresetNumber = userAbilityData[0].preset_no;
 	const abilityPreset1 = userAbilityData[0].ability_preset_1;
 	const abilityPreset2 = userAbilityData[0].ability_preset_2;
 	const abilityPreset3 = userAbilityData[0].ability_preset_3;
 	
 	// 장착한 아이템
-	const userItemUrl = itemUrl(userOcid[0]['ocid'])
-	const userItemData = await ssrFetcher(userItemUrl);
 	const presetNumber = userItemData[0].preset_no;
 	const userItemPreset1: itemProps[] = userItemData[0].item_equipment_preset_1.map((item: itemProps) => ({
 		additional_potential_option_1: item.additional_potential_option_1,
@@ -123,16 +179,12 @@ export default async function SearchPage({ params }: userNameProps) {
 	];
 
 	// 장착한 안드로이드
-	const userAndroidUrl = androidUrl(userOcid[0]['ocid']);
-	const userAndroidData = await ssrFetcher(userAndroidUrl);
 	const userAndroid: androidProps[] = userAndroidData.map(item => ({
 		android_name: item.android_name,
 		android_icon: item.android_icon,
 	}));
 
 	// 장착한 펫
-	const userPetUrl = petUrl(userOcid[0]['ocid']);
-	const userPetData = await ssrFetcher(userPetUrl);
 	const userPets: petProps[] = [1, 2, 3]
 		.map((num) => ({
 			pet_name: userPetData[0][`pet_${num}_name`],
@@ -146,38 +198,26 @@ export default async function SearchPage({ params }: userNameProps) {
 		.filter((pet) => pet.pet_name);
 
 	// 하이퍼 스탯 (프리셋 1/2/3 전체를 내려서 UserHyperStat에서 전환할 수 있게 함)
-	const userHyperStatUrl = hyperStatUrl(userOcid[0]['ocid']);
-	const userHyperStatData = await ssrFetcher(userHyperStatUrl);
 	const hyperStatPresetNo = Number(userHyperStatData[0].use_preset_no) || 1; // 캐릭터가 실제로 사용 중인 기본 프리셋 번호
 	const userHyperStatPreset1: hyperStatEntryProps[] = userHyperStatData[0].hyper_stat_preset_1 ?? [];
 	const userHyperStatPreset2: hyperStatEntryProps[] = userHyperStatData[0].hyper_stat_preset_2 ?? [];
 	const userHyperStatPreset3: hyperStatEntryProps[] = userHyperStatData[0].hyper_stat_preset_3 ?? [];
 
 	// 기본/상세 스탯 (final_stat 배열 하나를 UserBasicStat/UserDetailStat에서 각자 필요한 항목만 골라 씀)
-	const userStatUrl = statUrl(userOcid[0]['ocid']);
-	const userStatData = await ssrFetcher(userStatUrl);
 	const userStat: userStatProps[] = userStatData[0].final_stat;
 
 	// 6차 스킬
-	const userSkillUrl6 = skillUrl(userOcid[0]['ocid'], '6');
-	const userSkillData6 = await ssrFetcher(userSkillUrl6);
 	const userSkills6: skillProps[] = userSkillData6[0].character_skill ?? [];
 
 	// 5차 스킬
-	const userSkillUrl5 = skillUrl(userOcid[0]['ocid'], '5');
-	const userSkillData5 = await ssrFetcher(userSkillUrl5);
 	const userSkills5: skillProps[] = userSkillData5[0].character_skill ?? [];
 
 	// HEXA 스탯
-	const userHexaStatUrl = hexaStatUrl(userOcid[0]['ocid']);
-	const userHexaStatData = await ssrFetcher(userHexaStatUrl);
 	const hexaStatCore1: hexaStatCoreProps | undefined = userHexaStatData[0].character_hexa_stat_core?.[0];
 	const hexaStatCore2: hexaStatCoreProps | undefined = userHexaStatData[0].character_hexa_stat_core_2?.[0];
 	const hexaStatCore3: hexaStatCoreProps | undefined = userHexaStatData[0].character_hexa_stat_core_3?.[0];
 
 	// 장착 링크 스킬 (API가 현재 프리셋 번호를 안 알려줘서, 실제 장착 중인 목록과 각 프리셋을 비교해서 몇 번인지 찾음)
-	const userLinkSkillUrl = linkSkillUrl(userOcid[0]['ocid']);
-	const userLinkSkillData = await ssrFetcher(userLinkSkillUrl);
 	const userLinkSkillEquipped: skillProps[] = userLinkSkillData[0].character_link_skill ?? [];
 	const userLinkSkillPreset1: skillProps[] = userLinkSkillData[0].character_link_skill_preset_1 ?? [];
 	const userLinkSkillPreset2: skillProps[] = userLinkSkillData[0].character_link_skill_preset_2 ?? [];
@@ -191,8 +231,6 @@ export default async function SearchPage({ params }: userNameProps) {
 		: 1;
 
 	// 유니온
-	const userUnionUrl = unionUrl(userOcid[0]['ocid']);
-	const userUnionData = await ssrFetcher(userUnionUrl);
 	const userUnion: userUnionProps = {
 		union_level: userUnionData[0].union_level,
 		union_grade: userUnionData[0].union_grade,
@@ -200,8 +238,6 @@ export default async function SearchPage({ params }: userNameProps) {
 	};
 
 	// 유니온 챔피언
-	const userUnionChampionUrl = unionChampionUrl(userOcid[0]['ocid']);
-	const userUnionChampionData = await ssrFetcher(userUnionChampionUrl);
 	const userUnionChampions: unionChampionProps[] = (userUnionChampionData[0].union_champion ?? []).map((champion: unionChampionProps) => ({
 		champion_slot: champion.champion_slot,
 		champion_name: champion.champion_name,
@@ -211,20 +247,14 @@ export default async function SearchPage({ params }: userNameProps) {
 	const userUnionChampionBadgeEffects: string[] = (userUnionChampionData[0].champion_badge_total_info ?? []).map((badge: { stat: string }) => badge.stat);
 
 	// 유니온 아티팩트
-	const userUnionArtifactUrl = unionArtifactUrl(userOcid[0]['ocid']);
-	const userUnionArtifactData = await ssrFetcher(userUnionArtifactUrl);
 	const userUnionArtifactEffects: unionArtifactEffectProps[] = userUnionArtifactData[0].union_artifact_effect ?? [];
 
 	// 유니온 공격대원 효과
-	const userUnionRaiderUrl = unionRaiderUrl(userOcid[0]['ocid']);
-	const userUnionRaiderData = await ssrFetcher(userUnionRaiderUrl);
 	const userUnionRaiderStats: string[] = userUnionRaiderData[0].union_raider_stat ?? [];
 	const unionStateStatPresetNo: number = userUnionRaiderData[0].use_preset_no ?? 1;
 	const unionStateStatPresets: unionStateStatPresetProps[] = userUnionRaiderData[0].union_state_stat_preset ?? [];
 
 	// 장착 코디
-	const userCashItemUrl = cashItemEquipmentUrl(userOcid[0]['ocid']);
-	const userCashItemData = await ssrFetcher(userCashItemUrl);
 	const userCodiItems: cashItemProps[] = userCashItemData[0].cash_item_equipment_base ?? [];
 	const codiPresetNo: number = userCashItemData[0].preset_no ?? 1;
 	const userCodiPreset1: cashItemProps[] = userCashItemData[0].cash_item_equipment_preset_1 ?? [];
@@ -232,11 +262,9 @@ export default async function SearchPage({ params }: userNameProps) {
 	const userCodiPreset3: cashItemProps[] = userCashItemData[0].cash_item_equipment_preset_3 ?? [];
 
 	// 업적 (당일 데이터가 아직 집계 전이면 전날 데이터로 재시도)
-	const userAchievementData = await ssrRankingFetcher((date) => achievementUrl(date, userOcid[0]['ocid']));
 	const userAchievement: achievementRankProps | undefined = userAchievementData[0].ranking[0];
 
 	// 무릉도장 (당일 데이터가 아직 집계 전이면 전날 데이터로 재시도)
-	const userDojangData = await ssrRankingFetcher((date) => dojangUrl(date, userOcid[0]['ocid']));
 	const userDojang: dojangRankProps | undefined = userDojangData[0].ranking[0];
 
     return (

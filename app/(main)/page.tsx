@@ -9,14 +9,32 @@ import InfomationBox from "./components/InformationBox";
 
 export const dynamic = 'force-dynamic';
 
+// 랭킹 1등 캐릭터의 ocid, 상세 정보까지 순서대로 조회 (이 3단계는 앞 결과가 있어야 다음을 조회할 수 있어 체인 내부는 순차 유지)
+async function fetchTopRankUserInfo(rankingUrl: (date: string) => string) {
+	const rankingData = await ssrRankingFetcher(rankingUrl);
+	const rankingUser = rankingData[0]['ranking'][0];
+	const userOcid = await ssrFetcher(ocidUrl(rankingUser.character_name));
+	const userInfo = await ssrFetcher(userUrl(userOcid[0]['ocid']));
+	return { rankingUser, userInfo };
+}
+
 export default async function Home() {
+	// 무릉도장/더시드/업적 1등 조회와 공지/업데이트 조회는 서로 의존관계가 없어서 병렬로 요청
+	const [
+		{ rankingUser: dojangUser, userInfo: dojangUserInfo },
+		{ rankingUser: theseedUser, userInfo: theseedUserInfo },
+		{ rankingUser: achievementUser, userInfo: achievementUserInfo },
+		noticeData,
+		updateData,
+	] = await Promise.all([
+		fetchTopRankUserInfo(dojangUrl),
+		fetchTopRankUserInfo(theseedUrl),
+		fetchTopRankUserInfo(achievementUrl),
+		ssrFetcher(noticeUrl), // 공지사항
+		ssrFetcher(updateUrl), // 업데이트
+	]);
+
 	// 무릉도장 1등 정보
-	const dojangData = await ssrRankingFetcher(dojangUrl);
-	const dojangUser = dojangData[0]['ranking'][0];
-	const dojangUserOcidUrl = ocidUrl(dojangUser.character_name);
-	const dojangUserOcid = await ssrFetcher(dojangUserOcidUrl);
-	const dojangUserInfoUrl = userUrl(dojangUserOcid[0]['ocid']);
-	const dojangUserInfo = await ssrFetcher(dojangUserInfoUrl);
 	const dojangUserInfoData: userProps = {
 		name: dojangUserInfo[0].character_name,
 		level: dojangUserInfo[0].character_level,
@@ -26,12 +44,6 @@ export default async function Home() {
 	};
 
 	// 더시드 1등 정보
-	const theseedData = await ssrRankingFetcher(theseedUrl);
-	const theseedUser = theseedData[0]['ranking'][0];
-	const theseedOcidUrl = ocidUrl(theseedUser.character_name);
-	const theseedUserOcid = await ssrFetcher(theseedOcidUrl);
-	const theseedUserInfoUrl = userUrl(theseedUserOcid[0]['ocid']);
-	const theseedUserInfo = await ssrFetcher(theseedUserInfoUrl);
 	const theseedUserInfoData: userProps = {
 		name: theseedUserInfo[0].character_name,
 		level: theseedUserInfo[0].character_level,
@@ -41,12 +53,6 @@ export default async function Home() {
 	};
 
 	// 업적 1등 정보
-	const achievementData = await ssrRankingFetcher(achievementUrl);
-	const achievementUser = achievementData[0]['ranking'][0];
-	const achievementOcidUrl = ocidUrl(achievementUser.character_name);
-	const achievementUserOcid = await ssrFetcher(achievementOcidUrl);
-	const achievementUserInfoUrl = userUrl(achievementUserOcid[0]['ocid']);
-	const achievementUserInfo = await ssrFetcher(achievementUserInfoUrl);
 	const achievementUserInfoData: userProps = {
 		name: achievementUserInfo[0].character_name,
 		level: achievementUserInfo[0].character_level,
@@ -55,10 +61,6 @@ export default async function Home() {
 		trophyGrade: achievementUser.trophy_grade ? achievementUser.trophy_grade : 0,
 		trophyScore: achievementUser.trophy_score ? achievementUser.trophy_score : 0,
 	};
-
-	// 공지, 업데이트 정보
-	const noticeData = await ssrFetcher(noticeUrl); // 공지사항
-	const updateData = await ssrFetcher(updateUrl); // 업데이트
 
 	return (
 		<div className="w-full h-full">
