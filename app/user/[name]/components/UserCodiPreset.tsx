@@ -11,7 +11,7 @@ export default function UserCodiPreset({ presetNumber = 0, preset1 = [], preset2
 
     return (
         <div className="w-full">
-            <div className="w-full flex justify-between items-center mb-[24px]">
+            <div className="w-full flex flex-col items-start pc:flex-row pc:justify-between pc:items-center gap-[8px] pc:gap-0 mb-[24px]">
                 <p className="font-bold">코디 프리셋</p>
                 <PresetTabs active={selectedPreset} onSelect={setSelectedPreset} labelPrefix="프리셋 " />
             </div>
