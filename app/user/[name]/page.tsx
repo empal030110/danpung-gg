@@ -1,7 +1,8 @@
 import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl, linkSkillUrl, unionUrl, unionChampionUrl, unionArtifactUrl, unionRaiderUrl, cashItemEquipmentUrl, achievementUrl, dojangUrl } from "@/api/url/apiUrl";
-import { androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps, hexaStatCoreProps, userUnionProps, unionChampionProps, unionArtifactEffectProps, unionStateStatPresetProps, cashItemProps, achievementRankProps, dojangRankProps } from "../userProps/props";
+import { abilityProps, androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps, hexaStatCoreProps, userUnionProps, unionChampionProps, unionArtifactEffectProps, unionStateStatPresetProps, cashItemProps, achievementRankProps, dojangRankProps } from "../userProps/props";
 import ssrFetcher from "@/api/ssrFetcher";
 import ssrRankingFetcher from "@/api/ssrRankingFetcher";
+import runLimited from "@/api/runLimited";
 import UserHeader from "./components/UserHeader";
 import UserInfoTabs from "./components/UserInfoTabs";
 
@@ -32,7 +33,8 @@ export default async function SearchPage({ params }: userNameProps) {
     const userUnionRaiderUrl = unionRaiderUrl(ocid);
     const userCashItemUrl = cashItemEquipmentUrl(ocid);
 
-    // ocid를 제외한 나머지 조회는 서로 의존관계가 없어서 병렬로 요청 (순차 요청 대비 로딩 시간 대폭 단축)
+    // ocid를 제외한 나머지 조회는 서로 의존관계가 없어서 병렬로 요청하되, 넥슨 API 순간 요청량 제한(429)에
+    // 걸리지 않도록 동시 실행 개수를 제한 (전부 한 번에 쏘면 캐릭터에 따라 429로 실패하는 경우가 있었음)
     const [
         userInfoDataInfo,
         userSetData,
@@ -54,28 +56,28 @@ export default async function SearchPage({ params }: userNameProps) {
         userCashItemData,
         userAchievementData,
         userDojangData,
-    ] = await Promise.all([
-        ssrFetcher(userInfoUrl),
-        ssrFetcher(userSetUrl),
-        ssrFetcher(userSymbolUrl),
-        ssrFetcher(userAbilityUrl),
-        ssrFetcher(userItemUrl),
-        ssrFetcher(userAndroidUrl),
-        ssrFetcher(userPetUrl),
-        ssrFetcher(userHyperStatUrl),
-        ssrFetcher(userStatUrl),
-        ssrFetcher(userSkillUrl6),
-        ssrFetcher(userSkillUrl5),
-        ssrFetcher(userHexaStatUrl),
-        ssrFetcher(userLinkSkillUrl),
-        ssrFetcher(userUnionUrl),
-        ssrFetcher(userUnionChampionUrl),
-        ssrFetcher(userUnionArtifactUrl),
-        ssrFetcher(userUnionRaiderUrl),
-        ssrFetcher(userCashItemUrl),
-        ssrRankingFetcher((date) => achievementUrl(date, ocid)),
-        ssrRankingFetcher((date) => dojangUrl(date, ocid)),
-    ]);
+    ] = await runLimited([
+        () => ssrFetcher(userInfoUrl),
+        () => ssrFetcher(userSetUrl),
+        () => ssrFetcher(userSymbolUrl),
+        () => ssrFetcher(userAbilityUrl),
+        () => ssrFetcher(userItemUrl),
+        () => ssrFetcher(userAndroidUrl),
+        () => ssrFetcher(userPetUrl),
+        () => ssrFetcher(userHyperStatUrl),
+        () => ssrFetcher(userStatUrl),
+        () => ssrFetcher(userSkillUrl6),
+        () => ssrFetcher(userSkillUrl5),
+        () => ssrFetcher(userHexaStatUrl),
+        () => ssrFetcher(userLinkSkillUrl),
+        () => ssrFetcher(userUnionUrl),
+        () => ssrFetcher(userUnionChampionUrl),
+        () => ssrFetcher(userUnionArtifactUrl),
+        () => ssrFetcher(userUnionRaiderUrl),
+        () => ssrFetcher(userCashItemUrl),
+        () => ssrRankingFetcher((date) => achievementUrl(date, ocid)),
+        () => ssrRankingFetcher((date) => dojangUrl(date, ocid)),
+    ], 3);
 
     const userData: userDataProps = {
 		date: userInfoDataInfo[0].date,
@@ -110,15 +112,16 @@ export default async function SearchPage({ params }: userNameProps) {
 		.filter((symbol: { symbol_name?: string }) => !symbol.symbol_name?.startsWith('아케인심볼'))
 		.map(toSymbolProps);
 
-	// 어빌리티
+	// 어빌리티 (설정되지 않은 프리셋은 API가 null을 내려주므로 빈 값으로 대체)
+	const emptyAbilityPreset: abilityProps = { ability_preset_grade: '에픽', ability_info: [] };
 	const abilityPresetNumber = userAbilityData[0].preset_no;
-	const abilityPreset1 = userAbilityData[0].ability_preset_1;
-	const abilityPreset2 = userAbilityData[0].ability_preset_2;
-	const abilityPreset3 = userAbilityData[0].ability_preset_3;
+	const abilityPreset1 = userAbilityData[0].ability_preset_1 ?? emptyAbilityPreset;
+	const abilityPreset2 = userAbilityData[0].ability_preset_2 ?? emptyAbilityPreset;
+	const abilityPreset3 = userAbilityData[0].ability_preset_3 ?? emptyAbilityPreset;
 	
 	// 장착한 아이템
 	const presetNumber = userItemData[0].preset_no;
-	const userItemPreset1: itemProps[] = userItemData[0].item_equipment_preset_1.map((item: itemProps) => ({
+	const userItemPreset1: itemProps[] = (userItemData[0].item_equipment_preset_1 ?? []).map((item: itemProps) => ({
 		additional_potential_option_1: item.additional_potential_option_1,
 		additional_potential_option_2: item.additional_potential_option_2,
 		additional_potential_option_3: item.additional_potential_option_3,
@@ -135,7 +138,7 @@ export default async function SearchPage({ params }: userNameProps) {
 		starforce: item.starforce,
 		special_ring_level: item.special_ring_level,
 	}));
-	const userItemPreset2: itemProps[] = userItemData[0].item_equipment_preset_2.map((item: itemProps) => ({
+	const userItemPreset2: itemProps[] = (userItemData[0].item_equipment_preset_2 ?? []).map((item: itemProps) => ({
 		additional_potential_option_1: item.additional_potential_option_1,
 		additional_potential_option_2: item.additional_potential_option_2,
 		additional_potential_option_3: item.additional_potential_option_3,
@@ -152,7 +155,7 @@ export default async function SearchPage({ params }: userNameProps) {
 		starforce: item.starforce,
 		special_ring_level: item.special_ring_level,
 	}));
-	const userItemPreset3: itemProps[] = userItemData[0].item_equipment_preset_3.map((item: itemProps) => ({
+	const userItemPreset3: itemProps[] = (userItemData[0].item_equipment_preset_3 ?? []).map((item: itemProps) => ({
 		additional_potential_option_1: item.additional_potential_option_1,
 		additional_potential_option_2: item.additional_potential_option_2,
 		additional_potential_option_3: item.additional_potential_option_3,
