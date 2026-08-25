@@ -1,6 +1,9 @@
 import { unionArtifactEffectProps, unionChampionProps } from "../../userProps/props";
+import NotInfoText from "@/components/NotInfoText";
 
 export default function UserUnionChampion({ champions = [], badgeEffects = [], artifactEffects = [] }: { champions?: unionChampionProps[]; badgeEffects?: string[]; artifactEffects?: unionArtifactEffectProps[] }) {
+    if (badgeEffects.length === 0 && artifactEffects.length === 0) return <NotInfoText center>유니온 챔피언, 아티팩트 정보가 없습니다.</NotInfoText>;
+
     return (
         <div className="w-full flex flex-col pc:flex-row gap-[24px]">
             <div className="flex flex-col gap-[12px]">
