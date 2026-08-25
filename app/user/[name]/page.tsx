@@ -206,8 +206,8 @@ export default async function SearchPage({ params }: userNameProps) {
 		: isSameLinkSkillSet(userLinkSkillPreset3) ? 3
 		: 1;
 
-	// 유니온
-	const userUnion: userUnionProps = {
+	// 유니온 (미가입 등으로 API가 union_level을 null로 내려주면 정보 없음으로 처리)
+	const userUnion: userUnionProps | undefined = userUnionData[0].union_level == null ? undefined : {
 		union_level: userUnionData[0].union_level,
 		union_grade: userUnionData[0].union_grade,
 		union_artifact_level: userUnionData[0].union_artifact_level,

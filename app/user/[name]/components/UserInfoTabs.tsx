@@ -55,7 +55,7 @@ interface UserInfoTabsProps {
     userLinkSkillPreset1: skillProps[];
     userLinkSkillPreset2: skillProps[];
     userLinkSkillPreset3: skillProps[];
-    userUnion: userUnionProps;
+    userUnion?: userUnionProps;
     userUnionChampions: unionChampionProps[];
     userUnionChampionBadgeEffects: string[];
     userUnionArtifactEffects: unionArtifactEffectProps[];
