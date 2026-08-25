@@ -62,7 +62,6 @@ mapleGG/
     user/[name]/page.tsx       # 캐릭터 상세 페이지 (SSR, API 병렬 조회)
     user/[name]/components/    # UserHeader/UserBasicStat/UserItem/UserSkill/UserUnion 등 23개 섹션 컴포넌트
     user/userProps/props.ts    # 상세 페이지 타입 정의
-    guild/, jobs/              # 미구현 스텁 페이지
     privacy/page.tsx           # 개인정보처리방침
     layout.tsx                 # 글로벌 레이아웃/메타/PWA·서비스워커/광고 스크립트
     robots.ts, sitemap.ts
@@ -91,7 +90,6 @@ mapleGG/
 - `/` 메인 대시보드
 - `/user/[name]` 캐릭터 상세
 - `/privacy` 개인정보처리방침
-- `/guild`, `/jobs` (미구현)
 
 ---
 

@@ -7,8 +7,6 @@ export default function NavBar() {
 	const pathname = usePathname();
 	const navItems = [
 		{ href: "/", label: "메인" },
-		{ href: "/jobs", label: "직업 분석" },
-		{ href: "/guild", label: "길드" },
 	];
 
 	return (
