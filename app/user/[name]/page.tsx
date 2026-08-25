@@ -120,8 +120,9 @@ export default async function SearchPage({ params }: userNameProps) {
 	const abilityPreset3 = userAbilityData[0].ability_preset_3 ?? emptyAbilityPreset;
 	
 	// 장착한 아이템
-	const presetNumber = userItemData[0].preset_no;
-	const userItemPreset1: itemProps[] = (userItemData[0].item_equipment_preset_1 ?? []).map((item: itemProps) => ({
+	// 프리셋 기능을 쓰지 않는 캐릭터는 item_equipment_preset_1/2/3이 전부 빈 배열이고,
+	// 실제 착용 중인 장비는 item_equipment에만 들어있어서 preset 1이 비어있으면 이를 대신 사용
+	const toItemProps = (item: itemProps): itemProps => ({
 		additional_potential_option_1: item.additional_potential_option_1,
 		additional_potential_option_2: item.additional_potential_option_2,
 		additional_potential_option_3: item.additional_potential_option_3,
@@ -137,41 +138,13 @@ export default async function SearchPage({ params }: userNameProps) {
 		potential_option_grade: item.potential_option_grade,
 		starforce: item.starforce,
 		special_ring_level: item.special_ring_level,
-	}));
-	const userItemPreset2: itemProps[] = (userItemData[0].item_equipment_preset_2 ?? []).map((item: itemProps) => ({
-		additional_potential_option_1: item.additional_potential_option_1,
-		additional_potential_option_2: item.additional_potential_option_2,
-		additional_potential_option_3: item.additional_potential_option_3,
-		additional_potential_option_flag: item.additional_potential_option_flag,
-		additional_potential_option_grade: item.additional_potential_option_grade,
-		item_equipment_slot: item.item_equipment_slot,
-		item_icon: item.item_icon,
-		item_name: item.item_name,
-		potential_option_1: item.potential_option_1,
-		potential_option_2: item.potential_option_2,
-		potential_option_3: item.potential_option_3,
-		potential_option_flag: item.potential_option_flag,
-		potential_option_grade: item.potential_option_grade,
-		starforce: item.starforce,
-		special_ring_level: item.special_ring_level,
-	}));
-	const userItemPreset3: itemProps[] = (userItemData[0].item_equipment_preset_3 ?? []).map((item: itemProps) => ({
-		additional_potential_option_1: item.additional_potential_option_1,
-		additional_potential_option_2: item.additional_potential_option_2,
-		additional_potential_option_3: item.additional_potential_option_3,
-		additional_potential_option_flag: item.additional_potential_option_flag,
-		additional_potential_option_grade: item.additional_potential_option_grade,
-		item_equipment_slot: item.item_equipment_slot,
-		item_icon: item.item_icon,
-		item_name: item.item_name,
-		potential_option_1: item.potential_option_1,
-		potential_option_2: item.potential_option_2,
-		potential_option_3: item.potential_option_3,
-		potential_option_flag: item.potential_option_flag,
-		potential_option_grade: item.potential_option_grade,
-		starforce: item.starforce,
-		special_ring_level: item.special_ring_level,
-	}));
+	});
+	const presetNumber = userItemData[0].preset_no ?? 1;
+	const rawItemPreset1: itemProps[] = userItemData[0].item_equipment_preset_1 ?? [];
+	const equippedItems: itemProps[] = userItemData[0].item_equipment ?? [];
+	const userItemPreset1: itemProps[] = (rawItemPreset1.length > 0 ? rawItemPreset1 : equippedItems).map(toItemProps);
+	const userItemPreset2: itemProps[] = (userItemData[0].item_equipment_preset_2 ?? []).map(toItemProps);
+	const userItemPreset3: itemProps[] = (userItemData[0].item_equipment_preset_3 ?? []).map(toItemProps);
 
 	// 장착한 칭호 (title)
 	const title: titleProps[] = [
