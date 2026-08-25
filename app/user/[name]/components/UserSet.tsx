@@ -11,7 +11,7 @@ export default function UserStat({ data }: { data: userSetProps[] }) {
                             <p className="font-bold">{effect.total_set_count}</p>
                             <p>{effect.set_name}</p>
                         </div>
-                        <div className="hidden group-hover:flex flex-col gap-[4px] absolute bottom-[110%] z-20 bg-[#111111] p-[16px] rounded-[16px] w-full max-h-[500px] overflow-y-auto scrollbar-hide">
+                        <div className="hidden group-hover:flex flex-col gap-[4px] absolute bottom-full z-20 bg-[#111111] p-[16px] rounded-[16px] w-full max-h-[500px] overflow-y-auto scrollbar-hide">
                             {effect.set_option_full.map((option) => {
                                 const isActive = option.set_count <= effect.total_set_count;
                                 return (
