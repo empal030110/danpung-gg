@@ -18,3 +18,9 @@ export interface guildBasicProps {
     guildNobleScore: number;
     guildMembers: string[];
 }
+
+export interface guildSkillProps {
+    skill_name: string;
+    skill_level: number;
+    skill_icon: string;
+}
