@@ -7,3 +7,13 @@ export interface guildDataProps {
     guildName: string;
     worldName: string;
 }
+
+export interface guildBasicProps {
+    worldName: string;
+    guildName: string;
+    guildLevel: number;
+    guildMasterName: string;
+    guildMemberCount: number;
+    guildUserCount: number;
+    guildNobleScore: number;
+}

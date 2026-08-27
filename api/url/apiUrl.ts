@@ -117,6 +117,11 @@ export const guildIdUrl = (guildName: string, worldName: string) => {
     const url = `${baseUrl}/maplestory/v1/guild/id?guild_name=${encodeURIComponent(guildName)}&world_name=${encodeURIComponent(worldName)}`;
     return url;
 };
+export const guildBasicUrl = (oguildId: string) => {
+    // 길드 기본 정보
+    const url = `${baseUrl}/maplestory/v1/guild/basic?oguild_id=${oguildId}`;
+    return url;
+};
 
 // notice
 export const noticeUrl = `${baseUrl}/maplestory/v1/notice`; // 공지
