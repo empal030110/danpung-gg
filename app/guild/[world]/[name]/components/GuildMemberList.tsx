@@ -5,7 +5,7 @@ export default function GuildMemberList({ members, masterName }: { members: stri
     return (
         <div className="w-full">
             <p className="font-bold mb-[12px]">길드원 ({members.length}명)</p>
-            <div className="grid grid-cols-2 pc:grid-cols-4 gap-[8px] text-[14px]">
+            <div className="grid grid-cols-2 pc:grid-cols-4 gap-[8px] text-[14px] max-h-[500px] overflow-y-auto scrollbar-hide">
                 {members.map((member) => {
                     const isMaster = member === masterName;
                     return (
