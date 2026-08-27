@@ -16,4 +16,5 @@ export interface guildBasicProps {
     guildMemberCount: number;
     guildUserCount: number;
     guildNobleScore: number;
+    guildMembers: string[];
 }
