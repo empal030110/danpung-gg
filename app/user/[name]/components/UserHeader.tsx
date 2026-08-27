@@ -1,5 +1,6 @@
 import { userDataProps, userStatProps } from "../../userProps/props";
 import Image from "next/image";
+import Link from "next/link";
 import { popularityUrl, overallUrl, unionUrl, statUrl } from "@/api/url/apiUrl";
 import ssrFetcher from "@/api/ssrFetcher";
 import ssrRankingFetcher from "@/api/ssrRankingFetcher";
@@ -46,7 +47,14 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps, 
                 </div>
                 <div className="flex flex-col gap-[3px] text-[14px] font-semibold">
                     <p>생성날짜 {data.characterDateCreate.split("T")[0]}</p>
-                    <p>길드 {data.characterGuildName ? data.characterGuildName : '-' }</p>
+                    <p>길드 {data.characterGuildName ? (
+                        <Link
+                            href={`/guild/${encodeURIComponent(data.worldName)}/${encodeURIComponent(data.characterGuildName)}`}
+                            className="underline underline-offset-2 hover:text-neutral-300"
+                        >
+                            {data.characterGuildName}
+                        </Link>
+                    ) : '-' }</p>
                     <p>인기도 {userPopularity[0].popularity}</p>
                     <p>종합랭킹 {userOverall}위 ({userWorldOverall}위)</p>
                 </div>

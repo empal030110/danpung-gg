@@ -111,6 +111,13 @@ export const linkSkillUrl = (ocid: string) => {
     return url;
 }
 
+// guild
+export const guildIdUrl = (guildName: string, worldName: string) => {
+    // 길드 고유 키 값
+    const url = `${baseUrl}/maplestory/v1/guild/id?guild_name=${encodeURIComponent(guildName)}&world_name=${encodeURIComponent(worldName)}`;
+    return url;
+};
+
 // notice
 export const noticeUrl = `${baseUrl}/maplestory/v1/notice`; // 공지
 export const updateUrl = `${baseUrl}/maplestory/v1/notice-update`; // 업데이트
