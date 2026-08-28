@@ -2,7 +2,7 @@ import Image from "next/image";
 import ThemeBtn from "./header/ThemeBtn";
 import HeaderSearchBar from "./header/HeaderSearchBar";
 import Link from "next/link";
-// import NavBar from "./header/NavBar";
+import NavBar from "./header/NavBar";
 
 export default function Header() {
 	return (
@@ -17,7 +17,7 @@ export default function Header() {
 					<HeaderSearchBar />
 				</div>
 			</div>
-			{/* <NavBar /> */}
+			<NavBar />
 			<div className="py-[16px] border-t border-neutral-600"></div>
 		</div>	
 	);
