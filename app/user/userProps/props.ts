@@ -47,12 +47,35 @@ export interface abilityProps {
 
 export type presetNumberProps = number;
 
+export interface itemOptionProps {
+  str?: string,
+  dex?: string,
+  int?: string,
+  luk?: string,
+  max_hp?: string,
+  max_mp?: string,
+  attack_power?: string,
+  magic_power?: string,
+  armor?: string,
+  speed?: string,
+  jump?: string,
+  boss_damage?: string,
+  ignore_monster_armor?: string,
+  all_stat?: string,
+  damage?: string,
+  base_equipment_level?: number,
+  exceptional_upgrade?: number,
+}
+
 export interface itemProps {
   additional_potential_option_1?: string,
   additional_potential_option_2?: string,
   additional_potential_option_3?: string,
   additional_potential_option_flag?: string,
   additional_potential_option_grade?: string,
+  soul_name?: string,
+  soul_option?: string,
+  item_equipment_part?: string,
   item_equipment_slot?: string,
   item_icon?: string,
   item_name?: string,
@@ -62,8 +85,20 @@ export interface itemProps {
   potential_option_flag?: string,
   potential_option_grade?: string,
   starforce?: string,
+  scroll_upgrade?: string,
+  scroll_upgradeable_count?: string,
+  scroll_resilience_count?: string,
+  item_total_option?: itemOptionProps,
+  item_base_option?: itemOptionProps,
+  item_add_option?: itemOptionProps,
+  item_etc_option?: itemOptionProps,
+  item_starforce_option?: itemOptionProps,
+  item_exceptional_option?: itemOptionProps,
+  date_expire?: string | null,
   title_name?: string,
   title_icon?: string,
+  title_description?: string,
+  date_option_expire?: string | null,
   android_name?: string,
   android_icon?: string,
   special_ring_level?: number,
@@ -72,6 +107,9 @@ export interface itemProps {
 export interface titleProps {
   title_name?: string,
   title_icon?: string,
+  title_description?: string,
+  date_expire?: string | null,
+  date_option_expire?: string | null,
 }
 
 export interface androidProps {

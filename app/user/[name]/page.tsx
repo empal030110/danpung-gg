@@ -151,6 +151,9 @@ export default async function SearchPage({ params }: userNameProps) {
 		additional_potential_option_3: item.additional_potential_option_3,
 		additional_potential_option_flag: item.additional_potential_option_flag,
 		additional_potential_option_grade: item.additional_potential_option_grade,
+		soul_name: item.soul_name,
+		soul_option: item.soul_option,
+		item_equipment_part: item.item_equipment_part,
 		item_equipment_slot: item.item_equipment_slot,
 		item_icon: item.item_icon,
 		item_name: item.item_name,
@@ -160,6 +163,16 @@ export default async function SearchPage({ params }: userNameProps) {
 		potential_option_flag: item.potential_option_flag,
 		potential_option_grade: item.potential_option_grade,
 		starforce: item.starforce,
+		scroll_upgrade: item.scroll_upgrade,
+		scroll_upgradeable_count: item.scroll_upgradeable_count,
+		scroll_resilience_count: item.scroll_resilience_count,
+		item_total_option: item.item_total_option,
+		item_base_option: item.item_base_option,
+		item_add_option: item.item_add_option,
+		item_etc_option: item.item_etc_option,
+		item_starforce_option: item.item_starforce_option,
+		item_exceptional_option: item.item_exceptional_option,
+		date_expire: item.date_expire,
 		special_ring_level: item.special_ring_level,
 	});
 	const presetNumber = userItemData[0].preset_no ?? 1;
@@ -174,6 +187,9 @@ export default async function SearchPage({ params }: userNameProps) {
 		{
 			title_name: userItemData[0].title?.title_name,
 			title_icon: userItemData[0].title?.title_icon,
+			title_description: userItemData[0].title?.title_description,
+			date_expire: userItemData[0].title?.date_expire,
+			date_option_expire: userItemData[0].title?.date_option_expire,
 		}
 	];
 
