@@ -4,6 +4,30 @@ import { guildNameProps, guildBasicProps, guildSkillProps } from "../../guildPro
 import GuildHeader from "./components/GuildHeader";
 import GuildMemberList from "./components/GuildMemberList";
 import GuildNobleSkillList from "./components/GuildNobleSkillList";
+import type { Metadata } from "next";
+
+// 페이지 본문과 동일한 URL로 fetch하기 때문에 Next.js가 자동으로 요청을 중복 제거함(추가 API 호출 없음)
+export async function generateMetadata({ params }: guildNameProps): Promise<Metadata> {
+    const { world, name } = await params;
+    const worldName = decodeURIComponent(world);
+    const guildName = decodeURIComponent(name);
+
+    try {
+        const guildIdData = await ssrFetcher(guildIdUrl(guildName, worldName));
+        const guildBasicData = await ssrFetcher(guildBasicUrl(guildIdData[0].oguild_id));
+        const info = guildBasicData[0];
+
+        const title = `${info.guild_name} 길드 - ${info.world_name} | 단풍지지`;
+        const description = `${info.world_name} 서버 ${info.guild_name} 길드의 길드원 목록과 노블레스 스킬 정보를 단풍지지에서 확인하세요.`;
+
+        return { title, description, openGraph: { title, description } };
+    } catch {
+        return {
+            title: `${guildName} 길드 - ${worldName} | 단풍지지`,
+            description: `${worldName} 서버 ${guildName} 길드의 길드원 목록과 노블레스 스킬 정보를 단풍지지에서 확인하세요.`,
+        };
+    }
+}
 
 export default async function GuildPage({ params }: guildNameProps) {
     const { world, name } = await params;

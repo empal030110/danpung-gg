@@ -5,6 +5,29 @@ import ssrRankingFetcher from "@/api/ssrRankingFetcher";
 import runLimited from "@/api/runLimited";
 import UserHeader from "./components/UserHeader";
 import UserInfoTabs from "./components/UserInfoTabs";
+import type { Metadata } from "next";
+
+// 페이지 본문과 동일한 URL로 fetch하기 때문에 Next.js가 자동으로 요청을 중복 제거함(추가 API 호출 없음)
+export async function generateMetadata({ params }: userNameProps): Promise<Metadata> {
+    const { name } = await params;
+    const userName = decodeURIComponent(name);
+
+    try {
+        const userOcid = await ssrFetcher(ocidUrl(userName));
+        const userInfo = await ssrFetcher(userUrl(userOcid[0]['ocid']));
+        const info = userInfo[0];
+
+        const title = `${info.character_name} - Lv.${info.character_level} ${info.character_class} (${info.world_name}) | 단풍지지`;
+        const description = `${info.character_name}(${info.world_name}) 캐릭터의 스탯, 장비, 스킬, 유니온 정보를 단풍지지에서 확인하세요.`;
+
+        return { title, description, openGraph: { title, description } };
+    } catch {
+        return {
+            title: `${userName} - 단풍지지`,
+            description: `${userName} 캐릭터의 스탯, 장비, 스킬 정보를 단풍지지에서 확인하세요.`,
+        };
+    }
+}
 
 export default async function SearchPage({ params }: userNameProps) {
     const { name } = await params;
