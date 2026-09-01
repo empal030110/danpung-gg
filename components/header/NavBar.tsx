@@ -8,6 +8,7 @@ export default function NavBar() {
 	const navItems = [
 		{ href: "/", label: "메인" },
 		{ href: "/guild", label: "길드" },
+		{ href: "/favorites", label: "즐겨찾기" },
 		{ href: "/guide", label: "가이드" },
 	];
 
