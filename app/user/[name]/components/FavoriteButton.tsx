@@ -20,6 +20,8 @@ export default function FavoriteButton({ characterName }: { characterName: strin
         <button
             type="button"
             onClick={() => toggleFavorite(characterName)}
+            aria-label={isFavorite ? "즐겨찾기 해제" : "즐겨찾기 추가"}
+            aria-pressed={isFavorite}
             className="absolute top-[40px] right-[40px] text-yellow-400 cursor-pointer"
         >
             {isFavorite ? <FaStar size={24} /> : <FaRegStar size={24} />}
