@@ -85,6 +85,7 @@ export interface itemProps {
   potential_option_flag?: string,
   potential_option_grade?: string,
   starforce?: string,
+  starforce_scroll_flag?: string,
   scroll_upgrade?: string,
   scroll_upgradeable_count?: string,
   scroll_resilience_count?: string,

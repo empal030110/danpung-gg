@@ -163,6 +163,7 @@ export default async function SearchPage({ params }: userNameProps) {
 		potential_option_flag: item.potential_option_flag,
 		potential_option_grade: item.potential_option_grade,
 		starforce: item.starforce,
+		starforce_scroll_flag: item.starforce_scroll_flag,
 		scroll_upgrade: item.scroll_upgrade,
 		scroll_upgradeable_count: item.scroll_upgradeable_count,
 		scroll_resilience_count: item.scroll_resilience_count,

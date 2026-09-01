@@ -60,9 +60,10 @@ function StatLine({ row, item }: { row: StatRowDef; item: itemProps }) {
     );
 }
 
-function StarRows({ current, max = 30 }: { current: number; max?: number }) {
+function StarRows({ current, max = 30, usedScroll = false }: { current: number; max?: number; usedScroll?: boolean }) {
     const rowCounts = [Math.min(max, 15), Math.max(max - 15, 0)];
     let starIndex = 0;
+    const filledColor = usedScroll ? "text-blue-300" : "text-yellow-400";
 
     return (
         <div className="flex flex-col items-center gap-[4px]">
@@ -77,7 +78,7 @@ function StarRows({ current, max = 30 }: { current: number; max?: number }) {
                                 <div key={groupIdx} className="flex gap-[2px]">
                                     {Array.from({ length: count }, () => {
                                         const filled = starIndex < current;
-                                        const star = <FaStar key={starIndex} size={14} className={filled ? "text-yellow-400" : "text-neutral-700"} />;
+                                        const star = <FaStar key={starIndex} size={14} className={filled ? filledColor : "text-neutral-700"} />;
                                         starIndex += 1;
                                         return star;
                                     })}
@@ -174,7 +175,7 @@ export default function ItemDetailModal({ item, onClose }: { item: itemProps; on
 
                 {Number(item.starforce) > 0 && (
                     <div className="mb-[12px]">
-                        <StarRows current={Number(item.starforce)} />
+                        <StarRows current={Number(item.starforce)} usedScroll={item.starforce_scroll_flag === "사용"} />
                     </div>
                 )}
 
