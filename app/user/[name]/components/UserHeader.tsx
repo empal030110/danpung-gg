@@ -34,7 +34,7 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps, 
     return (
         <div className="w-full flex items-center justify-center flex-col pc:flex-row relative">
             <div className="mx-[30px] relative">
-                <Image src={data.characterImage} alt={data.characterName} width={300} height={300} className="scale-[1.7] -z-10 pointer-events-none" priority />
+                <Image src={data.characterImage} alt={data.characterName} width={300} height={300} className="scale-[1.7] -z-10 pointer-events-none" priority unoptimized />
                 <FavoriteButton characterName={data.characterName} />
             </div>
             <div className="flex flex-col gap-[12px]">
