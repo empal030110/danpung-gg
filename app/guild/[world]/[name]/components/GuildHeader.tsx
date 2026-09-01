@@ -6,7 +6,7 @@ export default function GuildHeader({ data }: { data: guildBasicProps }) {
             <div className="flex items-center gap-[12px]">
                 <div>
                     <div className="flex items-baseline gap-[8px]">
-                        <span className="text-[24px] font-bold">{data.guildName}</span>
+                        <h1 className="text-[24px] font-bold">{data.guildName}</h1>
                         <span className="text-[16px] text-neutral-500 dark:text-neutral-400 font-semibold">Lv.{data.guildLevel}</span>
                     </div>
                     <p className="text-[12px] text-neutral-500 dark:text-neutral-400 mt-[2px]">{data.worldName}</p>

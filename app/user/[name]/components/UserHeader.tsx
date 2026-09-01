@@ -43,7 +43,7 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps, 
                         <p className="py-[4px] px-[10px] bg-neutral-400 rounded-[8px]">{data.worldName}</p>
                         <p className="py-[4px] px-[10px] bg-neutral-400 rounded-[8px]">{data.characterClass}</p>
                     </div>
-                    <p className="text-[24px] font-bold">{data.characterName}</p>
+                    <h1 className="text-[24px] font-bold">{data.characterName}</h1>
                 </div>
                 <div className="flex flex-col gap-[3px] text-[14px] font-semibold">
                     <p>생성날짜 {data.characterDateCreate.split("T")[0]}</p>

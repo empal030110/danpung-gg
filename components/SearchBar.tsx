@@ -16,9 +16,9 @@ export default function SearchBar() {
 
 	return (
 		<div className="w-full max-w-[550px] px-[20px] relative">
-			<p className="text-center text-[14px] mb-[16px]">
+			<h1 className="text-center text-[14px] mb-[16px] font-normal">
 				메이플스토리 캐릭터 정보 검색 서비스
-			</p>
+			</h1>
 			<SearchForm
 				inputValue={inputValue}
 				onChange={setInputValue}
