@@ -1,9 +1,9 @@
 import { userDataProps, userStatProps } from "../../userProps/props";
 import Image from "next/image";
 import Link from "next/link";
-import { popularityUrl, overallUrl, unionUrl, statUrl } from "@/api/url/apiUrl";
-import ssrFetcher from "@/api/ssrFetcher";
-import ssrRankingFetcher from "@/api/ssrRankingFetcher";
+import { popularityUrl, overallUrl, unionUrl, statUrl } from "@/lib/url/apiUrl";
+import ssrFetcher from "@/lib/ssrFetcher";
+import ssrRankingFetcher from "@/lib/ssrRankingFetcher";
 import FavoriteButton from "./FavoriteButton";
 
 export default async function UserHeader({ data, ocid }: { data: userDataProps, ocid: string}) {

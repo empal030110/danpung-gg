@@ -1,8 +1,8 @@
-import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl, linkSkillUrl, unionUrl, unionChampionUrl, unionArtifactUrl, unionRaiderUrl, cashItemEquipmentUrl, achievementUrl, dojangUrl } from "@/api/url/apiUrl";
+import { abilityUrl, itemUrl, ocidUrl, setUrl, userUrl, androidUrl, symbolUrl, petUrl, hyperStatUrl, statUrl, skillUrl, hexaStatUrl, linkSkillUrl, unionUrl, unionChampionUrl, unionArtifactUrl, unionRaiderUrl, cashItemEquipmentUrl, achievementUrl, dojangUrl } from "@/lib/url/apiUrl";
 import { abilityProps, androidProps, itemProps, titleProps, userDataProps, userNameProps, userSetProps, symbolProps, petProps, hyperStatEntryProps, userStatProps, skillProps, hexaStatCoreProps, userUnionProps, unionChampionProps, unionArtifactEffectProps, unionStateStatPresetProps, cashItemProps, achievementRankProps, dojangRankProps } from "../userProps/props";
-import ssrFetcher from "@/api/ssrFetcher";
-import ssrRankingFetcher from "@/api/ssrRankingFetcher";
-import runLimited from "@/api/runLimited";
+import ssrFetcher from "@/lib/ssrFetcher";
+import ssrRankingFetcher from "@/lib/ssrRankingFetcher";
+import runLimited from "@/lib/runLimited";
 import UserHeader from "./components/UserHeader";
 import UserInfoTabs from "./components/UserInfoTabs";
 import type { Metadata } from "next";

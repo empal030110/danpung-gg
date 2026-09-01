@@ -1,5 +1,5 @@
 import { userStatProps } from "../../userProps/props";
-import formatStatValue from "@/api/formatStatValue";
+import formatStatValue from "@/lib/formatStatValue";
 
 // 2열 그리드에 노출할 순서 (null이면 빈 칸)
 const cells: (string | null)[] = ['HP', 'MP', 'STR', 'DEX', 'INT', 'LUK'];

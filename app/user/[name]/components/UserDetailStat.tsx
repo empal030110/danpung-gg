@@ -1,5 +1,5 @@
 import { userStatProps } from "../../userProps/props";
-import formatStatValue from "@/api/formatStatValue";
+import formatStatValue from "@/lib/formatStatValue";
 
 const REUSE_COOLTIME = '__reuse_cooltime__'; // 재사용 대기시간 감소는 (초)/(%) 두 필드를 한 줄로 합쳐서 보여줘야 해서 실제 stat_name이 아닌 내부 식별자로 다룸
 

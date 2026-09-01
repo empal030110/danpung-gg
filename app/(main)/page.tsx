@@ -1,8 +1,8 @@
 import SearchBar from "@/components/SearchBar";
 import Image from "next/image";
-import { dojangUrl, ocidUrl, userUrl, theseedUrl, achievementUrl, noticeUrl, updateUrl } from "@/api/url/apiUrl";
-import ssrFetcher from "@/api/ssrFetcher";
-import ssrRankingFetcher from "@/api/ssrRankingFetcher";
+import { dojangUrl, ocidUrl, userUrl, theseedUrl, achievementUrl, noticeUrl, updateUrl } from "@/lib/url/apiUrl";
+import ssrFetcher from "@/lib/ssrFetcher";
+import ssrRankingFetcher from "@/lib/ssrRankingFetcher";
 import { userProps } from "./props/props";
 import RankBox from "./components/RankBox";
 import InfomationBox from "./components/InformationBox";

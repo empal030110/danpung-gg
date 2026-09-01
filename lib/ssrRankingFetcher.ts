@@ -1,5 +1,5 @@
-import { getToDate, getYdayDate } from '@/api/getDate';
-import ssrFetcher from '@/api/ssrFetcher';
+import { getToDate, getYdayDate } from '@/lib/getDate';
+import ssrFetcher from '@/lib/ssrFetcher';
 
 export default async function ssrRankingFetcher(buildUrl: (date: string) => string) {
     try {

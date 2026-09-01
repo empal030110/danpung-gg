@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { itemProps } from "../../userProps/props";
-import { cutOptionName } from "@/api/cutOptionName";
+import { cutOptionName } from "@/lib/cutOptionName";
 import { FaStar } from "react-icons/fa";
 import Image from "next/image";
 import ItemDetailModal from "./ItemDetailModal";

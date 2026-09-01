@@ -1,5 +1,5 @@
-import { guildIdUrl, guildBasicUrl } from "@/api/url/apiUrl";
-import ssrFetcher from "@/api/ssrFetcher";
+import { guildIdUrl, guildBasicUrl } from "@/lib/url/apiUrl";
+import ssrFetcher from "@/lib/ssrFetcher";
 import { guildNameProps, guildBasicProps, guildSkillProps } from "../../guildProps/props";
 import GuildHeader from "./components/GuildHeader";
 import GuildMemberList from "./components/GuildMemberList";

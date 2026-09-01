@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Image from "next/image";
 import { FaTimes } from "react-icons/fa";
 import { titleProps } from "../../userProps/props";
-import { formatExpireDate } from "@/api/formatExpireDate";
+import { formatExpireDate } from "@/lib/formatExpireDate";
 
 export default function TitleDetailModal({ title, onClose }: { title: titleProps; onClose: () => void }) {
     useEffect(() => {

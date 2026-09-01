@@ -1,4 +1,4 @@
-import { apiKey } from "@/api/key";
+import { apiKey } from "@/lib/key";
 
 const MAX_RETRIES = 4;
 const RETRY_DELAY_MS = 500;

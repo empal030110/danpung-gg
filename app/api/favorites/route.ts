@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ocidUrl, userUrl, statUrl } from "@/api/url/apiUrl";
-import ssrFetcher from "@/api/ssrFetcher";
-import runLimited from "@/api/runLimited";
+import { ocidUrl, userUrl, statUrl } from "@/lib/url/apiUrl";
+import ssrFetcher from "@/lib/ssrFetcher";
+import runLimited from "@/lib/runLimited";
 import { userStatProps } from "../../user/userProps/props";
 
 const MAX_NAMES = 50; // 한 번에 조회할 수 있는 즐겨찾기 개수 상한 (넥슨 API 남용 방지)

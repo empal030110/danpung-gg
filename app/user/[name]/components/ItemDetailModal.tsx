@@ -4,9 +4,9 @@ import { useEffect } from "react";
 import Image from "next/image";
 import { FaStar, FaTimes } from "react-icons/fa";
 import { itemOptionProps, itemProps } from "../../userProps/props";
-import { cutOptionName } from "@/api/cutOptionName";
-import { gradeColor, gradeBorderColor } from "@/api/gradeColor";
-import { formatExpireDate } from "@/api/formatExpireDate";
+import { cutOptionName } from "@/lib/cutOptionName";
+import { gradeColor, gradeBorderColor } from "@/lib/gradeColor";
+import { formatExpireDate } from "@/lib/formatExpireDate";
 
 interface StatRowDef {
     key: keyof itemOptionProps;
