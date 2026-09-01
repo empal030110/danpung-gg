@@ -86,11 +86,11 @@ export default function RootLayout({
         <div className="w-full max-w-[940px] m-auto px-[20px] pc:px-0">
           <Header />
           <ServiceWorkerRegister />
-          {children}
-          <div className="w-full py-[24px] mt-[40px] border-t border-neutral-600 flex flex-col items-center gap-[8px] text-center text-[12px] text-neutral-500 dark:text-neutral-400">
+          <main>{children}</main>
+          <footer className="w-full py-[24px] mt-[40px] border-t border-neutral-600 flex flex-col items-center gap-[8px] text-center text-[12px] text-neutral-500 dark:text-neutral-400">
             <p>본 서비스는 NEXON Open API를 이용하여 제작되었으며, 넥슨 및 메이플스토리와 공식적으로 제휴되어 있지 않습니다.</p>
             <Link href="/privacy" className="underline hover:text-neutral-700 dark:hover:text-neutral-200">개인정보처리방침</Link>
-          </div>
+          </footer>
           <Analytics />
           <Script src="https://openapi.nexon.com/js/analytics.js?app_id=324464" strategy="afterInteractive" />
           {/* next/script가 head 삽입/실행을 직접 관리해서, 손으로 쓴 <script>와 달리 애드센스 로더가 head를 건드려도 하이드레이션 충돌이 안 남 */}

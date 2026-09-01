@@ -6,7 +6,7 @@ import NavBar from "./header/NavBar";
 
 export default function Header() {
 	return (
-		<div className="w-full max-w-[940px] m-auto pt-[16px] flex flex-col gap-[16px]">
+		<header className="w-full max-w-[940px] m-auto pt-[16px] flex flex-col gap-[16px]">
             <div className="w-full flex flex-col gap-[12px]">
 				<div className="w-full flex items-center justify-between gap-[12px]">
 					<Link href='/'><Image src={"/logo.png"} alt={"단풍지지"} width={120} height={25} className="dark:invert" /></Link>
@@ -19,6 +19,6 @@ export default function Header() {
 			</div>
 			<NavBar />
 			<div className="py-[16px] border-t border-neutral-600"></div>
-		</div>	
+		</header>
 	);
 }
