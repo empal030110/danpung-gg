@@ -266,8 +266,21 @@ export default async function SearchPage({ params }: userNameProps) {
 	// 무릉도장 (당일 데이터가 아직 집계 전이면 전날 데이터로 재시도)
 	const userDojang: dojangRankProps | undefined = userDojangData[0].ranking[0];
 
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            { "@type": "ListItem", position: 1, name: "홈", item: "https://www.danpung.shop" },
+            { "@type": "ListItem", position: 2, name: `${userData.characterName} 캐릭터 정보`, item: `https://www.danpung.shop/user/${encodeURIComponent(userData.characterName)}` },
+        ],
+    };
+
     return (
         <div className="w-full h-auto pb-[40px]">
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+			/>
 			<div className="w-full px-[20px] py-[32px]">
 				<UserHeader data={userData} ocid={userOcid[0]['ocid']} />
 			</div>

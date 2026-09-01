@@ -57,6 +57,21 @@ export const metadata: Metadata = {
     },
 };
 
+const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "단풍지지",
+    url: "https://www.danpung.shop",
+    potentialAction: {
+        "@type": "SearchAction",
+        target: {
+            "@type": "EntryPoint",
+            urlTemplate: "https://www.danpung.shop/user/{search_term_string}",
+        },
+        "query-input": "required name=search_term_string",
+    },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -68,6 +83,11 @@ export default function RootLayout({
           <link rel="manifest" href="/manifest.json" />
           <meta name="theme-color" content="#171717" />
           {/* 애드센스 로더가 head의 스크립트 태그를 자기 용도로 덮어써서 하이드레이션 diff가 발생 -> 이 노드는 비교 대상에서 제외 */}
+          <script
+            suppressHydrationWarning
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+          />
           <script
             suppressHydrationWarning
             dangerouslySetInnerHTML={{

@@ -59,8 +59,22 @@ export default async function GuildPage({ params }: guildNameProps) {
         guildMembers,
     };
 
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            { "@type": "ListItem", position: 1, name: "홈", item: "https://www.danpung.shop" },
+            { "@type": "ListItem", position: 2, name: "길드 검색", item: "https://www.danpung.shop/guild" },
+            { "@type": "ListItem", position: 3, name: `${guildData.guildName} 길드`, item: `https://www.danpung.shop/guild/${encodeURIComponent(worldName)}/${encodeURIComponent(guildData.guildName)}` },
+        ],
+    };
+
     return (
         <div className="w-full h-auto pb-[40px]">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+            />
             <div className="w-full px-[20px] py-[32px] flex flex-col gap-[24px]">
                 <GuildHeader data={guildData} />
                 <GuildMemberList members={guildData.guildMembers} masterName={guildData.guildMasterName} />
