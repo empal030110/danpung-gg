@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     domains: [
       "open.api.nexon.com"
     ],
+    unoptimized: true,
   },
 };
 
