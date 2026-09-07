@@ -8,7 +8,7 @@ export const achievementUrl = (date: string, ocid?: string) => `${baseUrl}/maple
 // user
 export const ocidUrl = (name: string) => {
     // ocid (유저 고유 키 값)
-    const url = `${baseUrl}/maplestory/v1/id?character_name=${name}`;
+    const url = `${baseUrl}/maplestory/v1/id?character_name=${encodeURIComponent(name)}`;
     return url;
 };
 export const userUrl = (ocid: string) => {
