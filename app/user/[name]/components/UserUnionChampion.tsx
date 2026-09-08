@@ -6,7 +6,7 @@ export default function UserUnionChampion({ champions = [], badgeEffects = [], a
 
     return (
         <div className="w-full flex flex-col pc:flex-row gap-[24px]">
-            <div className="flex flex-col gap-[12px]">
+            <div className="flex flex-col gap-[12px] pc:flex-1 pc:w-0">
                 {champions.map((champion) => (
                     <div key={champion.champion_slot}>
                         <div className="flex items-center font-bold"><span>{champion.champion_name}</span><span className="mx-[6px]">|</span><span>{champion.champion_grade} 등급</span></div>
@@ -14,7 +14,7 @@ export default function UserUnionChampion({ champions = [], badgeEffects = [], a
                     </div>
                 ))}
             </div>
-            <div>
+            <div className="pc:flex-1 pc:w-0">
                 <p className="font-bold mb-[8px]">유니온 챔피언 휘장 효과</p>
                 <ul className="flex flex-col gap-[4px] text-[14px] list-disc pl-[16px]">
                     {badgeEffects.map((effect, idx) => (
@@ -22,7 +22,7 @@ export default function UserUnionChampion({ champions = [], badgeEffects = [], a
                     ))}
                 </ul>
             </div>
-            <div>
+            <div className="pc:flex-1 pc:w-0">
                 <p className="font-bold mb-[8px]">아티팩트 효과</p>
                 <ul className="flex flex-col gap-[4px] text-[14px] list-disc pl-[16px]">
                     {artifactEffects.map((effect, idx) => (
