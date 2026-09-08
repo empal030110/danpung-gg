@@ -15,3 +15,12 @@ export const gradeBorderColor = (grade?: string): string => {
         default: return 'border-blue-300'; // 레어
     }
 };
+
+export const gradeBgColor = (grade?: string): string => {
+    switch (grade) {
+        case '레전드리': return 'bg-green-400';
+        case '유니크': return 'bg-yellow-400';
+        case '에픽': return 'bg-purple-400';
+        default: return 'bg-blue-300'; // 레어
+    }
+};
