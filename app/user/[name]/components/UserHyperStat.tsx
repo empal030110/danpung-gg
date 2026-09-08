@@ -6,7 +6,7 @@ import PresetTabs from "@/components/PresetTabs";
 
 export default function UserHyperStat({ presetNumber = 0, preset1 = [], preset2 = [], preset3 = [] }: { presetNumber?: presetNumberProps; preset1?: hyperStatEntryProps[]; preset2?: hyperStatEntryProps[]; preset3?: hyperStatEntryProps[]; }) {
     const [selectedPreset, setSelectedPreset] = useState(presetNumber !== 0 ? presetNumber : 1);
-    const currentPreset = selectedPreset === 1 ? preset1 : selectedPreset === 2 ? preset2 : preset3;
+    const currentPreset = [preset1, preset2, preset3][selectedPreset - 1];
 
     return (
         <div className="w-full">

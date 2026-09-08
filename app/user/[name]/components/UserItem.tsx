@@ -8,7 +8,7 @@ import PresetTabs from "@/components/PresetTabs";
 
 export default function UserItem({ presetNumber = 0, preset1 = [], preset2 = [], preset3 = [], android = [], title = []}: { presetNumber?: presetNumberProps; preset1?: itemProps[]; preset2?: itemProps[]; preset3?: itemProps[]; android?: androidProps[]; title?: titleProps[]; }) {
     const [selectedPreset, setSelectedPreset] = useState(presetNumber !== 0 ? presetNumber : 1); // presetNumber가 없으면 1번을 기본으로
-    const currentPreset = selectedPreset === 1 ? preset1 : selectedPreset === 2 ? preset2 : preset3;
+    const currentPreset = [preset1, preset2, preset3][selectedPreset - 1];
     const specialRing = currentPreset.find(
         (item) =>
             item.item_equipment_slot === '예비 특수 반지' &&
