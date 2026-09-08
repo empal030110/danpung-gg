@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect } from "react";
 import Image from "next/image";
 import { FaStar, FaTimes } from "react-icons/fa";
 import { itemOptionProps, itemProps } from "../../userProps/props";
 import { cutOptionName } from "@/lib/cutOptionName";
 import { gradeColor, gradeBorderColor } from "@/lib/gradeColor";
 import { formatExpireDate } from "@/lib/formatExpireDate";
+import { useEscapeClose } from "@/hooks/useEscapeClose";
 
 interface StatRowDef {
     key: keyof itemOptionProps;
@@ -141,17 +141,7 @@ function PotentialSection({ label, grade, options }: { label: string; grade?: st
 }
 
 export default function ItemDetailModal({ item, onClose }: { item: itemProps; onClose: () => void }) {
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === "Escape") onClose();
-        };
-        document.addEventListener("keydown", handleKeyDown);
-        document.body.style.overflow = "hidden";
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown);
-            document.body.style.overflow = "";
-        };
-    }, [onClose]);
+    useEscapeClose(onClose);
 
     const grade = item.potential_option_grade;
     const reqLevel = item.item_base_option?.base_equipment_level;

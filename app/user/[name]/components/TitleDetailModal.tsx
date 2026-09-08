@@ -1,23 +1,13 @@
 'use client';
 
-import { useEffect } from "react";
 import Image from "next/image";
 import { FaTimes } from "react-icons/fa";
 import { titleProps } from "../../userProps/props";
 import { formatExpireDate } from "@/lib/formatExpireDate";
+import { useEscapeClose } from "@/hooks/useEscapeClose";
 
 export default function TitleDetailModal({ title, onClose }: { title: titleProps; onClose: () => void }) {
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === "Escape") onClose();
-        };
-        document.addEventListener("keydown", handleKeyDown);
-        document.body.style.overflow = "hidden";
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown);
-            document.body.style.overflow = "";
-        };
-    }, [onClose]);
+    useEscapeClose(onClose);
 
     const expireAt = title.date_expire ?? title.date_option_expire;
     const expireText = expireAt ? formatExpireDate(expireAt) : null;
