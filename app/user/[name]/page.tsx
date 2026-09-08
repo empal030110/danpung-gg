@@ -38,25 +38,6 @@ export default async function SearchPage({ params }: userNameProps) {
     const userOcid = await ssrFetcher(userOcidUrl);
     const ocid = userOcid[0]['ocid'];
 
-    const userInfoUrl = userUrl(ocid);
-    const userSetUrl = setUrl(ocid);
-    const userSymbolUrl = symbolUrl(ocid);
-    const userAbilityUrl = abilityUrl(ocid);
-    const userItemUrl = itemUrl(ocid);
-    const userAndroidUrl = androidUrl(ocid);
-    const userPetUrl = petUrl(ocid);
-    const userHyperStatUrl = hyperStatUrl(ocid);
-    const userStatUrl = statUrl(ocid);
-    const userSkillUrl6 = skillUrl(ocid, '6');
-    const userSkillUrl5 = skillUrl(ocid, '5');
-    const userHexaStatUrl = hexaStatUrl(ocid);
-    const userLinkSkillUrl = linkSkillUrl(ocid);
-    const userUnionUrl = unionUrl(ocid);
-    const userUnionChampionUrl = unionChampionUrl(ocid);
-    const userUnionArtifactUrl = unionArtifactUrl(ocid);
-    const userUnionRaiderUrl = unionRaiderUrl(ocid);
-    const userCashItemUrl = cashItemEquipmentUrl(ocid);
-
     // ocid를 제외한 나머지 조회는 서로 의존관계가 없어서 병렬로 요청하되, 넥슨 API 순간 요청량 제한(429)에
     // 걸리지 않도록 동시 실행 개수를 제한 (전부 한 번에 쏘면 캐릭터에 따라 429로 실패하는 경우가 있었음)
     const [
@@ -81,24 +62,24 @@ export default async function SearchPage({ params }: userNameProps) {
         userAchievementData,
         userDojangData,
     ] = await runLimited([
-        () => ssrFetcher(userInfoUrl),
-        () => ssrFetcher(userSetUrl),
-        () => ssrFetcher(userSymbolUrl),
-        () => ssrFetcher(userAbilityUrl),
-        () => ssrFetcher(userItemUrl),
-        () => ssrFetcher(userAndroidUrl),
-        () => ssrFetcher(userPetUrl),
-        () => ssrFetcher(userHyperStatUrl),
-        () => ssrFetcher(userStatUrl),
-        () => ssrFetcher(userSkillUrl6),
-        () => ssrFetcher(userSkillUrl5),
-        () => ssrFetcher(userHexaStatUrl),
-        () => ssrFetcher(userLinkSkillUrl),
-        () => ssrFetcher(userUnionUrl),
-        () => ssrFetcher(userUnionChampionUrl),
-        () => ssrFetcher(userUnionArtifactUrl),
-        () => ssrFetcher(userUnionRaiderUrl),
-        () => ssrFetcher(userCashItemUrl),
+        () => ssrFetcher(userUrl(ocid)),
+        () => ssrFetcher(setUrl(ocid)),
+        () => ssrFetcher(symbolUrl(ocid)),
+        () => ssrFetcher(abilityUrl(ocid)),
+        () => ssrFetcher(itemUrl(ocid)),
+        () => ssrFetcher(androidUrl(ocid)),
+        () => ssrFetcher(petUrl(ocid)),
+        () => ssrFetcher(hyperStatUrl(ocid)),
+        () => ssrFetcher(statUrl(ocid)),
+        () => ssrFetcher(skillUrl(ocid, '6')),
+        () => ssrFetcher(skillUrl(ocid, '5')),
+        () => ssrFetcher(hexaStatUrl(ocid)),
+        () => ssrFetcher(linkSkillUrl(ocid)),
+        () => ssrFetcher(unionUrl(ocid)),
+        () => ssrFetcher(unionChampionUrl(ocid)),
+        () => ssrFetcher(unionArtifactUrl(ocid)),
+        () => ssrFetcher(unionRaiderUrl(ocid)),
+        () => ssrFetcher(cashItemEquipmentUrl(ocid)),
         () => ssrRankingFetcher((date) => achievementUrl(date, ocid)),
         () => ssrRankingFetcher((date) => dojangUrl(date, ocid)),
     ], 3);

@@ -9,8 +9,7 @@ import FavoriteButton from "./FavoriteButton";
 export default async function UserHeader({ data, ocid }: { data: userDataProps, ocid: string}) {
     // data는 기본 정보
     // 인기도 정보
-    const userPopularityUrl = popularityUrl(ocid);
-    const userPopularity = await ssrFetcher(userPopularityUrl);
+    const userPopularity = await ssrFetcher(popularityUrl(ocid));
 
     // 랭킹
     const userOverallData = await ssrRankingFetcher((date) => overallUrl(ocid, data.worldName, date)); // 전체 랭킹
@@ -20,13 +19,11 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps, 
     const userWorldOverall = userWorldOverallData[0].ranking[0] ? userWorldOverallData[0].ranking[0].ranking.toLocaleString() : '-';
     
     // 유니온
-    const userUnionUrl = unionUrl(ocid);
-    const userUnionData = await ssrFetcher(userUnionUrl);
+    const userUnionData = await ssrFetcher(unionUrl(ocid));
     const userUnionLevel = userUnionData[0].union_level ? userUnionData[0].union_level.toLocaleString() : 0;
 
     // 전투력 정보
-    const userStatUrl = statUrl(ocid);
-    const userStatData = await ssrFetcher(userStatUrl);
+    const userStatData = await ssrFetcher(statUrl(ocid));
     const finalStat = userStatData[0].final_stat;
     const combatStatData = finalStat.find((stat: userStatProps) => stat.stat_name === "전투력");
     const combatStat = combatStatData ? Number(combatStatData.stat_value).toLocaleString() : '-';
