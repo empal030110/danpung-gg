@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { getToDate, getYdayDate } from "./getDate";
 
 describe("getToDate / getYdayDate", () => {
