@@ -106,9 +106,21 @@ describe("mapUserPageData", () => {
 
         const result = mapUserPageData(raw);
 
-        expect(result.arcaneSymbols).toEqual([{ symbol_icon: "arcane.png", symbol_level: 20, symbol_force: "300" }]);
+        expect(result.arcaneSymbols).toEqual([
+            {
+                symbol_name: "아케인심볼 : 소멸의 여로",
+                symbol_icon: "arcane.png",
+                symbol_level: 20,
+                symbol_force: "300",
+            },
+        ]);
         expect(result.authenticSymbols).toEqual([
-            { symbol_icon: "authentic.png", symbol_level: 11, symbol_force: "110" },
+            {
+                symbol_name: "어센틱심볼 : 세르니움",
+                symbol_icon: "authentic.png",
+                symbol_level: 11,
+                symbol_force: "110",
+            },
         ]);
     });
 

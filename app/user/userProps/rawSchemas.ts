@@ -39,15 +39,13 @@ export const setDataRawSchema = z.object({
 
 // character/symbol-equipment
 export const symbolSchema = z.object({
+    symbol_name: nullishString, // 아이콘 alt 텍스트로 사용 (아케인/어센틱 분류에도 재사용)
     symbol_icon: nullishString,
     symbol_level: nullishNumber,
     symbol_force: nullishString,
 });
-const symbolRawItemSchema = symbolSchema.extend({
-    symbol_name: nullishString, // 아케인/어센틱 분류용 (symbolProps엔 없음)
-});
 export const symbolDataRawSchema = z.object({
-    symbol: z.array(symbolRawItemSchema).nullish(),
+    symbol: z.array(symbolSchema).nullish(),
 });
 
 // character/ability

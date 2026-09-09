@@ -24,7 +24,6 @@ import {
     userInfoRawSchema,
     setDataRawSchema,
     symbolDataRawSchema,
-    symbolSchema,
     abilityDataRawSchema,
     itemDataRawSchema,
     androidSchema,
@@ -168,14 +167,12 @@ export function mapUserPageData(raw: RawUserPageData): MappedUserPageData {
     // 세트효과
     const userSetEffect: userSetProps[] = setDataRawSchema.parse(userSetData[0]).set_effect ?? [];
 
-    // 심볼 (symbol_name은 아케인/어센틱 분류용이라 symbolSchema.parse가 걸러서 symbolProps로 좁혀줌)
+    // 심볼 (symbol_name으로 아케인/어센틱을 분류. 화면에서도 아이콘 alt 텍스트로 재사용)
     const symbolData = symbolDataRawSchema.parse(userSymbolData[0]).symbol ?? [];
-    const arcaneSymbols: symbolProps[] = symbolData
-        .filter((symbol) => symbol.symbol_name?.startsWith("아케인심볼"))
-        .map((symbol) => symbolSchema.parse(symbol));
-    const authenticSymbols: symbolProps[] = symbolData
-        .filter((symbol) => !symbol.symbol_name?.startsWith("아케인심볼"))
-        .map((symbol) => symbolSchema.parse(symbol));
+    const arcaneSymbols: symbolProps[] = symbolData.filter((symbol) => symbol.symbol_name?.startsWith("아케인심볼"));
+    const authenticSymbols: symbolProps[] = symbolData.filter(
+        (symbol) => !symbol.symbol_name?.startsWith("아케인심볼"),
+    );
 
     // 어빌리티 (설정되지 않은 프리셋은 API가 null을 내려주므로 빈 값으로 대체)
     const emptyAbilityPreset: abilityProps = { ability_preset_grade: "에픽", ability_info: [] };

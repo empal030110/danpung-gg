@@ -29,6 +29,16 @@ export default function SearchDropdown({
     onSelect,
     positionClassName = "left-0 right-0",
 }: SearchDropdownProps) {
+    // 바깥 행 안에 삭제용 <button>이 중첩돼 있어 행 자체를 <button>으로 만들 수 없음(버튼 중첩은 유효하지 않은 HTML) ->
+    // role/tabIndex/onKeyDown으로 키보드 접근성을 직접 부여
+    const handleRowKeyDown = (e: React.KeyboardEvent, name: string) => {
+        if (e.target !== e.currentTarget) return; // 중첩된 삭제 버튼에서 올라온 keydown은 무시 (버블링돼서 행 선택까지 같이 발동하는 것 방지)
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onSelect(name);
+        }
+    };
+
     return (
         <div
             onMouseDown={(e) => e.preventDefault()} // 내부 클릭이 input blur를 유발해 드롭다운이 닫히는 것을 방지
@@ -76,7 +86,10 @@ export default function SearchDropdown({
                         {recentSearches.map((name) => (
                             <div
                                 key={name}
+                                role="button"
+                                tabIndex={0}
                                 onClick={() => onSelect(name)}
+                                onKeyDown={(e) => handleRowKeyDown(e, name)}
                                 className="flex items-center justify-between gap-[8px] px-[8px] py-[6px] rounded-[8px] cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-800"
                             >
                                 <span className="text-[14px] text-black dark:text-white">{name}</span>
@@ -86,6 +99,7 @@ export default function SearchDropdown({
                                         e.stopPropagation(); // 상위 항목의 재검색 클릭으로 전파되지 않도록 막음
                                         removeSearch(name);
                                     }}
+                                    aria-label={`${name} 최근 검색어 삭제`}
                                     className="text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 cursor-pointer"
                                 >
                                     <FiX size={14} />
@@ -101,7 +115,10 @@ export default function SearchDropdown({
                     {favorites.map((name) => (
                         <div
                             key={name}
+                            role="button"
+                            tabIndex={0}
                             onClick={() => onSelect(name)}
+                            onKeyDown={(e) => handleRowKeyDown(e, name)}
                             className="flex items-center justify-between gap-[8px] px-[8px] py-[6px] rounded-[8px] cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-800"
                         >
                             <span className="text-[14px] text-black dark:text-white">{name}</span>
@@ -111,6 +128,7 @@ export default function SearchDropdown({
                                     e.stopPropagation(); // 상위 항목의 재검색 클릭으로 전파되지 않도록 막음
                                     removeFavorite(name);
                                 }}
+                                aria-label={`${name} 즐겨찾기 해제`}
                                 className="text-yellow-400 cursor-pointer"
                             >
                                 <FaStar size={12} />

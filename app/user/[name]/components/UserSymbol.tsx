@@ -41,7 +41,7 @@ export default function UserSymbol({
             <div className="grid grid-cols-3 gap-[8px]">
                 {currentSymbols.map((symbol, idx) => (
                     <div key={idx} className="flex flex-col items-center gap-[4px]">
-                        <Image src={symbol.symbol_icon || ""} alt="" width={40} height={40} />
+                        <Image src={symbol.symbol_icon || ""} alt={symbol.symbol_name ?? ""} width={40} height={40} />
                         <p className="text-[12px]">Lv.{symbol.symbol_level}</p>
                     </div>
                 ))}

@@ -26,7 +26,15 @@ export default function HeaderSearchBar() {
     if (pathname === "/") return null; // 메인 페이지엔 이미 큰 검색바가 있어서 헤더에는 안 보이게 함
 
     return (
-        <div className="w-full relative">
+        <div
+            className="w-full relative"
+            // 포커스가 검색창 밖으로 완전히 나갈 때만 닫는다 (Tab으로 드롭다운 안쪽 버튼으로 이동하는 것까지 막지 않도록)
+            onBlur={(e) => {
+                if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                    closeDropdown();
+                }
+            }}
+        >
             <SearchForm
                 inputValue={inputValue}
                 onChange={setInputValue}
@@ -36,7 +44,6 @@ export default function HeaderSearchBar() {
                     (document.activeElement as HTMLElement)?.blur();
                 }}
                 onFocus={openDropdown}
-                onBlur={closeDropdown}
             />
             {showDropdown && (
                 <SearchDropdown
