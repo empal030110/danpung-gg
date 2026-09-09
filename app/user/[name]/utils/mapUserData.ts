@@ -19,9 +19,11 @@ import {
     achievementRankProps,
     dojangRankProps,
 } from "../../userProps/props";
+import { itemSchema } from "../../userProps/itemSchema";
 
 // 넥슨 API 원본 응답은 필드가 매우 많고 계속 바뀔 수 있어 전체를 타이핑하지 않고
 // 이 파일에서 실제로 쓰는 필드만 any로 다룬다 (filterItem.ts와 동일한 방침).
+// item/title/android는 itemSchema로 실제 검증까지
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type RawApiObject = any;
 
@@ -94,37 +96,7 @@ export interface MappedUserPageData {
     userDojang: dojangRankProps | undefined;
 }
 
-const toItemProps = (item: itemProps): itemProps => ({
-    additional_potential_option_1: item.additional_potential_option_1,
-    additional_potential_option_2: item.additional_potential_option_2,
-    additional_potential_option_3: item.additional_potential_option_3,
-    additional_potential_option_flag: item.additional_potential_option_flag,
-    additional_potential_option_grade: item.additional_potential_option_grade,
-    soul_name: item.soul_name,
-    soul_option: item.soul_option,
-    item_equipment_part: item.item_equipment_part,
-    item_equipment_slot: item.item_equipment_slot,
-    item_icon: item.item_icon,
-    item_name: item.item_name,
-    potential_option_1: item.potential_option_1,
-    potential_option_2: item.potential_option_2,
-    potential_option_3: item.potential_option_3,
-    potential_option_flag: item.potential_option_flag,
-    potential_option_grade: item.potential_option_grade,
-    starforce: item.starforce,
-    starforce_scroll_flag: item.starforce_scroll_flag,
-    scroll_upgrade: item.scroll_upgrade,
-    scroll_upgradeable_count: item.scroll_upgradeable_count,
-    scroll_resilience_count: item.scroll_resilience_count,
-    item_total_option: item.item_total_option,
-    item_base_option: item.item_base_option,
-    item_add_option: item.item_add_option,
-    item_etc_option: item.item_etc_option,
-    item_starforce_option: item.item_starforce_option,
-    item_exceptional_option: item.item_exceptional_option,
-    date_expire: item.date_expire,
-    special_ring_level: item.special_ring_level,
-});
+const toItemProps = (item: unknown): itemProps => itemSchema.parse(item);
 
 const toSymbolProps = (symbol: { symbol_icon?: string; symbol_level?: number; symbol_force?: string }): symbolProps => ({
     symbol_icon: symbol.symbol_icon,
@@ -201,8 +173,9 @@ export function mapUserPageData(raw: RawUserPageData): MappedUserPageData {
     // 프리셋 기능을 쓰지 않는 캐릭터는 item_equipment_preset_1/2/3이 전부 빈 배열이고,
     // 실제 착용 중인 장비는 item_equipment에만 들어있어서 preset 1이 비어있으면 이를 대신 사용
     const presetNumber = userItemData[0].preset_no ?? 1;
-    const rawItemPreset1: itemProps[] = userItemData[0].item_equipment_preset_1 ?? [];
-    const equippedItems: itemProps[] = userItemData[0].item_equipment ?? [];
+    // 파싱 전이라 아직 검증되지 않은 원본이므로 itemProps로 단정하지 않음 (toItemProps에서 실제 검증)
+    const rawItemPreset1 = userItemData[0].item_equipment_preset_1 ?? [];
+    const equippedItems = userItemData[0].item_equipment ?? [];
     const userItemPreset1: itemProps[] = (rawItemPreset1.length > 0 ? rawItemPreset1 : equippedItems).map(toItemProps);
     const userItemPreset2: itemProps[] = (userItemData[0].item_equipment_preset_2 ?? []).map(toItemProps);
     const userItemPreset3: itemProps[] = (userItemData[0].item_equipment_preset_3 ?? []).map(toItemProps);

@@ -92,7 +92,7 @@ function StarRows({ current, max = 30, usedScroll = false }: { current: number; 
     );
 }
 
-function ExceptionalSection({ option }: { option?: itemOptionProps }) {
+function ExceptionalSection({ option }: { option?: itemOptionProps | null }) {
     if (!option || Number(option.exceptional_upgrade ?? 0) === 0) return null;
 
     return (
@@ -109,7 +109,7 @@ function ExceptionalSection({ option }: { option?: itemOptionProps }) {
     );
 }
 
-function SoulSection({ name, option }: { name?: string; option?: string }) {
+function SoulSection({ name, option }: { name?: string | null; option?: string | null }) {
     if (!name && !option) return null;
 
     return (
@@ -123,7 +123,7 @@ function SoulSection({ name, option }: { name?: string; option?: string }) {
     );
 }
 
-function PotentialSection({ label, grade, options }: { label: string; grade?: string; options: (string | undefined)[] }) {
+function PotentialSection({ label, grade, options }: { label: string; grade?: string | null; options: (string | null | undefined)[] }) {
     if (!grade) return null;
     const filled = options.filter(Boolean);
     if (filled.length === 0) return null;

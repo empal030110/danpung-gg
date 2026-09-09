@@ -1,3 +1,6 @@
+import type { z } from "zod";
+import type { itemOptionSchema, itemSchema } from "./itemSchema";
+
 export interface userNameProps {
     params: Promise<{ name: string }>;
 }
@@ -47,68 +50,14 @@ export interface abilityProps {
 
 export type presetNumberProps = number;
 
-export interface itemOptionProps {
-  str?: string,
-  dex?: string,
-  int?: string,
-  luk?: string,
-  max_hp?: string,
-  max_mp?: string,
-  attack_power?: string,
-  magic_power?: string,
-  armor?: string,
-  speed?: string,
-  jump?: string,
-  boss_damage?: string,
-  ignore_monster_armor?: string,
-  all_stat?: string,
-  damage?: string,
-  base_equipment_level?: number,
-  exceptional_upgrade?: number,
-}
-
-export interface itemProps {
-  additional_potential_option_1?: string,
-  additional_potential_option_2?: string,
-  additional_potential_option_3?: string,
-  additional_potential_option_flag?: string,
-  additional_potential_option_grade?: string,
-  soul_name?: string,
-  soul_option?: string,
-  item_equipment_part?: string,
-  item_equipment_slot?: string,
-  item_icon?: string,
-  item_name?: string,
-  potential_option_1?: string,
-  potential_option_2?: string,
-  potential_option_3?: string,
-  potential_option_flag?: string,
-  potential_option_grade?: string,
-  starforce?: string,
-  starforce_scroll_flag?: string,
-  scroll_upgrade?: string,
-  scroll_upgradeable_count?: string,
-  scroll_resilience_count?: string,
-  item_total_option?: itemOptionProps,
-  item_base_option?: itemOptionProps,
-  item_add_option?: itemOptionProps,
-  item_etc_option?: itemOptionProps,
-  item_starforce_option?: itemOptionProps,
-  item_exceptional_option?: itemOptionProps,
-  date_expire?: string | null,
-  title_name?: string,
-  title_icon?: string,
-  title_description?: string,
-  date_option_expire?: string | null,
-  android_name?: string,
-  android_icon?: string,
-  special_ring_level?: number,
-}
+// item/title/android 데이터는 넥슨 API 응답을 zod로 검증한 뒤 타입을 그대로 뽑아 쓴다 (itemSchema.ts 참고)
+export type itemOptionProps = z.infer<typeof itemOptionSchema>;
+export type itemProps = z.infer<typeof itemSchema>;
 
 export interface titleProps {
-  title_name?: string,
-  title_icon?: string,
-  title_description?: string,
+  title_name?: string | null,
+  title_icon?: string | null,
+  title_description?: string | null,
   date_expire?: string | null,
   date_option_expire?: string | null,
 }

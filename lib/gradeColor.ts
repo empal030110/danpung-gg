@@ -1,4 +1,4 @@
-export const gradeColor = (grade?: string): string => {
+export const gradeColor = (grade?: string | null): string => {
     switch (grade) {
         case '레전드리': return 'text-green-400';
         case '유니크': return 'text-yellow-400';
@@ -7,7 +7,7 @@ export const gradeColor = (grade?: string): string => {
     }
 };
 
-export const gradeBorderColor = (grade?: string): string => {
+export const gradeBorderColor = (grade?: string | null): string => {
     switch (grade) {
         case '레전드리': return 'border-green-400';
         case '유니크': return 'border-yellow-400';
@@ -16,7 +16,7 @@ export const gradeBorderColor = (grade?: string): string => {
     }
 };
 
-export const gradeBgColor = (grade?: string): string => {
+export const gradeBgColor = (grade?: string | null): string => {
     switch (grade) {
         case '레전드리': return 'bg-green-400';
         case '유니크': return 'bg-yellow-400';

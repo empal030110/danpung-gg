@@ -12,7 +12,7 @@ const optionNameMap: Record<string, string> = {
     '크리티컬 확률': '크확',
 };
 
-export const cutOptionName = (optionText?: string) => {
+export const cutOptionName = (optionText?: string | null) => {
     if (!optionText) return optionText;
 
     return Object.entries(optionNameMap).reduce(
