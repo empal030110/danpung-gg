@@ -1,0 +1,37 @@
+name: E2E (smoke)
+
+# 실제 넥슨 Open API와 살아있는 캐릭터 데이터에 의존하는 스모크 테스트라,
+# PR/push를 막는 필수 게이트가 아니라 수동 실행 + 주기적 스케줄로만 돈다.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * *" # 매일 UTC 03:00 (KST 정오)
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E
+        run: npm run test:e2e
+        env:
+          NX_OPEN_API_KEY: ${{ secrets.NX_OPEN_API_KEY }}
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
