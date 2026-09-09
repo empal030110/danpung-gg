@@ -20,7 +20,7 @@ export default function UserLinkSkill({ presetNumber = 0, preset1 = [], preset2 
                 <div className="grid grid-cols-4 pc:grid-cols-6 gap-[8px]">
                     {currentPreset.map((skill) => (
                         <div key={skill.skill_name} className="flex flex-col items-center gap-[4px]">
-                            <Image src={skill.skill_icon} alt={skill.skill_name} width={40} height={40} />
+                            <Image src={skill.skill_icon ?? ""} alt={skill.skill_name ?? ""} width={40} height={40} />
                             <p className="text-[12px]">Lv.{skill.skill_level}</p>
                         </div>
                     ))}

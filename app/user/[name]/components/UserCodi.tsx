@@ -10,7 +10,7 @@ function CodiCell({ slot, item }: { slot: string; item?: cashItemProps }) {
         <div className="flex items-center gap-[8px] border border-neutral-400 p-[12px] rounded-[8px] min-w-0">
             {item ? (
                 <>
-                    <Image src={item.cash_item_icon} alt={item.cash_item_name} width={40} height={40} className="shrink-0" />
+                    <Image src={item.cash_item_icon ?? ""} alt={item.cash_item_name ?? ""} width={40} height={40} className="shrink-0" />
                     <div className="text-[12px] min-w-0">
                         <p className="text-neutral-500 dark:text-neutral-400 truncate">{item.cash_item_equipment_part}</p>
                         <p className="font-bold text-[14px] truncate">{item.cash_item_name}</p>

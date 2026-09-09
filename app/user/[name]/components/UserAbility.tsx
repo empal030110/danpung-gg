@@ -9,7 +9,7 @@ export default function UserAbility({ presetNumber = 0, preset1, preset2, preset
     const initialPreset = presetNumber === 2 ? preset2 : presetNumber === 3 ? preset3 : preset1; // presetNumber가 없으먼 1이면 1번을 기본으로
     const [selectedPreset, setSelectedPreset] = useState<abilityProps>(initialPreset);
 
-    const currentData = selectedPreset.ability_info;
+    const currentData = selectedPreset.ability_info ?? [];
     const activePresetNum = selectedPreset === preset1 ? 1 : selectedPreset === preset2 ? 2 : 3;
     const selectPreset = (num: number) => setSelectedPreset(num === 1 ? preset1 : num === 2 ? preset2 : preset3);
 

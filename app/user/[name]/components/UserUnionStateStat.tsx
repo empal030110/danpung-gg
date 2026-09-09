@@ -33,14 +33,14 @@ export default function UserUnionStateStat({ presetNumber = 1, presets = [] }: {
             <div className="grid grid-cols-5 gap-[8px] mb-[16px]">
                 {presets.map((preset) => {
                     // 프리셋 자체는 항상 10개가 내려오지만, 캐릭터가 아직 만들지 않은 프리셋은 union_state_stat이 빈 배열로 옴 -> 선택 자체를 막음
-                    const disabled = preset.union_state_stat.length === 0;
+                    const disabled = (preset.union_state_stat ?? []).length === 0;
                     const active = selected === preset.preset_no;
                     return (
                         <button
                             key={preset.preset_no}
                             type="button"
                             disabled={disabled}
-                            onClick={() => setSelected(preset.preset_no)}
+                            onClick={() => setSelected(preset.preset_no ?? 1)}
                             className={`py-[6px] rounded-[8px] text-[14px] font-semibold border ${disabled
                                 ? 'border-neutral-300 dark:border-neutral-700 text-neutral-300 dark:text-neutral-600 cursor-not-allowed'
                                 : active

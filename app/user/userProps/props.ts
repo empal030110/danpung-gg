@@ -1,10 +1,33 @@
 import type { z } from "zod";
 import type { itemOptionSchema, itemSchema } from "./itemSchema";
+import type {
+    userSetOptionsSchema,
+    userSetSchema,
+    symbolSchema,
+    abilityInfoSchema,
+    abilityPresetSchema,
+    androidSchema,
+    petEquipmentOptionSchema,
+    petEquipmentSchema,
+    hyperStatEntrySchema,
+    userStatSchema,
+    skillSchema,
+    hexaStatCoreSchema,
+    userUnionSchema,
+    unionChampionSchema,
+    unionArtifactEffectSchema,
+    unionStateStatPresetSchema,
+    cashItemSchema,
+    achievementRankSchema,
+    dojangRankSchema,
+} from "./rawSchemas";
 
 export interface userNameProps {
     params: Promise<{ name: string }>;
 }
 
+// 넥슨 API 원본 필드(character_name 등)를 화면용 camelCase로 옮겨 담는 결과 타입이라
+// 스키마에서 직접 뽑지 않고 그대로 유지한다 (원본 검증은 rawSchemas.userInfoRawSchema가 담당)
 export interface userDataProps {
     date: string,
     characterName: string,
@@ -12,41 +35,21 @@ export interface userDataProps {
     characterGender: string,
     characterClass: string,
     characterClassLevel: string,
-    characterLevel: 0,
-    characterExp: 0,
+    characterLevel: number,
+    characterExp: number,
     characterExpRate: string,
-    characterGuildName: string,
+    characterGuildName: string | null,
     characterImage: string,
     characterDateCreate: string,
     accessFlag: string,
     liberationQuestClearFlag: string
 }
 
-export interface userStatProps {
-  stat_name: string;
-  stat_value: string;
-}
-
-export interface userSetOptions {
-	set_count: number;
-	set_option: string;
-}
-export interface userSetProps {
-	set_name: string,
-	total_set_count: number,
-	set_effect_info: userSetOptions[];
-	set_option_full: userSetOptions[];
-}
-
-export interface ability {
-  ability_no: string;
-  ability_grade: '레전드리' | '유니크' | '에픽';
-  ability_value: string;
-}
-export interface abilityProps {
-  ability_preset_grade: '레전드리' | '유니크' | '에픽';
-  ability_info: ability[];
-}
+export type userStatProps = z.infer<typeof userStatSchema>;
+export type userSetOptions = z.infer<typeof userSetOptionsSchema>;
+export type userSetProps = z.infer<typeof userSetSchema>;
+export type ability = z.infer<typeof abilityInfoSchema>;
+export type abilityProps = z.infer<typeof abilityPresetSchema>;
 
 export type presetNumberProps = number;
 
@@ -62,93 +65,27 @@ export interface titleProps {
   date_option_expire?: string | null,
 }
 
-export interface androidProps {
-  android_name?: string,
-  android_icon?: string,
-}
+export type androidProps = z.infer<typeof androidSchema>;
+export type symbolProps = z.infer<typeof symbolSchema>;
+export type petEquipmentOption = z.infer<typeof petEquipmentOptionSchema>;
+export type petEquipmentProps = z.infer<typeof petEquipmentSchema>;
 
-export interface symbolProps {
-  symbol_icon?: string,
-  symbol_level?: number,
-  symbol_force?: string,
-}
-
-export interface petEquipmentOption {
-  option_type: string,
-  option_value: string,
-}
-export interface petEquipmentProps {
-  item_name?: string | null,
-  item_icon?: string | null,
-  item_option?: petEquipmentOption[],
-}
+// pet_1/2/3_name 같은 동적 키를 pet_name 등으로 옮겨 담는 결과 타입이라 스키마에서 직접 뽑지 않음
+// (원본 검증은 rawSchemas.petDataRawSchema가 담당)
 export interface petProps {
-  pet_name?: string,
-  pet_icon?: string,
-  pet_type?: string,
-  pet_equipment?: petEquipmentProps,
+  pet_name?: string | null,
+  pet_icon?: string | null,
+  pet_type?: string | null,
+  pet_equipment?: petEquipmentProps | null,
 }
 
-export interface hyperStatEntryProps {
-  stat_type: string,
-  stat_point: number | null,
-  stat_level: number,
-  stat_increase: string | null,
-}
-
-export interface skillProps {
-  skill_name: string,
-  skill_level: number,
-  skill_icon: string,
-}
-
-export interface hexaStatCoreProps {
-  main_stat_name: string | null,
-  main_stat_level: number,
-  sub_stat_name_1: string | null,
-  sub_stat_level_1: number,
-  sub_stat_name_2: string | null,
-  sub_stat_level_2: number,
-}
-
-export interface userUnionProps {
-  union_level: number,
-  union_grade: string,
-  union_artifact_level: number,
-}
-
-export interface unionChampionProps {
-  champion_slot: number,
-  champion_name: string,
-  champion_class: string,
-  champion_grade: string,
-}
-
-export interface unionArtifactEffectProps {
-  name: string,
-  level: number,
-}
-
-export interface unionStateStatPresetProps {
-  preset_no: number,
-  union_state_stat: string[],
-}
-
-export interface cashItemProps {
-  cash_item_equipment_part: string,
-  cash_item_equipment_slot: string,
-  cash_item_name: string,
-  cash_item_icon: string,
-}
-
-export interface achievementRankProps {
-  ranking: number,
-  trophy_score: number,
-  trophy_grade: string,
-}
-
-export interface dojangRankProps {
-  ranking: number,
-  dojang_floor: number,
-  dojang_time_record: number,
-}
+export type hyperStatEntryProps = z.infer<typeof hyperStatEntrySchema>;
+export type skillProps = z.infer<typeof skillSchema>;
+export type hexaStatCoreProps = z.infer<typeof hexaStatCoreSchema>;
+export type userUnionProps = z.infer<typeof userUnionSchema>;
+export type unionChampionProps = z.infer<typeof unionChampionSchema>;
+export type unionArtifactEffectProps = z.infer<typeof unionArtifactEffectSchema>;
+export type unionStateStatPresetProps = z.infer<typeof unionStateStatPresetSchema>;
+export type cashItemProps = z.infer<typeof cashItemSchema>;
+export type achievementRankProps = z.infer<typeof achievementRankSchema>;
+export type dojangRankProps = z.infer<typeof dojangRankSchema>;
