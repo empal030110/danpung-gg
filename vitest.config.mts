@@ -1,4 +1,4 @@
-import { defineConfig } from "vitest/config";
+import { defineConfig, defaultExclude } from "vitest/config";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -17,5 +17,6 @@ export default defineConfig({
     test: {
         environment: "node", // 대부분 순수 로직 테스트라 기본은 node. 컴포넌트/훅 테스트만 파일 상단에 `// @vitest-environment jsdom` 지정
         setupFiles: ["./vitest.setup.ts"],
+        exclude: [...defaultExclude, "e2e/**"], // e2e/*.spec.ts는 playwright 전용
     },
 });
