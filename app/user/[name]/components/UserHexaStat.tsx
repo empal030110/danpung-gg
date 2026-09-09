@@ -9,13 +9,20 @@ export default function UserHexaStat({ core }: { core?: hexaStatCoreProps }) {
 
     return (
         <div className="w-full flex flex-col gap-[8px] text-[14px]">
-            {rows.map((row, index) => (
+            {rows.map((row, index) =>
                 row.name ? (
-                    <p className={`w-full py-[4px] px-[10px] rounded-[6px] bg-neutral-300 dark:bg-neutral-400 ${index == 0 ? 'font-bold' : ''}`} key={index}>Lv.{row.level} {row.name}</p>
+                    <p
+                        className={`w-full py-[4px] px-[10px] rounded-[6px] bg-neutral-300 dark:bg-neutral-400 ${index == 0 ? "font-bold" : ""}`}
+                        key={index}
+                    >
+                        Lv.{row.level} {row.name}
+                    </p>
                 ) : (
-                    <p key={index} className="text-neutral-500 dark:text-neutral-400">-</p>
-                )
-            ))}
+                    <p key={index} className="text-neutral-500 dark:text-neutral-400">
+                        -
+                    </p>
+                ),
+            )}
         </div>
     );
 }

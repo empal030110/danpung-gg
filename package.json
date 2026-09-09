@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@capacitor/android": "^8.5.0",
@@ -38,8 +40,10 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
+    "eslint-config-prettier": "^10.1.8",
     "jsdom": "^29.1.1",
     "postcss": "^8.5.4",
+    "prettier": "^3.9.6",
     "tailwindcss": "^4.1.8",
     "typescript": "^5",
     "vitest": "^4.1.11"

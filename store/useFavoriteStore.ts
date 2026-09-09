@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 interface FavoriteState {
     favorites: string[];
@@ -26,8 +26,8 @@ export const useFavoriteStore = create<FavoriteState>()(
             clearFavorites: () => set({ favorites: [] }),
         }),
         {
-            name: 'favorites', // localStorage에 저장될 키 이름
+            name: "favorites", // localStorage에 저장될 키 이름
             storage: createJSONStorage(() => localStorage), // 새로고침/재방문 시에도 유지되도록 영속화
-        }
-    )
+        },
+    ),
 );

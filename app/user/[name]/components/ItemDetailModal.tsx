@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import { FaStar, FaTimes } from "react-icons/fa";
@@ -46,13 +46,45 @@ function StatLine({ row, item }: { row: StatRowDef; item: itemProps }) {
 
     return (
         <p className="text-[13px]">
-            {row.label} : <span className="text-cyan-300 font-semibold">+{total.toLocaleString()}{suffix}</span>
+            {row.label} :{" "}
+            <span className="text-cyan-300 font-semibold">
+                +{total.toLocaleString()}
+                {suffix}
+            </span>
             {showBreakdown && (
                 <span className="text-neutral-400 ml-[4px]">
-                    (<span className="text-black dark:text-white">{base.toLocaleString()}{suffix}</span>
-                    {add !== 0 && <> <span className="text-green-400">+{add.toLocaleString()}{suffix}</span></>}
-                    {etc !== 0 && <> <span className="text-purple-400">+{etc.toLocaleString()}{suffix}</span></>}
-                    {starforce !== 0 && <> <span className="text-yellow-400">+{starforce.toLocaleString()}{suffix}</span></>}
+                    (
+                    <span className="text-black dark:text-white">
+                        {base.toLocaleString()}
+                        {suffix}
+                    </span>
+                    {add !== 0 && (
+                        <>
+                            {" "}
+                            <span className="text-green-400">
+                                +{add.toLocaleString()}
+                                {suffix}
+                            </span>
+                        </>
+                    )}
+                    {etc !== 0 && (
+                        <>
+                            {" "}
+                            <span className="text-purple-400">
+                                +{etc.toLocaleString()}
+                                {suffix}
+                            </span>
+                        </>
+                    )}
+                    {starforce !== 0 && (
+                        <>
+                            {" "}
+                            <span className="text-yellow-400">
+                                +{starforce.toLocaleString()}
+                                {suffix}
+                            </span>
+                        </>
+                    )}
                     )
                 </span>
             )}
@@ -78,7 +110,13 @@ function StarRows({ current, max = 30, usedScroll = false }: { current: number; 
                                 <div key={groupIdx} className="flex gap-[2px]">
                                     {Array.from({ length: count }, () => {
                                         const filled = starIndex < current;
-                                        const star = <FaStar key={starIndex} size={14} className={filled ? filledColor : "text-neutral-700"} />;
+                                        const star = (
+                                            <FaStar
+                                                key={starIndex}
+                                                size={14}
+                                                className={filled ? filledColor : "text-neutral-700"}
+                                            />
+                                        );
                                         starIndex += 1;
                                         return star;
                                     })}
@@ -123,17 +161,29 @@ function SoulSection({ name, option }: { name?: string | null; option?: string |
     );
 }
 
-function PotentialSection({ label, grade, options }: { label: string; grade?: string | null; options: (string | null | undefined)[] }) {
+function PotentialSection({
+    label,
+    grade,
+    options,
+}: {
+    label: string;
+    grade?: string | null;
+    options: (string | null | undefined)[];
+}) {
     if (!grade) return null;
     const filled = options.filter(Boolean);
     if (filled.length === 0) return null;
 
     return (
         <div>
-            <p className={`text-[13px] font-bold mb-[4px] ${gradeColor(grade)}`}>{label} ({grade})</p>
+            <p className={`text-[13px] font-bold mb-[4px] ${gradeColor(grade)}`}>
+                {label} ({grade})
+            </p>
             <div className="flex flex-col gap-[2px]">
                 {filled.map((option, index) => (
-                    <p key={index} className={`text-[13px] ${gradeColor(grade)}`}>{cutOptionName(option)}</p>
+                    <p key={index} className={`text-[13px] ${gradeColor(grade)}`}>
+                        {cutOptionName(option)}
+                    </p>
                 ))}
             </div>
         </div>
@@ -149,16 +199,18 @@ export default function ItemDetailModal({ item, onClose }: { item: itemProps; on
     const expireText = item.date_expire ? formatExpireDate(item.date_expire) : null;
 
     return (
-        <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-[16px]"
-            onClick={onClose}
-        >
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-[16px]" onClick={onClose}>
             <div
                 className={`w-full max-w-[420px] max-h-[90vh] overflow-y-auto scrollbar-hide rounded-[16px] border-2 ${gradeBorderColor(grade)} bg-white dark:bg-[#171717] p-[20px]`}
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex justify-end">
-                    <button type="button" onClick={onClose} aria-label="닫기" className="cursor-pointer text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200">
+                    <button
+                        type="button"
+                        onClick={onClose}
+                        aria-label="닫기"
+                        className="cursor-pointer text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200"
+                    >
                         <FaTimes size={16} />
                     </button>
                 </div>
@@ -174,28 +226,62 @@ export default function ItemDetailModal({ item, onClose }: { item: itemProps; on
                     {upgradeCount > 0 && ` (+${upgradeCount})`}
                 </p>
                 {grade && <p className={`text-[13px] text-center ${gradeColor(grade)}`}>({grade} 아이템)</p>}
-                {expireText && <p className="text-[12px] text-center text-neutral-500 dark:text-neutral-400 mt-[4px]">{expireText}</p>}
+                {expireText && (
+                    <p className="text-[12px] text-center text-neutral-500 dark:text-neutral-400 mt-[4px]">
+                        {expireText}
+                    </p>
+                )}
 
                 <div className="flex items-center gap-[16px] mt-[16px] pt-[16px] border-t border-neutral-300 dark:border-neutral-700">
-                    <div className={`shrink-0 w-[64px] h-[64px] flex items-center justify-center rounded-[8px] border-2 ${gradeBorderColor(grade)} bg-neutral-100 dark:bg-neutral-800`}>
-                        <Image src={item.item_icon ?? ""} alt={item.item_name ?? ""} width={48} height={48} style={{ objectFit: "contain" }} unoptimized />
+                    <div
+                        className={`shrink-0 w-[64px] h-[64px] flex items-center justify-center rounded-[8px] border-2 ${gradeBorderColor(grade)} bg-neutral-100 dark:bg-neutral-800`}
+                    >
+                        <Image
+                            src={item.item_icon ?? ""}
+                            alt={item.item_name ?? ""}
+                            width={48}
+                            height={48}
+                            style={{ objectFit: "contain" }}
+                            unoptimized
+                        />
                     </div>
-                    {reqLevel !== undefined && <p className="text-[14px] text-neutral-500 dark:text-neutral-400">REQ LEVEL : {reqLevel}</p>}
+                    {reqLevel !== undefined && (
+                        <p className="text-[14px] text-neutral-500 dark:text-neutral-400">REQ LEVEL : {reqLevel}</p>
+                    )}
                 </div>
 
                 <div className="mt-[16px] pt-[16px] border-t border-neutral-300 dark:border-neutral-700 flex flex-col gap-[3px]">
-                    {item.item_equipment_part && <p className="text-[13px] text-neutral-500 dark:text-neutral-400 mb-[4px]">장비 분류 : {item.item_equipment_part}</p>}
-                    {STAT_ROWS.map((row) => <StatLine key={row.key} row={row} item={item} />)}
+                    {item.item_equipment_part && (
+                        <p className="text-[13px] text-neutral-500 dark:text-neutral-400 mb-[4px]">
+                            장비 분류 : {item.item_equipment_part}
+                        </p>
+                    )}
+                    {STAT_ROWS.map((row) => (
+                        <StatLine key={row.key} row={row} item={item} />
+                    ))}
                     {(item.scroll_upgradeable_count !== undefined || item.scroll_resilience_count !== undefined) && (
                         <p className="text-[12px] text-orange-400 mt-[4px]">
-                            업그레이드 가능 횟수 : {item.scroll_upgradeable_count ?? 0}회 (복구 가능 횟수 : {item.scroll_resilience_count ?? 0}회)
+                            업그레이드 가능 횟수 : {item.scroll_upgradeable_count ?? 0}회 (복구 가능 횟수 :{" "}
+                            {item.scroll_resilience_count ?? 0}회)
                         </p>
                     )}
                 </div>
 
                 <div className="mt-[16px] pt-[16px] border-t border-neutral-300 dark:border-neutral-700 flex flex-col gap-[12px]">
-                    <PotentialSection label="잠재옵션" grade={item.potential_option_grade} options={[item.potential_option_1, item.potential_option_2, item.potential_option_3]} />
-                    <PotentialSection label="에디셔널 잠재옵션" grade={item.additional_potential_option_grade} options={[item.additional_potential_option_1, item.additional_potential_option_2, item.additional_potential_option_3]} />
+                    <PotentialSection
+                        label="잠재옵션"
+                        grade={item.potential_option_grade}
+                        options={[item.potential_option_1, item.potential_option_2, item.potential_option_3]}
+                    />
+                    <PotentialSection
+                        label="에디셔널 잠재옵션"
+                        grade={item.additional_potential_option_grade}
+                        options={[
+                            item.additional_potential_option_1,
+                            item.additional_potential_option_2,
+                            item.additional_potential_option_3,
+                        ]}
+                    />
                     <SoulSection name={item.soul_name} option={item.soul_option} />
                     <ExceptionalSection option={item.item_exceptional_option} />
                 </div>

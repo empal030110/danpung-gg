@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -6,7 +6,17 @@ import { presetNumberProps, skillProps } from "../../userProps/props";
 import PresetTabs from "@/components/PresetTabs";
 import NotInfoText from "@/components/NotInfoText";
 
-export default function UserLinkSkill({ presetNumber = 0, preset1 = [], preset2 = [], preset3 = [] }: { presetNumber?: presetNumberProps; preset1?: skillProps[]; preset2?: skillProps[]; preset3?: skillProps[]; }) {
+export default function UserLinkSkill({
+    presetNumber = 0,
+    preset1 = [],
+    preset2 = [],
+    preset3 = [],
+}: {
+    presetNumber?: presetNumberProps;
+    preset1?: skillProps[];
+    preset2?: skillProps[];
+    preset3?: skillProps[];
+}) {
     const [selectedPreset, setSelectedPreset] = useState(presetNumber !== 0 ? presetNumber : 1);
     const currentPreset = [preset1, preset2, preset3][selectedPreset - 1];
 

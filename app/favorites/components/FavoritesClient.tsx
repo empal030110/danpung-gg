@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import { DotLoader } from "react-spinners";
@@ -63,7 +63,9 @@ export default function FavoritesClient() {
     if (favorites.length === 0) {
         return (
             <div className="w-full py-[40px]">
-                <NotInfoText center>즐겨찾기한 캐릭터가 없습니다. 캐릭터 페이지의 별 아이콘을 눌러 추가해보세요.</NotInfoText>
+                <NotInfoText center>
+                    즐겨찾기한 캐릭터가 없습니다. 캐릭터 페이지의 별 아이콘을 눌러 추가해보세요.
+                </NotInfoText>
             </div>
         );
     }

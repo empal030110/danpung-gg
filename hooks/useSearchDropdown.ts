@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRecentSearchStore } from '@/store/useRecentSearchStore';
-import { useFavoriteStore } from '@/store/useFavoriteStore';
+import { useState } from "react";
+import { useRecentSearchStore } from "@/store/useRecentSearchStore";
+import { useFavoriteStore } from "@/store/useFavoriteStore";
 
-export type DropdownTab = 'recent' | 'favorite';
+export type DropdownTab = "recent" | "favorite";
 
 export function useSearchDropdown() {
     const [showDropdown, setShowDropdown] = useState(false);
-    const [activeTab, setActiveTab] = useState<DropdownTab>('recent');
+    const [activeTab, setActiveTab] = useState<DropdownTab>("recent");
     const { recentSearches, removeSearch, clearSearches } = useRecentSearchStore();
     const { favorites, removeFavorite, clearFavorites } = useFavoriteStore();
 

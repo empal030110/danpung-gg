@@ -1,0 +1,22 @@
+node_modules
+.next
+out
+build
+coverage
+test-results
+playwright-report
+blob-report
+playwright/.cache
+public
+ios
+android
+resources
+*.tsbuildinfo
+next-env.d.ts
+
+# JSON/설정/문서는 코드 스타일 정리 범위 밖 (프로퍼티 순서·프로즈 개행 등 불필요한 변경 방지)
+*.json
+*.md
+# GitHub Actions는 2-space가 관례라 4-space로 강제하지 않음
+*.yml
+*.yaml

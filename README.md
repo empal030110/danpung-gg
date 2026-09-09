@@ -15,6 +15,7 @@
 - **UI**: Tailwind CSS v4 (커스텀 브레이크포인트 `pc: 940px`)
 - **State**: Zustand (즐겨찾기/최근 검색어, `localStorage` 영속화)
 - **Test**: Vitest(유닛/컴포넌트) + Testing Library + jsdom, Playwright(E2E)
+- **Format**: Prettier + `eslint-config-prettier`
 - **CI**: GitHub Actions
   - `ci.yml`: `lint` → `tsc --noEmit` → `test`, push/PR마다 실행 (필수 게이트)
   - `e2e.yml`: Playwright E2E, 수동 실행/매일 스케줄로만 실행 (실제 넥슨 API 의존이라 필수 게이트 아님)
@@ -175,6 +176,7 @@ npm test          # Vitest 유닛/컴포넌트 테스트
 npm run test:e2e   # Playwright E2E (dev 서버가 안 떠있으면 자동으로 띄움)
 npm run lint       # ESLint
 npx tsc --noEmit   # 타입 체크
+npm run format      # Prettier 자동 포맷
 ```
 
 5) 프로덕션 빌드/실행
@@ -246,6 +248,5 @@ npm run test:e2e    # E2E (Playwright)
 - **`UserInfoTabs.tsx` prop drilling**: 6개 탭 콘텐츠를 하나의 컴포넌트가 40개 prop으로 받아 그대로 자식에 흩뿌립니다. 도메인 자체가 복잡한 탓도 있지만, Context나 children 슬롯 패턴으로 줄일 여지가 있습니다.
 - **접근성**: `SearchDropdown`의 최근검색/즐겨찾기 목록 항목이 `<div onClick>`이라 키보드로 선택할 수 없습니다. 일부 아이콘 이미지에 의미 있는 `alt`가 빠져 있습니다.
 - **매직 스트링**: 등급명(`'레전드리'`, `'유니크'`...), 장비 슬롯명(`'모자'`, `'상의'`...) 같은 도메인 문자열이 여러 파일에 그대로 하드코딩되어 있어 오타로 인한 버그 위험이 있습니다.
-- **코드 스타일 일관성**: 탭/스페이스 들여쓰기, 세미콜론 유무가 파일마다 섞여 있습니다. Prettier 같은 자동 포매터가 아직 없습니다.
 - **E2E의 실데이터 의존**: `e2e/character-search.spec.ts`가 "종합랭킹 1위 캐릭터"라는 실제 프로덕션 데이터 한 명에 의존합니다. 그 캐릭터의 랭킹/장비 구성이 바뀌거나 넥슨 API가 잠깐 장애가 나면 테스트가 실패할 수 있어, 필수 게이트가 아닌 수동/스케줄 워크플로로만 돌립니다 (자세한 내용은 위 CI 섹션 참고).
 - CI에 `build` 단계가 없어 빌드 타임 오류(예: ESLint의 `no-unused-vars`)는 로컬 `npm run build`나 배포 시점에만 걸러집니다.

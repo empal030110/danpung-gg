@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { usePathname } from "next/navigation";
 import { useCharacterSearch } from "@/hooks/useCharacterSearch";
@@ -10,13 +10,20 @@ export default function HeaderSearchBar() {
     const pathname = usePathname();
     const { inputValue, setInputValue, goToUser, handleSubmit } = useCharacterSearch();
     const {
-        showDropdown, openDropdown, closeDropdown,
-        activeTab, setActiveTab,
-        recentSearches, removeSearch, clearSearches,
-        favorites, removeFavorite, clearFavorites,
+        showDropdown,
+        openDropdown,
+        closeDropdown,
+        activeTab,
+        setActiveTab,
+        recentSearches,
+        removeSearch,
+        clearSearches,
+        favorites,
+        removeFavorite,
+        clearFavorites,
     } = useSearchDropdown();
 
-    if (pathname === '/') return null; // 메인 페이지엔 이미 큰 검색바가 있어서 헤더에는 안 보이게 함
+    if (pathname === "/") return null; // 메인 페이지엔 이미 큰 검색바가 있어서 헤더에는 안 보이게 함
 
     return (
         <div className="w-full relative">

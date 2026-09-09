@@ -11,7 +11,9 @@ vi.mock("@/lib/ssrFetcher", () => ({
             return [{ ocid: `ocid-${name}` }];
         }
         if (url.includes("/character/basic")) {
-            return [{ character_level: 300, character_class: "키네시스", world_name: "루나", character_image: "img.png" }];
+            return [
+                { character_level: 300, character_class: "키네시스", world_name: "루나", character_image: "img.png" },
+            ];
         }
         if (url.includes("/character/stat")) {
             return [{ final_stat: [{ stat_name: "전투력", stat_value: "43147111" }] }];
@@ -30,15 +32,17 @@ describe("POST /api/favorites", () => {
         const response = await POST(postRequest({ names: ["오지환"] }));
         const data = await response.json();
 
-        expect(data.results).toEqual([{
-            name: "오지환",
-            ok: true,
-            level: 300,
-            className: "키네시스",
-            worldName: "루나",
-            image: "img.png",
-            combatPower: "43,147,111",
-        }]);
+        expect(data.results).toEqual([
+            {
+                name: "오지환",
+                ok: true,
+                level: 300,
+                className: "키네시스",
+                worldName: "루나",
+                image: "img.png",
+                combatPower: "43,147,111",
+            },
+        ]);
     });
 
     it("names가 배열이 아니면 빈 results를 반환한다", async () => {
@@ -87,9 +91,11 @@ describe("POST /api/favorites", () => {
         const response = await POST(postRequest({ names: ["삭제된캐릭터", "오지환"] }));
         const data = await response.json();
 
-        expect(data.results).toEqual(expect.arrayContaining([
-            { name: "삭제된캐릭터", ok: false },
-            expect.objectContaining({ name: "오지환", ok: true }),
-        ]));
+        expect(data.results).toEqual(
+            expect.arrayContaining([
+                { name: "삭제된캐릭터", ok: false },
+                expect.objectContaining({ name: "오지환", ok: true }),
+            ]),
+        );
     });
 });

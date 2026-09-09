@@ -6,18 +6,20 @@ import ssrFetcher from "@/lib/ssrFetcher";
 import ssrRankingFetcher from "@/lib/ssrRankingFetcher";
 import FavoriteButton from "./FavoriteButton";
 
-export default async function UserHeader({ data, ocid }: { data: userDataProps, ocid: string}) {
+export default async function UserHeader({ data, ocid }: { data: userDataProps; ocid: string }) {
     // data는 기본 정보
     // 인기도 정보
     const userPopularity = await ssrFetcher(popularityUrl(ocid));
 
     // 랭킹
     const userOverallData = await ssrRankingFetcher((date) => overallUrl(ocid, data.worldName, date)); // 전체 랭킹
-    const userOverall = userOverallData[0].ranking[0] ? userOverallData[0].ranking[0].ranking.toLocaleString() : '-';
+    const userOverall = userOverallData[0].ranking[0] ? userOverallData[0].ranking[0].ranking.toLocaleString() : "-";
 
     const userWorldOverallData = await ssrRankingFetcher((date) => overallUrl(ocid, data.worldName, date, true)); // 월드 랭킹
-    const userWorldOverall = userWorldOverallData[0].ranking[0] ? userWorldOverallData[0].ranking[0].ranking.toLocaleString() : '-';
-    
+    const userWorldOverall = userWorldOverallData[0].ranking[0]
+        ? userWorldOverallData[0].ranking[0].ranking.toLocaleString()
+        : "-";
+
     // 유니온
     const userUnionData = await ssrFetcher(unionUrl(ocid));
     const userUnionLevel = userUnionData[0].union_level ? userUnionData[0].union_level.toLocaleString() : 0;
@@ -26,12 +28,20 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps, 
     const userStatData = await ssrFetcher(statUrl(ocid));
     const finalStat = userStatData[0].final_stat;
     const combatStatData = finalStat.find((stat: userStatProps) => stat.stat_name === "전투력");
-    const combatStat = combatStatData ? Number(combatStatData.stat_value).toLocaleString() : '-';
+    const combatStat = combatStatData ? Number(combatStatData.stat_value).toLocaleString() : "-";
 
     return (
         <div className="w-full flex items-center justify-center flex-col pc:flex-row relative">
             <div className="mx-[30px] relative">
-                <Image src={data.characterImage} alt={data.characterName} width={300} height={300} className="scale-[1.7] -z-10 pointer-events-none" priority unoptimized />
+                <Image
+                    src={data.characterImage}
+                    alt={data.characterName}
+                    width={300}
+                    height={300}
+                    className="scale-[1.7] -z-10 pointer-events-none"
+                    priority
+                    unoptimized
+                />
                 <FavoriteButton characterName={data.characterName} />
             </div>
             <div className="flex flex-col gap-[12px]">
@@ -44,16 +54,23 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps, 
                 </div>
                 <div className="flex flex-col gap-[3px] text-[14px] font-semibold">
                     <p>생성날짜 {data.characterDateCreate.split("T")[0]}</p>
-                    <p>길드 {data.characterGuildName ? (
-                        <Link
-                            href={`/guild/${encodeURIComponent(data.worldName)}/${encodeURIComponent(data.characterGuildName)}`}
-                            className="underline underline-offset-2 hover:text-neutral-300"
-                        >
-                            {data.characterGuildName}
-                        </Link>
-                    ) : '-' }</p>
+                    <p>
+                        길드{" "}
+                        {data.characterGuildName ? (
+                            <Link
+                                href={`/guild/${encodeURIComponent(data.worldName)}/${encodeURIComponent(data.characterGuildName)}`}
+                                className="underline underline-offset-2 hover:text-neutral-300"
+                            >
+                                {data.characterGuildName}
+                            </Link>
+                        ) : (
+                            "-"
+                        )}
+                    </p>
                     <p>인기도 {userPopularity[0].popularity}</p>
-                    <p>종합랭킹 {userOverall}위 ({userWorldOverall}위)</p>
+                    <p>
+                        종합랭킹 {userOverall}위 ({userWorldOverall}위)
+                    </p>
                 </div>
                 <div className="flex gap-[16px]">
                     <div>

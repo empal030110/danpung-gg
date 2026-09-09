@@ -19,11 +19,16 @@ describe("ssrFetcher", () => {
     });
 
     it("응답이 객체 하나여도 배열로 감싸서 반환한다", async () => {
-        vi.stubGlobal("fetch", vi.fn().mockResolvedValue(mockResponse({
-            status: 200,
-            ok: true,
-            json: async () => ({ hello: "world" }),
-        })));
+        vi.stubGlobal(
+            "fetch",
+            vi.fn().mockResolvedValue(
+                mockResponse({
+                    status: 200,
+                    ok: true,
+                    json: async () => ({ hello: "world" }),
+                }),
+            ),
+        );
 
         const result = await ssrFetcher("https://example.com");
 
@@ -31,11 +36,16 @@ describe("ssrFetcher", () => {
     });
 
     it("응답이 이미 배열이면 그대로 반환한다", async () => {
-        vi.stubGlobal("fetch", vi.fn().mockResolvedValue(mockResponse({
-            status: 200,
-            ok: true,
-            json: async () => ([{ a: 1 }, { a: 2 }]),
-        })));
+        vi.stubGlobal(
+            "fetch",
+            vi.fn().mockResolvedValue(
+                mockResponse({
+                    status: 200,
+                    ok: true,
+                    json: async () => [{ a: 1 }, { a: 2 }],
+                }),
+            ),
+        );
 
         const result = await ssrFetcher("https://example.com");
 
@@ -43,7 +53,8 @@ describe("ssrFetcher", () => {
     });
 
     it("429는 재시도하고, 재시도 중 성공하면 그 결과를 반환한다", async () => {
-        const fetchMock = vi.fn()
+        const fetchMock = vi
+            .fn()
             .mockResolvedValueOnce(mockResponse({ status: 429, ok: false }))
             .mockResolvedValueOnce(mockResponse({ status: 200, ok: true, json: async () => ({ ok: true }) }));
         vi.stubGlobal("fetch", fetchMock);
@@ -57,11 +68,13 @@ describe("ssrFetcher", () => {
     });
 
     it("429가 최대 재시도 횟수(4회)를 넘겨도 계속되면 마지막 응답으로 에러를 던진다", async () => {
-        const fetchMock = vi.fn().mockResolvedValue(mockResponse({
-            status: 429,
-            ok: false,
-            text: async () => "Too Many Requests",
-        }));
+        const fetchMock = vi.fn().mockResolvedValue(
+            mockResponse({
+                status: 429,
+                ok: false,
+                text: async () => "Too Many Requests",
+            }),
+        );
         vi.stubGlobal("fetch", fetchMock);
 
         const promise = ssrFetcher("https://example.com");
@@ -74,11 +87,13 @@ describe("ssrFetcher", () => {
     });
 
     it("429가 아닌 실패 응답(500 등)은 재시도 없이 바로 에러를 던진다", async () => {
-        const fetchMock = vi.fn().mockResolvedValue(mockResponse({
-            status: 500,
-            ok: false,
-            text: async () => "Internal Server Error",
-        }));
+        const fetchMock = vi.fn().mockResolvedValue(
+            mockResponse({
+                status: 500,
+                ok: false,
+                text: async () => "Internal Server Error",
+            }),
+        );
         vi.stubGlobal("fetch", fetchMock);
 
         await expect(ssrFetcher("https://example.com")).rejects.toThrow(/500/);
@@ -86,17 +101,22 @@ describe("ssrFetcher", () => {
     });
 
     it("호출 시 API 키를 헤더에 담아 보낸다", async () => {
-        const fetchMock = vi.fn().mockResolvedValue(mockResponse({
-            status: 200,
-            ok: true,
-            json: async () => ({}),
-        }));
+        const fetchMock = vi.fn().mockResolvedValue(
+            mockResponse({
+                status: 200,
+                ok: true,
+                json: async () => ({}),
+            }),
+        );
         vi.stubGlobal("fetch", fetchMock);
 
         await ssrFetcher("https://example.com/foo");
 
-        expect(fetchMock).toHaveBeenCalledWith("https://example.com/foo", expect.objectContaining({
-            headers: { "x-nxopen-api-key": "test-api-key" },
-        }));
+        expect(fetchMock).toHaveBeenCalledWith(
+            "https://example.com/foo",
+            expect.objectContaining({
+                headers: { "x-nxopen-api-key": "test-api-key" },
+            }),
+        );
     });
 });

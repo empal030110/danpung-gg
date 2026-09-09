@@ -171,14 +171,14 @@ export function mapUserPageData(raw: RawUserPageData): MappedUserPageData {
     // 심볼 (symbol_name은 아케인/어센틱 분류용이라 symbolSchema.parse가 걸러서 symbolProps로 좁혀줌)
     const symbolData = symbolDataRawSchema.parse(userSymbolData[0]).symbol ?? [];
     const arcaneSymbols: symbolProps[] = symbolData
-        .filter((symbol) => symbol.symbol_name?.startsWith('아케인심볼'))
+        .filter((symbol) => symbol.symbol_name?.startsWith("아케인심볼"))
         .map((symbol) => symbolSchema.parse(symbol));
     const authenticSymbols: symbolProps[] = symbolData
-        .filter((symbol) => !symbol.symbol_name?.startsWith('아케인심볼'))
+        .filter((symbol) => !symbol.symbol_name?.startsWith("아케인심볼"))
         .map((symbol) => symbolSchema.parse(symbol));
 
     // 어빌리티 (설정되지 않은 프리셋은 API가 null을 내려주므로 빈 값으로 대체)
-    const emptyAbilityPreset: abilityProps = { ability_preset_grade: '에픽', ability_info: [] };
+    const emptyAbilityPreset: abilityProps = { ability_preset_grade: "에픽", ability_info: [] };
     const abilityData = abilityDataRawSchema.parse(userAbilityData[0]);
     const abilityPresetNumber = abilityData.preset_no ?? 1;
     const abilityPreset1 = abilityData.ability_preset_1 ?? emptyAbilityPreset;
@@ -204,7 +204,7 @@ export function mapUserPageData(raw: RawUserPageData): MappedUserPageData {
             title_description: itemData.title?.title_description,
             date_expire: itemData.title?.date_expire,
             date_option_expire: itemData.title?.date_option_expire,
-        }
+        },
     ];
 
     // 장착한 안드로이드
@@ -252,27 +252,35 @@ export function mapUserPageData(raw: RawUserPageData): MappedUserPageData {
     const userLinkSkillPreset1: skillProps[] = linkSkillData.character_link_skill_preset_1 ?? [];
     const userLinkSkillPreset2: skillProps[] = linkSkillData.character_link_skill_preset_2 ?? [];
     const userLinkSkillPreset3: skillProps[] = linkSkillData.character_link_skill_preset_3 ?? [];
-    const linkSkillPresetNo = isSameLinkSkillSet(userLinkSkillPreset1, userLinkSkillEquipped) ? 1
-        : isSameLinkSkillSet(userLinkSkillPreset2, userLinkSkillEquipped) ? 2
-        : isSameLinkSkillSet(userLinkSkillPreset3, userLinkSkillEquipped) ? 3
-        : 1;
+    const linkSkillPresetNo = isSameLinkSkillSet(userLinkSkillPreset1, userLinkSkillEquipped)
+        ? 1
+        : isSameLinkSkillSet(userLinkSkillPreset2, userLinkSkillEquipped)
+          ? 2
+          : isSameLinkSkillSet(userLinkSkillPreset3, userLinkSkillEquipped)
+            ? 3
+            : 1;
 
     // 유니온 (미가입 등으로 API가 union_level을 null로 내려주면 정보 없음으로 처리)
     const unionData = unionDataRawSchema.parse(userUnionData[0]);
-    const userUnion: userUnionProps | undefined = unionData.union_level == null ? undefined : {
-        union_level: unionData.union_level,
-        union_grade: unionData.union_grade,
-        union_artifact_level: unionData.union_artifact_level,
-    };
+    const userUnion: userUnionProps | undefined =
+        unionData.union_level == null
+            ? undefined
+            : {
+                  union_level: unionData.union_level,
+                  union_grade: unionData.union_grade,
+                  union_artifact_level: unionData.union_artifact_level,
+              };
 
     // 유니온 챔피언
     const unionChampionData = unionChampionDataRawSchema.parse(userUnionChampionData[0]);
     const userUnionChampions: unionChampionProps[] = unionChampionData.union_champion ?? [];
-    const userUnionChampionBadgeEffects: string[] = (unionChampionData.champion_badge_total_info ?? [])
-        .map((badge) => badge.stat ?? '');
+    const userUnionChampionBadgeEffects: string[] = (unionChampionData.champion_badge_total_info ?? []).map(
+        (badge) => badge.stat ?? "",
+    );
 
     // 유니온 아티팩트
-    const userUnionArtifactEffects: unionArtifactEffectProps[] = unionArtifactDataRawSchema.parse(userUnionArtifactData[0]).union_artifact_effect ?? [];
+    const userUnionArtifactEffects: unionArtifactEffectProps[] =
+        unionArtifactDataRawSchema.parse(userUnionArtifactData[0]).union_artifact_effect ?? [];
 
     // 유니온 공격대원 효과
     const unionRaiderData = unionRaiderDataRawSchema.parse(userUnionRaiderData[0]);
@@ -289,7 +297,8 @@ export function mapUserPageData(raw: RawUserPageData): MappedUserPageData {
     const userCodiPreset3: cashItemProps[] = cashItemData.cash_item_equipment_preset_3 ?? [];
 
     // 업적 (당일 데이터가 아직 집계 전이면 전날 데이터로 재시도)
-    const userAchievement: achievementRankProps | undefined = achievementDataRawSchema.parse(userAchievementData[0]).ranking?.[0];
+    const userAchievement: achievementRankProps | undefined = achievementDataRawSchema.parse(userAchievementData[0])
+        .ranking?.[0];
 
     // 무릉도장 (당일 데이터가 아직 집계 전이면 전날 데이터로 재시도)
     const userDojang: dojangRankProps | undefined = dojangDataRawSchema.parse(userDojangData[0]).ranking?.[0];

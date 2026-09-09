@@ -6,7 +6,8 @@ export default function UserAchievement({ achievement }: { achievement?: achieve
 
     return (
         <p className="w-full text-center text-[16px] font-bold">
-            {achievement.trophy_grade} {(achievement.trophy_score ?? 0).toLocaleString()}점 ({(achievement.ranking ?? 0).toLocaleString()}위)
+            {achievement.trophy_grade} {(achievement.trophy_score ?? 0).toLocaleString()}점 (
+            {(achievement.ranking ?? 0).toLocaleString()}위)
         </p>
     );
 }

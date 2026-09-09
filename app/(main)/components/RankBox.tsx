@@ -3,16 +3,27 @@ import { userProps } from "../props/props";
 import Link from "next/link";
 
 const colorInfo = {
-    yellow: { border: 'border-yellow-400', bg: 'bg-yellow-400' },
-    green: { border: 'border-green-400', bg: 'bg-green-400' },
-    blue: { border: 'border-blue-300', bg: 'bg-blue-300' },
+    yellow: { border: "border-yellow-400", bg: "bg-yellow-400" },
+    green: { border: "border-green-400", bg: "bg-green-400" },
+    blue: { border: "border-blue-300", bg: "bg-blue-300" },
 };
 
 type colorKey = keyof typeof colorInfo;
 
-export default function RankBox({ data, color, rankingTitle }: { data: userProps, color: colorKey, rankingTitle: string}) {
+export default function RankBox({
+    data,
+    color,
+    rankingTitle,
+}: {
+    data: userProps;
+    color: colorKey;
+    rankingTitle: string;
+}) {
     return (
-        <Link href={`/user/${data.name}`} className={`w-full max-w-[235px] flex flex-col items-center justify-center border ${colorInfo[color].border} rounded-[16px]`}>
+        <Link
+            href={`/user/${data.name}`}
+            className={`w-full max-w-[235px] flex flex-col items-center justify-center border ${colorInfo[color].border} rounded-[16px]`}
+        >
             <p className={`w-full p-[8px] border-b-[2px] text-[14px] ${colorInfo[color].border}`}>{rankingTitle} 1위</p>
             <div className="w-full flex gap-[4px] items-center justify-center text-[12px] p-[8px] pt-[12px]">
                 <p>{data.name}</p>
@@ -24,11 +35,11 @@ export default function RankBox({ data, color, rankingTitle }: { data: userProps
             </div>
             <p className="w-full text-[18px] font-bold p-[8px] pb-[16px] flex items-center justify-center gap-[2px]">
                 {data.floor ? `${data.floor}층` : `${data.trophyGrade}`}
-                {data.trophyScore && (
-                    <span className="text-[12px]">({data.trophyScore})</span>
-                )}
+                {data.trophyScore && <span className="text-[12px]">({data.trophyScore})</span>}
             </p>
-            <div className={`w-full border-t font-bold p-[8px] rounded-b-[16px] ${colorInfo[color].border} ${colorInfo[color].bg}`}>
+            <div
+                className={`w-full border-t font-bold p-[8px] rounded-b-[16px] ${colorInfo[color].border} ${colorInfo[color].bg}`}
+            >
                 상세보기
             </div>
         </Link>

@@ -10,7 +10,9 @@ export default function UserDojang({ dojang }: { dojang?: dojangRankProps }) {
 
     return (
         <div className="w-full text-center text-[16px] font-bold">
-            <p>{dojang.dojang_floor}층 ({minutes}분 {seconds}초)</p>
+            <p>
+                {dojang.dojang_floor}층 ({minutes}분 {seconds}초)
+            </p>
             <p>({(dojang.ranking ?? 0).toLocaleString()}등)</p>
         </div>
     );

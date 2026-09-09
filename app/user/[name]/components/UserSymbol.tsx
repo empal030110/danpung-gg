@@ -1,14 +1,20 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import Image from "next/image";
 import { symbolProps } from "../../userProps/props";
 
-type SymbolTab = 'arcane' | 'authentic';
+type SymbolTab = "arcane" | "authentic";
 
-export default function UserSymbol({ arcane = [], authentic = [] }: { arcane?: symbolProps[]; authentic?: symbolProps[] }) {
-    const [tab, setTab] = useState<SymbolTab>('arcane');
-    const currentSymbols = tab === 'arcane' ? arcane : authentic;
+export default function UserSymbol({
+    arcane = [],
+    authentic = [],
+}: {
+    arcane?: symbolProps[];
+    authentic?: symbolProps[];
+}) {
+    const [tab, setTab] = useState<SymbolTab>("arcane");
+    const currentSymbols = tab === "arcane" ? arcane : authentic;
     const totalForce = currentSymbols.reduce((sum, symbol) => sum + Number(symbol.symbol_force || 0), 0);
 
     return (
@@ -17,15 +23,15 @@ export default function UserSymbol({ arcane = [], authentic = [] }: { arcane?: s
                 <div className="flex gap-[12px]">
                     <button
                         type="button"
-                        onClick={() => setTab('arcane')}
-                        className={`text-[14px] cursor-pointer ${tab === 'arcane' ? 'font-bold text-black dark:text-white' : 'text-neutral-500 dark:text-neutral-400'}`}
+                        onClick={() => setTab("arcane")}
+                        className={`text-[14px] cursor-pointer ${tab === "arcane" ? "font-bold text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400"}`}
                     >
                         아케인
                     </button>
                     <button
                         type="button"
-                        onClick={() => setTab('authentic')}
-                        className={`text-[14px] cursor-pointer ${tab === 'authentic' ? 'font-bold text-black dark:text-white' : 'text-neutral-500 dark:text-neutral-400'}`}
+                        onClick={() => setTab("authentic")}
+                        className={`text-[14px] cursor-pointer ${tab === "authentic" ? "font-bold text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400"}`}
                     >
                         어센틱
                     </button>

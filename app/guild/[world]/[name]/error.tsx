@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import ErrorInfoPage from "@/components/ErrorInfoPage";
 

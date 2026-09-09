@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import { androidProps, itemProps, presetNumberProps, titleProps } from "../../userProps/props";
@@ -6,13 +6,27 @@ import { filterItem } from "../utils/filterItem";
 import ItemBox from "./ItemBox";
 import PresetTabs from "@/components/PresetTabs";
 
-export default function UserItem({ presetNumber = 0, preset1 = [], preset2 = [], preset3 = [], android = [], title = []}: { presetNumber?: presetNumberProps; preset1?: itemProps[]; preset2?: itemProps[]; preset3?: itemProps[]; android?: androidProps[]; title?: titleProps[]; }) {
+export default function UserItem({
+    presetNumber = 0,
+    preset1 = [],
+    preset2 = [],
+    preset3 = [],
+    android = [],
+    title = [],
+}: {
+    presetNumber?: presetNumberProps;
+    preset1?: itemProps[];
+    preset2?: itemProps[];
+    preset3?: itemProps[];
+    android?: androidProps[];
+    title?: titleProps[];
+}) {
     const [selectedPreset, setSelectedPreset] = useState(presetNumber !== 0 ? presetNumber : 1); // presetNumber가 없으면 1번을 기본으로
     const currentPreset = [preset1, preset2, preset3][selectedPreset - 1];
     const specialRing = currentPreset.find(
         (item) =>
-            item.item_equipment_slot === '예비 특수 반지' &&
-            (item.item_name === '컨티뉴어스 링' || item.item_name === '리스트레인트 링')
+            item.item_equipment_slot === "예비 특수 반지" &&
+            (item.item_name === "컨티뉴어스 링" || item.item_name === "리스트레인트 링"),
     );
 
     return (
@@ -21,7 +35,7 @@ export default function UserItem({ presetNumber = 0, preset1 = [], preset2 = [],
                 <PresetTabs active={selectedPreset} onSelect={setSelectedPreset} labelPrefix="프리셋 " />
             </div>
             <div className="px-[16px]">
-                {(currentPreset && currentPreset.length) && (
+                {currentPreset && currentPreset.length && (
                     <div>
                         {/* 무보엠 */}
                         <div className="pc:grid pc:grid-cols-2 pc:gap-x-[8px]">

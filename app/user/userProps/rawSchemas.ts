@@ -74,13 +74,15 @@ export const itemDataRawSchema = z.object({
     item_equipment_preset_1: z.array(z.unknown()).nullish(),
     item_equipment_preset_2: z.array(z.unknown()).nullish(),
     item_equipment_preset_3: z.array(z.unknown()).nullish(),
-    title: z.object({
-        title_name: nullishString,
-        title_icon: nullishString,
-        title_description: nullishString,
-        date_expire: nullishString,
-        date_option_expire: nullishString,
-    }).nullish(),
+    title: z
+        .object({
+            title_name: nullishString,
+            title_icon: nullishString,
+            title_description: nullishString,
+            date_expire: nullishString,
+            date_option_expire: nullishString,
+        })
+        .nullish(),
 });
 
 // character/android-equipment

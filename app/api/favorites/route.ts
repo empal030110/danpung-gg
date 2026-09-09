@@ -24,7 +24,9 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ results: [] });
     }
 
-    const uniqueNames = [...new Set(names.filter((name): name is string => typeof name === "string" && name.length > 0))].slice(0, MAX_NAMES);
+    const uniqueNames = [
+        ...new Set(names.filter((name): name is string => typeof name === "string" && name.length > 0)),
+    ].slice(0, MAX_NAMES);
 
     const results = await runLimited<FavoriteSummary>(
         uniqueNames.map((name) => async () => {
@@ -32,12 +34,11 @@ export async function POST(request: NextRequest) {
                 const ocidData = await ssrFetcher(ocidUrl(name));
                 const ocid = ocidData[0].ocid;
 
-                const [userData, statData] = await Promise.all([
-                    ssrFetcher(userUrl(ocid)),
-                    ssrFetcher(statUrl(ocid)),
-                ]);
+                const [userData, statData] = await Promise.all([ssrFetcher(userUrl(ocid)), ssrFetcher(statUrl(ocid))]);
                 const info = userData[0];
-                const combatStatData = statData[0].final_stat.find((stat: userStatProps) => stat.stat_name === "전투력");
+                const combatStatData = statData[0].final_stat.find(
+                    (stat: userStatProps) => stat.stat_name === "전투력",
+                );
 
                 return {
                     name,
@@ -53,7 +54,7 @@ export async function POST(request: NextRequest) {
                 return { name, ok: false };
             }
         }),
-        3
+        3,
     );
 
     return NextResponse.json({ results });

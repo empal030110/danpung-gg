@@ -1,23 +1,23 @@
-import type { MetadataRoute } from 'next';
+import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     return [
         {
-            url: 'https://www.danpung.shop',
+            url: "https://www.danpung.shop",
             lastModified: new Date(),
-            changeFrequency: 'daily',
+            changeFrequency: "daily",
             priority: 1,
         },
         {
-            url: 'https://www.danpung.shop/guide',
+            url: "https://www.danpung.shop/guide",
             lastModified: new Date(),
-            changeFrequency: 'monthly',
+            changeFrequency: "monthly",
             priority: 0.8,
         },
         {
-            url: 'https://www.danpung.shop/guild',
+            url: "https://www.danpung.shop/guild",
             lastModified: new Date(),
-            changeFrequency: 'daily',
+            changeFrequency: "daily",
             priority: 0.8,
         },
     ];

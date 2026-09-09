@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useRecentSearchStore } from '@/store/useRecentSearchStore';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useRecentSearchStore } from "@/store/useRecentSearchStore";
 
 export function useCharacterSearch() {
     const router = useRouter();
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState("");
     const { addSearch } = useRecentSearchStore();
 
     const goToUser = (name: string) => {
@@ -17,14 +17,14 @@ export function useCharacterSearch() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        const trimmed = inputValue.replace(/\s+/g, '');
+        const trimmed = inputValue.replace(/\s+/g, "");
         if (!trimmed) {
-            alert('캐릭터 이름을 입력하세요.');
+            alert("캐릭터 이름을 입력하세요.");
             return;
         }
 
         goToUser(trimmed);
-        setInputValue('');
+        setInputValue("");
     };
 
     return { inputValue, setInputValue, goToUser, handleSubmit };

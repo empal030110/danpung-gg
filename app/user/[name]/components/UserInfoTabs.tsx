@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import UserNavbar from "./UserNavbar";
@@ -22,7 +22,27 @@ import UserCodiPreset from "./UserCodiPreset";
 import UserAchievement from "./UserAchievement";
 import UserDojang from "./UserDojang";
 import SidebarBox from "@/components/SidebarBox";
-import { abilityProps, achievementRankProps, androidProps, cashItemProps, dojangRankProps, hexaStatCoreProps, hyperStatEntryProps, itemProps, petProps, presetNumberProps, skillProps, symbolProps, titleProps, unionArtifactEffectProps, unionChampionProps, unionStateStatPresetProps, userSetProps, userStatProps, userUnionProps } from "../../userProps/props";
+import {
+    abilityProps,
+    achievementRankProps,
+    androidProps,
+    cashItemProps,
+    dojangRankProps,
+    hexaStatCoreProps,
+    hyperStatEntryProps,
+    itemProps,
+    petProps,
+    presetNumberProps,
+    skillProps,
+    symbolProps,
+    titleProps,
+    unionArtifactEffectProps,
+    unionChampionProps,
+    unionStateStatPresetProps,
+    userSetProps,
+    userStatProps,
+    userUnionProps,
+} from "../../userProps/props";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import NotInfoText from "@/components/NotInfoText";
 
@@ -121,7 +141,11 @@ export default function UserItemTabs({
 
     return (
         <div className="w-full z-10">
-            <UserNavbar tabs={['장비', '스탯', '스킬', '유니온', '코디', '기타']} active={activeTab} onSelect={setActiveTab} />
+            <UserNavbar
+                tabs={["장비", "스탯", "스킬", "유니온", "코디", "기타"]}
+                active={activeTab}
+                onSelect={setActiveTab}
+            />
             {activeTab === 0 ? (
                 <div className="flex gap-[16px] flex-col pc:flex-row">
                     <div className="flex flex-col flex-auto gap-[16px] w-full pc:max-w-[320px]">
@@ -132,12 +156,24 @@ export default function UserItemTabs({
                             <UserSymbol arcane={arcaneSymbols} authentic={authenticSymbols} />
                         </SidebarBox>
                         <SidebarBox className="px-[20px]">
-                            <UserAbility presetNumber={abilityPresetNumber} preset1={abilityPreset1} preset2={abilityPreset2} preset3={abilityPreset3} />
+                            <UserAbility
+                                presetNumber={abilityPresetNumber}
+                                preset1={abilityPreset1}
+                                preset2={abilityPreset2}
+                                preset3={abilityPreset3}
+                            />
                         </SidebarBox>
                     </div>
                     <div className="w-full flex flex-col gap-[16px]">
                         <div className="w-full bg-gray-200 rounded-[8px] dark:bg-neutral-800">
-                            <UserItem presetNumber={presetNumber} preset1={userItemPreset1} preset2={userItemPreset2} preset3={userItemPreset3} android={userAndroid} title={title} />
+                            <UserItem
+                                presetNumber={presetNumber}
+                                preset1={userItemPreset1}
+                                preset2={userItemPreset2}
+                                preset3={userItemPreset3}
+                                android={userAndroid}
+                                title={title}
+                            />
                         </div>
                         <div className="w-full py-[16px] px-[20px] bg-gray-200 rounded-[8px] dark:bg-neutral-800">
                             {userPets.length > 0 ? (
@@ -145,7 +181,6 @@ export default function UserItemTabs({
                             ) : (
                                 <NotInfoText>장착된 펫 정보가 없습니다.</NotInfoText>
                             )}
-                            
                         </div>
                     </div>
                 </div>
@@ -154,7 +189,12 @@ export default function UserItemTabs({
                     <div className="w-full pc:max-w-[320px]">
                         <SidebarBox className="px-[20px] flex-col items-start">
                             <p className="font-bold mb-[8px]">하이퍼 스탯</p>
-                            <UserHyperStat presetNumber={hyperStatPresetNo} preset1={userHyperStatPreset1} preset2={userHyperStatPreset2} preset3={userHyperStatPreset3} />
+                            <UserHyperStat
+                                presetNumber={hyperStatPresetNo}
+                                preset1={userHyperStatPreset1}
+                                preset2={userHyperStatPreset2}
+                                preset3={userHyperStatPreset3}
+                            />
                         </SidebarBox>
                     </div>
                     <div className="w-full flex flex-col gap-[16px]">
@@ -189,21 +229,34 @@ export default function UserItemTabs({
                         </div>
                     </SidebarBox>
                     <SidebarBox className="px-[20px] flex-col items-start">
-                        <button type="button" onClick={() => setShowSkill6((prev) => !prev)} className="w-full flex justify-between items-center mb-[24px] cursor-pointer">
+                        <button
+                            type="button"
+                            onClick={() => setShowSkill6((prev) => !prev)}
+                            className="w-full flex justify-between items-center mb-[24px] cursor-pointer"
+                        >
                             <p className="font-bold">6차 스킬</p>
                             {showSkill6 ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
                         </button>
                         {showSkill6 && <UserSkill skills={userSkills6} grade="6차" />}
                     </SidebarBox>
                     <SidebarBox className="px-[20px] flex-col items-start">
-                        <button type="button" onClick={() => setShowSkill5((prev) => !prev)} className="w-full flex justify-between items-center mb-[24px] cursor-pointer">
+                        <button
+                            type="button"
+                            onClick={() => setShowSkill5((prev) => !prev)}
+                            className="w-full flex justify-between items-center mb-[24px] cursor-pointer"
+                        >
                             <p className="font-bold">5차 스킬</p>
                             {showSkill5 ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
                         </button>
                         {showSkill5 && <UserSkill skills={userSkills5} grade="5차" />}
                     </SidebarBox>
                     <SidebarBox className="px-[20px] flex-col items-start">
-                        <UserLinkSkill presetNumber={linkSkillPresetNo} preset1={userLinkSkillPreset1} preset2={userLinkSkillPreset2} preset3={userLinkSkillPreset3} />
+                        <UserLinkSkill
+                            presetNumber={linkSkillPresetNo}
+                            preset1={userLinkSkillPreset1}
+                            preset2={userLinkSkillPreset2}
+                            preset3={userLinkSkillPreset3}
+                        />
                     </SidebarBox>
                 </div>
             ) : activeTab === 3 ? (
@@ -212,7 +265,11 @@ export default function UserItemTabs({
                         <UserUnion union={userUnion} />
                     </SidebarBox>
                     <SidebarBox className="px-[20px] flex-col items-start">
-                        <UserUnionChampion champions={userUnionChampions} badgeEffects={userUnionChampionBadgeEffects} artifactEffects={userUnionArtifactEffects} />
+                        <UserUnionChampion
+                            champions={userUnionChampions}
+                            badgeEffects={userUnionChampionBadgeEffects}
+                            artifactEffects={userUnionArtifactEffects}
+                        />
                     </SidebarBox>
                     <SidebarBox className="px-[20px] flex-col items-start">
                         <UserUnionStateStat presetNumber={unionStateStatPresetNo} presets={unionStateStatPresets} />
@@ -228,7 +285,12 @@ export default function UserItemTabs({
                         <UserCodi items={userCodiItems} />
                     </SidebarBox>
                     <SidebarBox className="px-[20px] flex-col items-start">
-                        <UserCodiPreset presetNumber={codiPresetNo} preset1={userCodiPreset1} preset2={userCodiPreset2} preset3={userCodiPreset3} />
+                        <UserCodiPreset
+                            presetNumber={codiPresetNo}
+                            preset1={userCodiPreset1}
+                            preset2={userCodiPreset2}
+                            preset3={userCodiPreset3}
+                        />
                     </SidebarBox>
                 </div>
             ) : (

@@ -39,7 +39,14 @@ describe("setDataRawSchema", () => {
 describe("symbolDataRawSchema", () => {
     it("아케인/어센틱 구분용 symbol_name과 함께 파싱된다", () => {
         const parsed = symbolDataRawSchema.parse({
-            symbol: [{ symbol_name: "아케인심볼 : 소멸의 여로", symbol_icon: "icon.png", symbol_level: 20, symbol_force: "220" }],
+            symbol: [
+                {
+                    symbol_name: "아케인심볼 : 소멸의 여로",
+                    symbol_icon: "icon.png",
+                    symbol_level: 20,
+                    symbol_force: "220",
+                },
+            ],
         });
         expect(parsed.symbol?.[0].symbol_name).toBe("아케인심볼 : 소멸의 여로");
     });
@@ -66,9 +73,21 @@ describe("itemDataRawSchema", () => {
 describe("petDataRawSchema", () => {
     it("펫을 하나도 장착하지 않은 캐릭터는 pet_1/2/3 전부 null로 온다", () => {
         const parsed = petDataRawSchema.parse({
-            pet_1_name: null, pet_1_icon: null, pet_1_pet_type: null, pet_1_equipment: null, world_share_pet_1_equipment: null,
-            pet_2_name: null, pet_2_icon: null, pet_2_pet_type: null, pet_2_equipment: null, world_share_pet_2_equipment: null,
-            pet_3_name: null, pet_3_icon: null, pet_3_pet_type: null, pet_3_equipment: null, world_share_pet_3_equipment: null,
+            pet_1_name: null,
+            pet_1_icon: null,
+            pet_1_pet_type: null,
+            pet_1_equipment: null,
+            world_share_pet_1_equipment: null,
+            pet_2_name: null,
+            pet_2_icon: null,
+            pet_2_pet_type: null,
+            pet_2_equipment: null,
+            world_share_pet_2_equipment: null,
+            pet_3_name: null,
+            pet_3_icon: null,
+            pet_3_pet_type: null,
+            pet_3_equipment: null,
+            world_share_pet_3_equipment: null,
         });
         expect(parsed.pet_1_name).toBeNull();
         expect(parsed.pet_2_equipment).toBeNull();
@@ -107,8 +126,19 @@ describe("skillDataRawSchema / linkSkillDataRawSchema", () => {
 
 describe("hexaStatDataRawSchema", () => {
     it("헥사 코어 3개 슬롯을 각각 배열로 검증한다", () => {
-        const core = { main_stat_name: "주력 스탯 증가", main_stat_level: 8, sub_stat_name_1: null, sub_stat_level_1: 0, sub_stat_name_2: null, sub_stat_level_2: 0 };
-        const parsed = hexaStatDataRawSchema.parse({ character_hexa_stat_core: [core], character_hexa_stat_core_2: [], character_hexa_stat_core_3: [] });
+        const core = {
+            main_stat_name: "주력 스탯 증가",
+            main_stat_level: 8,
+            sub_stat_name_1: null,
+            sub_stat_level_1: 0,
+            sub_stat_name_2: null,
+            sub_stat_level_2: 0,
+        };
+        const parsed = hexaStatDataRawSchema.parse({
+            character_hexa_stat_core: [core],
+            character_hexa_stat_core_2: [],
+            character_hexa_stat_core_3: [],
+        });
         expect(parsed.character_hexa_stat_core?.[0].main_stat_level).toBe(8);
     });
 });
@@ -123,7 +153,9 @@ describe("unionDataRawSchema", () => {
 describe("unionChampionDataRawSchema", () => {
     it("챔피언 목록과 휘장 효과를 함께 검증한다", () => {
         const parsed = unionChampionDataRawSchema.parse({
-            union_champion: [{ champion_slot: 1, champion_name: "오지환", champion_class: "키네시스", champion_grade: "SSS" }],
+            union_champion: [
+                { champion_slot: 1, champion_name: "오지환", champion_class: "키네시스", champion_grade: "SSS" },
+            ],
             champion_badge_total_info: [{ stat: "올스탯 20 증가" }],
         });
         expect(parsed.union_champion).toHaveLength(1);
@@ -150,7 +182,12 @@ describe("unionRaiderDataRawSchema", () => {
 
 describe("cashItemDataRawSchema", () => {
     it("코디 프리셋 4종(기본+1/2/3)을 함께 검증한다", () => {
-        const item = { cash_item_equipment_part: "모자", cash_item_equipment_slot: "모자", cash_item_name: "기억의 늪", cash_item_icon: "icon.png" };
+        const item = {
+            cash_item_equipment_part: "모자",
+            cash_item_equipment_slot: "모자",
+            cash_item_name: "기억의 늪",
+            cash_item_icon: "icon.png",
+        };
         const parsed = cashItemDataRawSchema.parse({ preset_no: 1, cash_item_equipment_base: [item] });
         expect(parsed.cash_item_equipment_base).toHaveLength(1);
     });

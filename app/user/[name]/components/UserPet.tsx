@@ -10,8 +10,10 @@ export default function UserPet({ pets = [] }: { pets?: petProps[] }) {
             <div className="grid grid-cols-1 pc:grid-cols-2 gap-[8px]">
                 {pets.map((pet, idx) => {
                     const equipment = pet.pet_equipment;
-                    const attack = equipment?.item_option?.find((option) => option.option_type === '공격력')?.option_value;
-                    const magic = equipment?.item_option?.find((option) => option.option_type === '마력')?.option_value;
+                    const attack = equipment?.item_option?.find(
+                        (option) => option.option_type === "공격력",
+                    )?.option_value;
+                    const magic = equipment?.item_option?.find((option) => option.option_type === "마력")?.option_value;
 
                     return (
                         <div key={idx} className="border border-neutral-400 p-[12px] rounded-[8px]">
@@ -25,7 +27,12 @@ export default function UserPet({ pets = [] }: { pets?: petProps[] }) {
                             <div className="flex items-center gap-[8px] mt-[8px] pt-[8px] border-t border-neutral-400">
                                 {equipment?.item_name ? (
                                     <>
-                                        <Image src={equipment.item_icon || ""} alt={equipment.item_name} width={30} height={30} />
+                                        <Image
+                                            src={equipment.item_icon || ""}
+                                            alt={equipment.item_name}
+                                            width={30}
+                                            height={30}
+                                        />
                                         <div className="text-[12px]">
                                             <p>{equipment.item_name}</p>
                                             {attack && <p>공격력 +{attack}</p>}

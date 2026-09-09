@@ -1,15 +1,28 @@
 import { unionArtifactEffectProps, unionChampionProps } from "../../userProps/props";
 import NotInfoText from "@/components/NotInfoText";
 
-export default function UserUnionChampion({ champions = [], badgeEffects = [], artifactEffects = [] }: { champions?: unionChampionProps[]; badgeEffects?: string[]; artifactEffects?: unionArtifactEffectProps[] }) {
-    if (badgeEffects.length === 0 && artifactEffects.length === 0) return <NotInfoText center>유니온 챔피언, 아티팩트 정보가 없습니다.</NotInfoText>;
+export default function UserUnionChampion({
+    champions = [],
+    badgeEffects = [],
+    artifactEffects = [],
+}: {
+    champions?: unionChampionProps[];
+    badgeEffects?: string[];
+    artifactEffects?: unionArtifactEffectProps[];
+}) {
+    if (badgeEffects.length === 0 && artifactEffects.length === 0)
+        return <NotInfoText center>유니온 챔피언, 아티팩트 정보가 없습니다.</NotInfoText>;
 
     return (
         <div className="w-full flex flex-col pc:flex-row gap-[24px]">
             <div className="flex flex-col gap-[12px] pc:flex-1 pc:w-0">
                 {champions.map((champion) => (
                     <div key={champion.champion_slot}>
-                        <div className="flex items-center font-bold"><span>{champion.champion_name}</span><span className="mx-[6px]">|</span><span>{champion.champion_grade} 등급</span></div>
+                        <div className="flex items-center font-bold">
+                            <span>{champion.champion_name}</span>
+                            <span className="mx-[6px]">|</span>
+                            <span>{champion.champion_grade} 등급</span>
+                        </div>
                         <p className="text-[14px] text-neutral-500 dark:text-neutral-400">{champion.champion_class}</p>
                     </div>
                 ))}
@@ -26,7 +39,9 @@ export default function UserUnionChampion({ champions = [], badgeEffects = [], a
                 <p className="font-bold mb-[8px]">아티팩트 효과</p>
                 <ul className="flex flex-col gap-[4px] text-[14px] list-disc pl-[16px]">
                     {artifactEffects.map((effect, idx) => (
-                        <li key={idx}>Lv.{effect.level} {effect.name}</li>
+                        <li key={idx}>
+                            Lv.{effect.level} {effect.name}
+                        </li>
                     ))}
                 </ul>
             </div>

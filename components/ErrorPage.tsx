@@ -1,14 +1,14 @@
-'use client'
+"use client";
 
 import { useEffect, useState } from "react";
-import { DotLoader } from "react-spinners"
+import { DotLoader } from "react-spinners";
 
 export default function ErrorPage() {
     const [count, setCount] = useState(3);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCount(prev => prev - 1);
+            setCount((prev) => prev - 1);
         }, 1000);
 
         const timer = setTimeout(() => {

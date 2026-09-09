@@ -54,7 +54,9 @@ describe("runLimited", () => {
     it("태스크 하나가 실패하면 에러를 그대로 전파한다", async () => {
         const tasks = [
             async () => 1,
-            async () => { throw new Error("boom"); },
+            async () => {
+                throw new Error("boom");
+            },
             async () => 3,
         ];
 
