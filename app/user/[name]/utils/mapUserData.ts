@@ -20,6 +20,7 @@ import {
     dojangRankProps,
 } from "../../userProps/props";
 import { itemSchema } from "../../userProps/itemSchema";
+import { ARCANE_SYMBOL_PREFIX, GRADE } from "@/lib/constants";
 import {
     userInfoRawSchema,
     setDataRawSchema,
@@ -169,13 +170,15 @@ export function mapUserPageData(raw: RawUserPageData): MappedUserPageData {
 
     // 심볼 (symbol_name으로 아케인/어센틱을 분류. 화면에서도 아이콘 alt 텍스트로 재사용)
     const symbolData = symbolDataRawSchema.parse(userSymbolData[0]).symbol ?? [];
-    const arcaneSymbols: symbolProps[] = symbolData.filter((symbol) => symbol.symbol_name?.startsWith("아케인심볼"));
+    const arcaneSymbols: symbolProps[] = symbolData.filter((symbol) =>
+        symbol.symbol_name?.startsWith(ARCANE_SYMBOL_PREFIX),
+    );
     const authenticSymbols: symbolProps[] = symbolData.filter(
-        (symbol) => !symbol.symbol_name?.startsWith("아케인심볼"),
+        (symbol) => !symbol.symbol_name?.startsWith(ARCANE_SYMBOL_PREFIX),
     );
 
     // 어빌리티 (설정되지 않은 프리셋은 API가 null을 내려주므로 빈 값으로 대체)
-    const emptyAbilityPreset: abilityProps = { ability_preset_grade: "에픽", ability_info: [] };
+    const emptyAbilityPreset: abilityProps = { ability_preset_grade: GRADE.EPIC, ability_info: [] };
     const abilityData = abilityDataRawSchema.parse(userAbilityData[0]);
     const abilityPresetNumber = abilityData.preset_no ?? 1;
     const abilityPreset1 = abilityData.ability_preset_1 ?? emptyAbilityPreset;

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { itemProps } from "../../userProps/props";
 import { cutOptionName } from "@/lib/cutOptionName";
 import { gradeColor } from "@/lib/gradeColor";
+import { SPECIAL_RING_NAMES } from "@/lib/constants";
 import { FaStar } from "react-icons/fa";
 import Image from "next/image";
 import ItemDetailModal from "./ItemDetailModal";
@@ -97,15 +98,12 @@ export default function ItemBox({
                             {filterItem.item_name}
                             {Number(filterItem.special_ring_level) > 0 && ` Lv.${filterItem.special_ring_level}`}
                         </p>
-                        {specialRing &&
-                            (filterItem.item_name === "컨티뉴어스 링" ||
-                                filterItem.item_name === "리스트레인트 링") && (
-                                <p className="text-[12px] text-neutral-500 dark:text-neutral-400">
-                                    {specialRing.item_name}
-                                    {Number(specialRing.special_ring_level) > 0 &&
-                                        ` Lv.${specialRing.special_ring_level}`}
-                                </p>
-                            )}
+                        {specialRing && SPECIAL_RING_NAMES.some((name) => name === filterItem.item_name) && (
+                            <p className="text-[12px] text-neutral-500 dark:text-neutral-400">
+                                {specialRing.item_name}
+                                {Number(specialRing.special_ring_level) > 0 && ` Lv.${specialRing.special_ring_level}`}
+                            </p>
+                        )}
                     </div>
                 </div>
                 {filterItem.potential_option_grade && (

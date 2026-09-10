@@ -5,6 +5,7 @@ import { androidProps, itemProps, presetNumberProps, titleProps } from "../../us
 import { filterItem } from "../utils/filterItem";
 import ItemBox from "./ItemBox";
 import PresetTabs from "@/components/PresetTabs";
+import { EQUIPMENT_SLOT, SPECIAL_RING_NAMES } from "@/lib/constants";
 
 export default function UserItem({
     presetNumber = 0,
@@ -25,8 +26,8 @@ export default function UserItem({
     const currentPreset = [preset1, preset2, preset3][selectedPreset - 1];
     const specialRing = currentPreset.find(
         (item) =>
-            item.item_equipment_slot === "예비 특수 반지" &&
-            (item.item_name === "컨티뉴어스 링" || item.item_name === "리스트레인트 링"),
+            item.item_equipment_slot === EQUIPMENT_SLOT.SPARE_SPECIAL_RING &&
+            SPECIAL_RING_NAMES.some((name) => name === item.item_name),
     );
 
     return (
@@ -39,38 +40,38 @@ export default function UserItem({
                     <div>
                         {/* 무보엠 */}
                         <div className="pc:grid pc:grid-cols-2 pc:gap-x-[8px]">
-                            <ItemBox item={filterItem(currentPreset, "무기")} />
-                            <ItemBox item={filterItem(currentPreset, "보조무기")} />
-                            <ItemBox item={filterItem(currentPreset, "엠블렘")} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.WEAPON)} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.SUB_WEAPON)} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.EMBLEM)} />
                         </div>
                         {/* 방어구 */}
                         <div className="pc:grid pc:grid-cols-2 pc:gap-x-[8px]">
-                            <ItemBox item={filterItem(currentPreset, "모자")} />
-                            <ItemBox item={filterItem(currentPreset, "상의")} />
-                            <ItemBox item={filterItem(currentPreset, "하의")} />
-                            <ItemBox item={filterItem(currentPreset, "어깨장식")} />
-                            <ItemBox item={filterItem(currentPreset, "망토")} />
-                            <ItemBox item={filterItem(currentPreset, "장갑")} />
-                            <ItemBox item={filterItem(currentPreset, "신발")} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.HAT)} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.TOP)} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.BOTTOM)} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.SHOULDER)} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.CAPE)} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.GLOVE)} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.SHOES)} />
                         </div>
                         {/* 장신구 */}
                         <div className="pc:grid pc:grid-cols-2 pc:gap-x-[8px]">
-                            <ItemBox item={filterItem(currentPreset, "펜던트")} />
-                            <ItemBox item={filterItem(currentPreset, "펜던트2")} />
-                            <ItemBox item={filterItem(currentPreset, "얼굴장식")} />
-                            <ItemBox item={filterItem(currentPreset, "눈장식")} />
-                            <ItemBox item={filterItem(currentPreset, "귀고리")} />
-                            <ItemBox item={filterItem(currentPreset, "벨트")} />
-                            <ItemBox item={filterItem(currentPreset, "반지1")} specialRing={specialRing} />
-                            <ItemBox item={filterItem(currentPreset, "반지2")} specialRing={specialRing} />
-                            <ItemBox item={filterItem(currentPreset, "반지3")} specialRing={specialRing} />
-                            <ItemBox item={filterItem(currentPreset, "반지4")} specialRing={specialRing} />
-                            <ItemBox item={filterItem(currentPreset, "기계 심장")} />
-                            <ItemBox item={filterItem(android, "안드로이드")} android={true} />
-                            <ItemBox item={filterItem(currentPreset, "포켓 아이템")} />
-                            <ItemBox item={filterItem(title, "칭호")} title={true} />
-                            <ItemBox item={filterItem(currentPreset, "훈장")} />
-                            <ItemBox item={filterItem(currentPreset, "뱃지")} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.PENDANT)} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.PENDANT2)} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.FACE_ACCESSORY)} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.EYE_ACCESSORY)} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.EARRING)} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.BELT)} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.RING1)} specialRing={specialRing} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.RING2)} specialRing={specialRing} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.RING3)} specialRing={specialRing} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.RING4)} specialRing={specialRing} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.MACHINE_HEART)} />
+                            <ItemBox item={filterItem(android, EQUIPMENT_SLOT.ANDROID)} android={true} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.POCKET_ITEM)} />
+                            <ItemBox item={filterItem(title, EQUIPMENT_SLOT.TITLE)} title={true} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.MEDAL)} />
+                            <ItemBox item={filterItem(currentPreset, EQUIPMENT_SLOT.BADGE)} />
                         </div>
                     </div>
                 )}
