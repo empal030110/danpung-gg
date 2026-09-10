@@ -4,6 +4,7 @@ import { guildNameProps, guildBasicProps, guildSkillProps } from "../../guildPro
 import GuildHeader from "./components/GuildHeader";
 import GuildMemberList from "./components/GuildMemberList";
 import GuildNobleSkillList from "./components/GuildNobleSkillList";
+import { escapeJsonLd } from "@/lib/escapeJsonLd";
 import type { Metadata } from "next";
 
 // 페이지 본문과 동일한 URL로 fetch하기 때문에 Next.js가 자동으로 요청을 중복 제거함(추가 API 호출 없음)
@@ -76,7 +77,7 @@ export default async function GuildPage({ params }: guildNameProps) {
 
     return (
         <div className="w-full h-auto pb-[40px]">
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: escapeJsonLd(breadcrumbJsonLd) }} />
             <div className="w-full px-[20px] py-[32px] flex flex-col gap-[24px]">
                 <GuildHeader data={guildData} />
                 <GuildMemberList members={guildData.guildMembers} masterName={guildData.guildMasterName} />

@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import { Analytics } from "@vercel/analytics/next";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
+import { escapeJsonLd } from "@/lib/escapeJsonLd";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -84,7 +85,7 @@ export default function RootLayout({
                 <script
                     suppressHydrationWarning
                     type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+                    dangerouslySetInnerHTML={{ __html: escapeJsonLd(websiteJsonLd) }}
                 />
                 <script
                     suppressHydrationWarning
