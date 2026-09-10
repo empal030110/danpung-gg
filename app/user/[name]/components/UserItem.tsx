@@ -5,7 +5,7 @@ import { androidProps, itemProps, presetNumberProps, titleProps } from "../../us
 import { filterItem } from "../utils/filterItem";
 import ItemBox from "./ItemBox";
 import PresetTabs from "@/components/PresetTabs";
-import { EQUIPMENT_SLOT, SPECIAL_RING_NAMES } from "@/lib/constants";
+import { EQUIPMENT_SLOT, isSpecialRing } from "@/lib/constants";
 
 export default function UserItem({
     presetNumber = 0,
@@ -25,9 +25,7 @@ export default function UserItem({
     const [selectedPreset, setSelectedPreset] = useState(presetNumber !== 0 ? presetNumber : 1); // presetNumber가 없으면 1번을 기본으로
     const currentPreset = [preset1, preset2, preset3][selectedPreset - 1];
     const specialRing = currentPreset.find(
-        (item) =>
-            item.item_equipment_slot === EQUIPMENT_SLOT.SPARE_SPECIAL_RING &&
-            SPECIAL_RING_NAMES.some((name) => name === item.item_name),
+        (item) => item.item_equipment_slot === EQUIPMENT_SLOT.SPARE_SPECIAL_RING && isSpecialRing(item.item_name),
     );
 
     return (

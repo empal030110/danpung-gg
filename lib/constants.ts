@@ -42,7 +42,9 @@ export const EQUIPMENT_SLOT = {
 } as const;
 
 // 반지 슬롯에 착용하면 예비 특수 반지 정보를 함께 보여주는 특수 아이템명
-export const SPECIAL_RING_NAMES = ["컨티뉴어스 링", "리스트레인트 링"] as const;
+const SPECIAL_RING_NAMES = ["컨티뉴어스 링", "리스트레인트 링"] as const;
+export const isSpecialRing = (name?: string | null): boolean =>
+    SPECIAL_RING_NAMES.some((ringName) => ringName === name);
 
 // 심볼 이름 접두사로 아케인/어센틱을 구분
 export const ARCANE_SYMBOL_PREFIX = "아케인심볼";
