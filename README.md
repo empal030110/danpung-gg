@@ -17,7 +17,7 @@
 - **Test**: Vitest(유닛/컴포넌트) + Testing Library + jsdom, Playwright(E2E)
 - **Format**: Prettier + `eslint-config-prettier`
 - **CI**: GitHub Actions
-  - `ci.yml`: `lint` → `tsc --noEmit` → `test`, push/PR마다 실행 (필수 게이트)
+  - `ci.yml`: `lint` → `tsc --noEmit` → `test` → `build`, push/PR마다 실행 (필수 게이트)
   - `e2e.yml`: Playwright E2E, 수동 실행/매일 스케줄로만 실행 (실제 넥슨 API 의존이라 필수 게이트 아님)
 - **PWA**: next-pwa + 수동 서비스워커 등록 (App Router는 자동 등록 스크립트를 넣어주지 않아 `ServiceWorkerRegister` 컴포넌트로 직접 등록)
 - **Native App**: Capacitor 8 (iOS/Android) — 정적 export가 아닌 `server.url` 원격 모드 (서버 사이드 API 키를 쓰는 구조라 웹 서버를 그대로 로드)
@@ -72,6 +72,7 @@ mapleGG/
     formatStatValue.ts         # 스탯 숫자 포맷팅
     formatExpireDate.ts        # 만료일 포맷팅 (KST 오전/오후를 직접 계산 — Intl의 ICU 버전 의존성 회피)
     gradeColor.ts              # 등급별 텍스트/테두리/배경 색상 매핑
+    constants.ts                # 등급명/장비 슬롯명 등 여러 파일에서 반복되는 도메인 문자열 상수
     url/apiUrl.ts              # 엔드포인트 생성기 (랭킹/캐릭터/유니온/길드/공지 등)
   app/
     (main)/page.tsx            # 메인: 랭킹 TOP 3 + 공지/업데이트, 검색바
@@ -79,7 +80,9 @@ mapleGG/
     user/[name]/page.tsx       # 캐릭터 상세 페이지 (SSR, API 병렬 조회 → mapUserData로 가공)
     user/[name]/utils/mapUserData.ts  # 넥슨 API 원본 응답 20종 → 화면용 데이터로 가공하는 순수 함수 (유닛 테스트 대상)
     user/[name]/utils/filterItem.ts   # 장비/안드로이드/칭호를 슬롯 기준으로 필터링 (오버로드 시그니처)
-    user/[name]/components/    # UserHeader/UserBasicStat/UserItem/UserSkill/UserUnion/ItemDetailModal 등 섹션 컴포넌트
+    user/[name]/components/UserInfoTabs.tsx  # 탭 전환 UI만 담당 (panels로 완성된 패널을 받아 렌더링만 함)
+    user/[name]/components/User{Equipment,Stat,Skill,Union,Codi,Etc}Panel.tsx  # 탭별 콘텐츠 (각자 필요한 데이터만 props로 받음)
+    user/[name]/components/    # 그 외 UserHeader/UserBasicStat/UserItem/UserSkill/UserUnion/ItemDetailModal 등 섹션 컴포넌트
     user/userProps/props.ts       # 상세 페이지 타입 정의 (대부분 zod 스키마에서 z.infer로 추출)
     user/userProps/itemSchema.ts  # 장비/안드로이드/칭호 zod 스키마
     user/userProps/rawSchemas.ts  # 나머지 19개 엔드포인트 원본 응답 zod 스키마
@@ -115,7 +118,7 @@ mapleGG/
   resources/                     # Capacitor 앱 아이콘/스플래시 원본 이미지
   ios/, android/                 # Capacitor 네이티브 프로젝트 (원격 URL 모드)
   .github/workflows/
-    ci.yml                       # lint/타입체크/테스트 (필수 게이트)
+    ci.yml                       # lint/타입체크/테스트/빌드 (필수 게이트)
     e2e.yml                      # Playwright E2E (수동 실행/매일 스케줄)
   capacitor.config.ts
   next.config.ts                 # 이미지 도메인, 이미지 최적화 비활성화(Vercel 무료 한도 보호), PWA 구성
@@ -188,8 +191,8 @@ npm start
 ---
 
 ## CI
-- **`.github/workflows/ci.yml`** (필수 게이트): `main`/`master` push와 모든 PR에서 `lint` → `tsc --noEmit` → `test`를 순서대로 실행합니다. 넥슨 API 키가 필요한 `build`는 시크릿 설정 부담을 피하기 위해 이 워크플로 대상에서 제외했습니다.
-- **`.github/workflows/e2e.yml`** (수동/스케줄): Playwright E2E는 실제 넥슨 API와 랭킹 1위 캐릭터라는 살아있는 데이터에 의존해 깨지기 쉬운 테스트라, push/PR을 막는 필수 게이트에 넣지 않았습니다. `workflow_dispatch`(수동 실행)와 매일 스케줄로만 돌고, 실패 시 `playwright-report`를 아티팩트로 남깁니다. 저장소 시크릿에 `NX_OPEN_API_KEY`가 있어야 동작합니다.
+- **`.github/workflows/ci.yml`** (필수 게이트): `main`/`master` push와 모든 PR에서 `lint` → `tsc --noEmit` → `test` → `build`를 순서대로 실행합니다. `build`는 넥슨 API 키가 필요해 저장소 시크릿 `NX_OPEN_API_KEY`가 있어야 동작합니다.
+- **`.github/workflows/e2e.yml`** (수동/스케줄): Playwright E2E는 실제 넥슨 API에 의존해 API 장애 시 실패할 수 있는 테스트라, push/PR을 막는 필수 게이트에 넣지 않았습니다. `workflow_dispatch`(수동 실행)와 매일 스케줄로만 돌고, 실패 시 `playwright-report`를 아티팩트로 남깁니다. 마찬가지로 `NX_OPEN_API_KEY` 시크릿이 필요합니다.
 
 ---
 
@@ -202,7 +205,7 @@ npm start
 | 상태관리 | Vitest | `store/useFavoriteStore.ts`, `store/useRecentSearchStore.ts` |
 | API route | Vitest | `app/api/favorites/route.ts` (`ssrFetcher`만 모킹, `runLimited`는 실제 사용) |
 | 컴포넌트/훅 | Vitest + Testing Library + jsdom | `hooks/useCharacterSearch.ts`·`useSearchDropdown.ts`, `PresetTabs`·`SearchForm`·`FavoriteButton` 등 (파일 상단에 `// @vitest-environment jsdom` 지정, 나머지는 기본 node 환경 유지) |
-| E2E | Playwright | `e2e/character-search.spec.ts` — 검색 → 상세 페이지 탭 전환 → 즐겨찾기 추가/반영 → 존재하지 않는 캐릭터 에러까지, 실제 dev 서버 + 실제 넥슨 API로 검증 |
+| E2E | Playwright | `e2e/character-search.spec.ts` — 검색 → 상세 페이지 탭 전환 → 즐겨찾기 추가/반영 → 존재하지 않는 캐릭터 에러까지, 실제 dev 서버 + 실제 넥슨 API로 검증. 특정 캐릭터 이름을 하드코딩하지 않고 메인 페이지의 "무릉도장 1위" 캐릭터를 매번 동적으로 조회해서 사용 |
 
 zod 스키마와 `getDate`/`formatExpireDate` 등은 실제 API 응답이나 KST 자정 경계처럼 놓치기 쉬운 케이스를 실제로 재현해서 테스트로 고정했습니다 (예: 잠재옵션 없는 아이템이 `undefined`가 아니라 `null`로 오는 것, `Intl.DateTimeFormat('ko-KR', {hour12:true})`가 Node ICU 버전에 따라 "오후"/"PM"으로 갈리는 것).
 
@@ -237,6 +240,8 @@ npm run test:e2e    # E2E (Playwright)
 - 날짜 유틸: `getToDate()` / `getYdayDate()`는 KST 기준 오늘/어제, 랭킹 API 쿼리에 사용됩니다.
 - 타입: 캐릭터 상세 페이지 타입은 `app/user/userProps/props.ts`, 길드 페이지 타입은 `app/guild/guildProps/props.ts`에 정의되어 있습니다. 넥슨 API 응답과 1:1로 대응되는 타입(아이템/스탯/스킬 등)은 손으로 쓰지 않고 zod 스키마에서 `z.infer`로 추출합니다 — camelCase 변환처럼 원본과 모양이 달라지는 것만 예외적으로 인터페이스를 직접 씁니다.
 - UI/상태: 프리셋 전환(어빌리티/장비/하이퍼스탯/유니온/코디 등)은 클라이언트 컴포넌트에서 `useState` + `PresetTabs` 공용 컴포넌트로 처리합니다.
+- 탭 구성: 캐릭터 상세 페이지처럼 탭이 여러 개인 화면은 탭 전환 컴포넌트(`UserInfoTabs`)에 전체 데이터를 몰아주지 않고, 탭별 Panel 컴포넌트로 나눠 각자 필요한 props만 받게 합니다. 탭 전환 컴포넌트는 완성된 패널(`ReactNode[]`)만 받아 렌더링합니다.
+- 도메인 상수: 등급명·장비 슬롯명처럼 여러 파일에서 반복되는 문자열은 `lib/constants.ts`에 모아두고 리터럴을 직접 쓰지 않습니다.
 - 즐겨찾기/최근검색어: `store/`의 zustand 스토어가 `localStorage`에 영속화하며 서버로 전송하지 않습니다.
 - 이미지: 캐릭터/장비 아이콘은 넥슨 API가 이미 적정 크기로 내려주므로 `next.config.ts`에서 이미지 최적화를 비활성화(`unoptimized: true`)해 Vercel 무료 변환 한도를 보호합니다.
 - 다크모드: `components/header/ThemeBtn.tsx`에서 `document.documentElement`에 `dark` 클래스를 토글.
@@ -245,7 +250,4 @@ npm run test:e2e    # E2E (Playwright)
 ---
 
 ## 알려진 제한사항
-- **`UserInfoTabs.tsx` prop drilling**: 6개 탭 콘텐츠를 하나의 컴포넌트가 40개 prop으로 받아 그대로 자식에 흩뿌립니다. 도메인 자체가 복잡한 탓도 있지만, Context나 children 슬롯 패턴으로 줄일 여지가 있습니다.
-- **매직 스트링**: 등급명(`'레전드리'`, `'유니크'`...), 장비 슬롯명(`'모자'`, `'상의'`...) 같은 도메인 문자열이 여러 파일에 그대로 하드코딩되어 있어 오타로 인한 버그 위험이 있습니다.
-- **E2E의 실데이터 의존**: `e2e/character-search.spec.ts`가 "종합랭킹 1위 캐릭터"라는 실제 프로덕션 데이터 한 명에 의존합니다. 그 캐릭터의 랭킹/장비 구성이 바뀌거나 넥슨 API가 잠깐 장애가 나면 테스트가 실패할 수 있어, 필수 게이트가 아닌 수동/스케줄 워크플로로만 돌립니다 (자세한 내용은 위 CI 섹션 참고).
-- CI에 `build` 단계가 없어 빌드 타임 오류(예: ESLint의 `no-unused-vars`)는 로컬 `npm run build`나 배포 시점에만 걸러집니다.
+- **E2E의 실데이터 의존**: `e2e/character-search.spec.ts`는 실제 넥슨 API를 호출합니다. 특정 캐릭터 이름에 대한 의존은 없앴지만(메인 페이지의 "무릉도장 1위" 캐릭터를 매번 동적으로 조회), 넥슨 API 자체가 장애 상태면 여전히 실패할 수 있습니다. 완전히 없애려면 MSW 같은 API 모킹 레이어가 필요한데, 이 프로젝트 규모 대비 투자가 커서 보류했습니다. 그래서 필수 게이트가 아닌 수동/스케줄 워크플로(`e2e.yml`)로만 돌립니다.
