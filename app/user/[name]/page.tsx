@@ -27,6 +27,12 @@ import runLimited from "@/lib/runLimited";
 import { mapUserPageData } from "./utils/mapUserData";
 import UserHeader from "./components/UserHeader";
 import UserInfoTabs from "./components/UserInfoTabs";
+import UserEquipmentPanel from "./components/UserEquipmentPanel";
+import UserStatPanel from "./components/UserStatPanel";
+import UserSkillPanel from "./components/UserSkillPanel";
+import UserUnionPanel from "./components/UserUnionPanel";
+import UserCodiPanel from "./components/UserCodiPanel";
+import UserEtcPanel from "./components/UserEtcPanel";
 import type { Metadata } from "next";
 
 // 페이지 본문과 동일한 URL로 fetch하기 때문에 Next.js가 자동으로 요청을 중복 제거함(추가 API 호출 없음)
@@ -197,48 +203,64 @@ export default async function SearchPage({ params }: userNameProps) {
                 <UserHeader data={userData} ocid={userOcid[0]["ocid"]} />
             </div>
             <UserInfoTabs
-                userSetEffect={userSetEffect}
-                arcaneSymbols={arcaneSymbols}
-                authenticSymbols={authenticSymbols}
-                abilityPresetNumber={abilityPresetNumber}
-                abilityPreset1={abilityPreset1}
-                abilityPreset2={abilityPreset2}
-                abilityPreset3={abilityPreset3}
-                presetNumber={presetNumber}
-                userItemPreset1={userItemPreset1}
-                userItemPreset2={userItemPreset2}
-                userItemPreset3={userItemPreset3}
-                userAndroid={userAndroid}
-                title={title}
-                userPets={userPets}
-                hyperStatPresetNo={hyperStatPresetNo}
-                userHyperStatPreset1={userHyperStatPreset1}
-                userHyperStatPreset2={userHyperStatPreset2}
-                userHyperStatPreset3={userHyperStatPreset3}
-                userStat={userStat}
-                userSkills6={userSkills6}
-                userSkills5={userSkills5}
-                hexaStatCore1={hexaStatCore1}
-                hexaStatCore2={hexaStatCore2}
-                hexaStatCore3={hexaStatCore3}
-                linkSkillPresetNo={linkSkillPresetNo}
-                userLinkSkillPreset1={userLinkSkillPreset1}
-                userLinkSkillPreset2={userLinkSkillPreset2}
-                userLinkSkillPreset3={userLinkSkillPreset3}
-                userUnion={userUnion}
-                userUnionChampions={userUnionChampions}
-                userUnionChampionBadgeEffects={userUnionChampionBadgeEffects}
-                userUnionArtifactEffects={userUnionArtifactEffects}
-                userUnionRaiderStats={userUnionRaiderStats}
-                unionStateStatPresetNo={unionStateStatPresetNo}
-                unionStateStatPresets={unionStateStatPresets}
-                userCodiItems={userCodiItems}
-                codiPresetNo={codiPresetNo}
-                userCodiPreset1={userCodiPreset1}
-                userCodiPreset2={userCodiPreset2}
-                userCodiPreset3={userCodiPreset3}
-                userAchievement={userAchievement}
-                userDojang={userDojang}
+                panels={[
+                    <UserEquipmentPanel
+                        key="equipment"
+                        userSetEffect={userSetEffect}
+                        arcaneSymbols={arcaneSymbols}
+                        authenticSymbols={authenticSymbols}
+                        abilityPresetNumber={abilityPresetNumber}
+                        abilityPreset1={abilityPreset1}
+                        abilityPreset2={abilityPreset2}
+                        abilityPreset3={abilityPreset3}
+                        presetNumber={presetNumber}
+                        userItemPreset1={userItemPreset1}
+                        userItemPreset2={userItemPreset2}
+                        userItemPreset3={userItemPreset3}
+                        userAndroid={userAndroid}
+                        title={title}
+                        userPets={userPets}
+                    />,
+                    <UserStatPanel
+                        key="stat"
+                        hyperStatPresetNo={hyperStatPresetNo}
+                        userHyperStatPreset1={userHyperStatPreset1}
+                        userHyperStatPreset2={userHyperStatPreset2}
+                        userHyperStatPreset3={userHyperStatPreset3}
+                        userStat={userStat}
+                    />,
+                    <UserSkillPanel
+                        key="skill"
+                        userSkills6={userSkills6}
+                        userSkills5={userSkills5}
+                        hexaStatCore1={hexaStatCore1}
+                        hexaStatCore2={hexaStatCore2}
+                        hexaStatCore3={hexaStatCore3}
+                        linkSkillPresetNo={linkSkillPresetNo}
+                        userLinkSkillPreset1={userLinkSkillPreset1}
+                        userLinkSkillPreset2={userLinkSkillPreset2}
+                        userLinkSkillPreset3={userLinkSkillPreset3}
+                    />,
+                    <UserUnionPanel
+                        key="union"
+                        userUnion={userUnion}
+                        userUnionChampions={userUnionChampions}
+                        userUnionChampionBadgeEffects={userUnionChampionBadgeEffects}
+                        userUnionArtifactEffects={userUnionArtifactEffects}
+                        userUnionRaiderStats={userUnionRaiderStats}
+                        unionStateStatPresetNo={unionStateStatPresetNo}
+                        unionStateStatPresets={unionStateStatPresets}
+                    />,
+                    <UserCodiPanel
+                        key="codi"
+                        userCodiItems={userCodiItems}
+                        codiPresetNo={codiPresetNo}
+                        userCodiPreset1={userCodiPreset1}
+                        userCodiPreset2={userCodiPreset2}
+                        userCodiPreset3={userCodiPreset3}
+                    />,
+                    <UserEtcPanel key="etc" userAchievement={userAchievement} userDojang={userDojang} />,
+                ]}
             />
         </div>
     );
