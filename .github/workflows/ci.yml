@@ -26,3 +26,8 @@ jobs:
 
       - name: Test
         run: npm test
+
+      - name: Build
+        run: npm run build
+        env:
+          NX_OPEN_API_KEY: ${{ secrets.NX_OPEN_API_KEY }}
