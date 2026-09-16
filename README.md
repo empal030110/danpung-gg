@@ -2,6 +2,8 @@
 
 메이플스토리 넥슨 오픈 API를 활용한 캐릭터·길드 정보 검색 서비스입니다. 캐릭터 이름만 검색하면 스탯, 장비, 유니온, 업적, 랭킹 정보를 한 번에 확인할 수 있고, 길드명으로는 길드원 목록과 노블레스 스킬 현황을 조회할 수 있습니다. PWA와 Capacitor 기반 iOS/Android 앱으로도 제공됩니다.
 
+> 문제 정의, 주요 의사결정, 결과 및 회고, 컴포넌트 설계 방식은 [RETROSPECTIVE.md](RETROSPECTIVE.md) 참고
+
 ### 서비스
 - 웹: `https://www.danpung.shop`
 - 앱: Capacitor로 감싼 iOS/Android 네이티브 앱 (원격 URL 모드로 위 웹 서비스를 그대로 로드)
