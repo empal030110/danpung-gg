@@ -8,6 +8,11 @@
 - 웹: `https://www.danpung.shop`
 - 앱: Capacitor로 감싼 iOS/Android 네이티브 앱 (원격 URL 모드로 위 웹 서비스를 그대로 로드)
 
+### 스크린샷
+| 메인 | 캐릭터 - 장비 | 캐릭터 - 스킬 |
+|---|---|---|
+| ![메인](public/screenshots/main.png) | ![장비](public/screenshots/character-equipment.png) | ![스킬](public/screenshots/character-skill.png) |
+
 ---
 
 ## 기술 스택
