@@ -17,6 +17,7 @@ export default function FavoriteCard({ summary, onRemove }: { summary: FavoriteS
             {summary.ok ? (
                 <Link
                     href={`/user/${encodeURIComponent(summary.name)}`}
+                    prefetch={false}
                     className="w-full flex flex-col items-center hover:bg-gray-100 dark:hover:bg-neutral-800"
                 >
                     <div className="w-[96px] h-[96px] overflow-hidden flex items-center justify-center mt-[16px]">

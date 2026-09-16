@@ -59,6 +59,7 @@ export default function GuildMemberList({ members, masterName }: { members: stri
                             <Link
                                 key={member}
                                 href={`/user/${encodeURIComponent(member)}`}
+                                prefetch={false}
                                 className={`flex items-center justify-center gap-[4px] py-[8px] px-[10px] rounded-[8px] truncate ${isMaster ? "bg-yellow-400 text-black font-bold" : "bg-gray-200 dark:bg-neutral-800 hover:bg-gray-300 dark:hover:bg-neutral-700"}`}
                             >
                                 {isMaster && <FaCrown size={12} />}

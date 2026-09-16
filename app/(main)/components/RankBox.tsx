@@ -22,6 +22,7 @@ export default function RankBox({
     return (
         <Link
             href={`/user/${data.name}`}
+            prefetch={false}
             className={`w-full max-w-[235px] flex flex-col items-center justify-center border ${colorInfo[color].border} rounded-[16px]`}
         >
             <p className={`w-full p-[8px] border-b-[2px] text-[14px] ${colorInfo[color].border}`}>{rankingTitle} 1위</p>
