@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import { useTranslations } from "next-intl";
 import { useFavoriteStore } from "@/store/useFavoriteStore";
 
 // UserHeader는 비동기 서버 컴포넌트, 별 버튼만 분리
 export default function FavoriteButton({ characterName }: { characterName: string }) {
     const { favorites, toggleFavorite } = useFavoriteStore();
+    const t = useTranslations("favoriteButton");
     const [hasMounted, setHasMounted] = useState(false);
 
     useEffect(() => {
@@ -20,7 +22,7 @@ export default function FavoriteButton({ characterName }: { characterName: strin
         <button
             type="button"
             onClick={() => toggleFavorite(characterName)}
-            aria-label={isFavorite ? "즐겨찾기 해제" : "즐겨찾기 추가"}
+            aria-label={isFavorite ? t("remove") : t("add")}
             aria-pressed={isFavorite}
             className="absolute top-[40px] right-[40px] text-yellow-400 cursor-pointer"
         >
