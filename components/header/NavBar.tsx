@@ -2,18 +2,20 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export default function NavBar() {
     const pathname = usePathname();
+    const t = useTranslations("nav");
     const navItems = [
-        { href: "/", label: "메인" },
-        { href: "/guild", label: "길드" },
-        { href: "/favorites", label: "즐겨찾기" },
-        { href: "/guide", label: "가이드" },
+        { href: "/", label: t("home") },
+        { href: "/guild", label: t("guild") },
+        { href: "/favorites", label: t("favorites") },
+        { href: "/guide", label: t("guide") },
     ];
 
     return (
-        <nav aria-label="주요 메뉴" className="w-full flex pt-[16px] gap-[12px] border-t border-neutral-600">
+        <nav aria-label={t("ariaLabel")} className="w-full flex pt-[16px] gap-[12px] border-t border-neutral-600">
             {navItems.map(({ href, label }) => (
                 <Link
                     key={href}

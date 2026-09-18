@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { FaMoon } from "react-icons/fa";
+import { useTranslations } from "next-intl";
 
 const themeMode = "theme";
 
 export default function ThemeBtn() {
+    const t = useTranslations("theme");
     // 서버는 저장된 테마를 모르니 항상 dark로 렌더링됨 -> 마운트 후 실제 클래스로 동기화
     const [isDark, setIsDark] = useState(true);
 
@@ -31,7 +33,7 @@ export default function ThemeBtn() {
         <button
             type="button"
             onClick={modeChange}
-            aria-label={isDark ? "라이트 모드로 전환" : "다크 모드로 전환"}
+            aria-label={isDark ? t("toLight") : t("toDark")}
             aria-pressed={isDark}
             className="border w-fit p-[8px] rounded-[6px] cursor-pointer"
         >

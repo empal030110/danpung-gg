@@ -7,6 +7,8 @@ import Link from "next/link";
 import { Analytics } from "@vercel/analytics/next";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import { escapeJsonLd } from "@/lib/escapeJsonLd";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -18,43 +20,48 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-    metadataBase: new URL("https://www.danpung.shop"),
-    title: "단풍지지 - 메이플스토리 통계 & 분석 플랫폼",
-    description: "메이플스토리 직업 통계, 길드 분석, 유저 정보 등을 제공하는 단풍지지 플랫폼입니다.",
-    keywords: ["메이플스토리", "직업 통계", "길드 분석", "단풍지지", "MapleStory", "danpungGG"],
-    authors: [{ name: "empal03", url: "https://www.danpung.shop" }],
-    creator: "empal03",
-    publisher: "empal03",
+export async function generateMetadata(): Promise<Metadata> {
+    const locale = await getLocale();
+    const t = await getTranslations("metadata.root");
 
-    icons: {
-        icon: [{ url: "/favicon.ico", sizes: "any" }],
-        apple: "/icons/apple-icon.png",
-    },
+    return {
+        metadataBase: new URL("https://www.danpung.shop"),
+        title: t("title"),
+        description: t("description"),
+        keywords: ["메이플스토리", "직업 통계", "길드 분석", "단풍지지", "MapleStory", "danpungGG"],
+        authors: [{ name: "empal03", url: "https://www.danpung.shop" }],
+        creator: "empal03",
+        publisher: "empal03",
 
-    verification: {
-        other: {
-            "naver-site-verification": "d77e2b48492c5ab7becba5cec13e268567b9d472",
+        icons: {
+            icon: [{ url: "/favicon.ico", sizes: "any" }],
+            apple: "/icons/apple-icon.png",
         },
-    },
 
-    openGraph: {
-        title: "단풍지지 - 메이플스토리 통계 & 분석 플랫폼",
-        description: "메이플스토리 직업 통계, 길드 분석, 유저 정보 등을 제공하는 단풍지지 플랫폼입니다.",
-        url: "https://www.danpung.shop",
-        siteName: "단풍지지",
-        locale: "ko_KR",
-        type: "website",
-        images: [
-            {
-                url: "/danpungGG.png",
-                width: 1200,
-                height: 630,
-                alt: "단풍지지 - 메이플 통계 플랫폼",
+        verification: {
+            other: {
+                "naver-site-verification": "d77e2b48492c5ab7becba5cec13e268567b9d472",
             },
-        ],
-    },
-};
+        },
+
+        openGraph: {
+            title: t("title"),
+            description: t("description"),
+            url: "https://www.danpung.shop",
+            siteName: "단풍지지",
+            locale: locale === "en" ? "en_US" : "ko_KR",
+            type: "website",
+            images: [
+                {
+                    url: "/danpungGG.png",
+                    width: 1200,
+                    height: 630,
+                    alt: t("title"),
+                },
+            ],
+        },
+    };
+}
 
 const websiteJsonLd = {
     "@context": "https://schema.org",
@@ -71,13 +78,17 @@ const websiteJsonLd = {
     },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const locale = await getLocale();
+    const messages = await getMessages();
+    const t = await getTranslations("footer");
+
     return (
-        <html lang="ko" suppressHydrationWarning className="overflow-x-hidden">
+        <html lang={locale} suppressHydrationWarning className="overflow-x-hidden">
             <head>
                 <link rel="manifest" href="/manifest.json" />
                 <meta name="theme-color" content="#171717" />
@@ -105,18 +116,20 @@ export default function RootLayout({
                 className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#171717] text-black dark:text-white overflow-x-hidden`}
             >
                 <div className="w-full max-w-[940px] m-auto px-[20px] pc:px-0">
-                    <Header />
-                    <ServiceWorkerRegister />
-                    <main>{children}</main>
-                    <footer className="w-full py-[24px] mt-[40px] border-t border-neutral-600 flex flex-col items-center gap-[8px] text-center text-[12px] text-neutral-500 dark:text-neutral-400">
-                        <p>
-                            본 서비스는 NEXON Open API를 이용하여 제작되었으며, 넥슨 및 메이플스토리와 공식적으로
-                            제휴되어 있지 않습니다.
-                        </p>
-                        <Link href="/privacy" className="underline hover:text-neutral-700 dark:hover:text-neutral-200">
-                            개인정보처리방침
-                        </Link>
-                    </footer>
+                    <NextIntlClientProvider locale={locale} messages={messages}>
+                        <Header />
+                        <ServiceWorkerRegister />
+                        <main>{children}</main>
+                        <footer className="w-full py-[24px] mt-[40px] border-t border-neutral-600 flex flex-col items-center gap-[8px] text-center text-[12px] text-neutral-500 dark:text-neutral-400">
+                            <p>{t("disclaimer")}</p>
+                            <Link
+                                href="/privacy"
+                                className="underline hover:text-neutral-700 dark:hover:text-neutral-200"
+                            >
+                                {t("privacy")}
+                            </Link>
+                        </footer>
+                    </NextIntlClientProvider>
                     <Analytics />
                     <Script src="https://openapi.nexon.com/js/analytics.js?app_id=324464" strategy="afterInteractive" />
                     {/* next/script가 head 삽입/실행을 직접 관리해서, 손으로 쓴 <script>와 달리 애드센스 로더가 head를 건드려도 하이드레이션 충돌이 안 남 */}

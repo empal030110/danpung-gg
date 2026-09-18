@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ThemeBtn from "./header/ThemeBtn";
+import LocaleSwitcher from "./header/LocaleSwitcher";
 import HeaderSearchBar from "./header/HeaderSearchBar";
 import Link from "next/link";
 import NavBar from "./header/NavBar";
@@ -15,7 +16,10 @@ export default function Header() {
                     <div className="w-full max-w-[540px] hidden pc:block">
                         <HeaderSearchBar />
                     </div>
-                    <ThemeBtn />
+                    <div className="flex items-center gap-[8px]">
+                        <LocaleSwitcher />
+                        <ThemeBtn />
+                    </div>
                 </div>
                 <div className="w-full flex justify-center pc:hidden">
                     <HeaderSearchBar />
