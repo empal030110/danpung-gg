@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import GuildSearchBar from "@/components/GuildSearchBar";
 
-export const metadata: Metadata = {
-    title: "길드 검색 - 단풍지지",
-    description: "월드와 길드명으로 메이플스토리 길드원 목록과 노블레스 스킬 정보를 조회하세요.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+    const t = await getTranslations("metadata.guild");
+    return {
+        title: t("title"),
+        description: t("description"),
+    };
+}
 
 export default function Guild() {
     return (

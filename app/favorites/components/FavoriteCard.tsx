@@ -1,15 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FaStar } from "react-icons/fa";
+import { useTranslations } from "next-intl";
 import { FavoriteSummary } from "@/app/api/favorites/route";
 
 export default function FavoriteCard({ summary, onRemove }: { summary: FavoriteSummary; onRemove: () => void }) {
+    const t = useTranslations("favorites");
+    const tDropdown = useTranslations("searchDropdown");
+
     return (
         <div className="relative flex flex-col items-center border border-neutral-300 dark:border-neutral-700 rounded-[16px] overflow-hidden">
             <button
                 type="button"
                 onClick={onRemove}
-                aria-label={`${summary.name} 즐겨찾기 해제`}
+                aria-label={tDropdown("removeFavorite", { name: summary.name })}
                 className="absolute top-[8px] right-[8px] text-yellow-400 cursor-pointer z-10"
             >
                 <FaStar size={16} />
@@ -36,11 +40,11 @@ export default function FavoriteCard({ summary, onRemove }: { summary: FavoriteS
                     </p>
                     <div className="w-full flex justify-center gap-[24px] py-[12px] text-[12px] text-center border-t border-neutral-300 dark:border-neutral-700 mt-[12px]">
                         <div>
-                            <p className="text-neutral-500 dark:text-neutral-400">레벨</p>
+                            <p className="text-neutral-500 dark:text-neutral-400">{t("level")}</p>
                             <p className="font-bold">{summary.level}</p>
                         </div>
                         <div>
-                            <p className="text-neutral-500 dark:text-neutral-400">전투력</p>
+                            <p className="text-neutral-500 dark:text-neutral-400">{t("combatPower")}</p>
                             <p className="font-bold">{summary.combatPower ?? "-"}</p>
                         </div>
                     </div>
@@ -48,7 +52,7 @@ export default function FavoriteCard({ summary, onRemove }: { summary: FavoriteS
             ) : (
                 <div className="w-full flex flex-col items-center justify-center py-[40px] px-[12px] text-center">
                     <p className="font-bold truncate max-w-full">{summary.name}</p>
-                    <p className="text-[12px] text-neutral-400 mt-[8px]">정보를 불러올 수 없습니다.</p>
+                    <p className="text-[12px] text-neutral-400 mt-[8px]">{t("loadFailed")}</p>
                 </div>
             )}
         </div>
