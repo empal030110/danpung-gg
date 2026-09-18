@@ -11,6 +11,10 @@
         "guild": {
             "title": "Guild Search - DanpungGG",
             "description": "Look up a guild's member list and Noblesse skill status by world and guild name."
+        },
+        "guide": {
+            "title": "Guide - DanpungGG",
+            "description": "A guide to looking up MapleStory character and guild info on DanpungGG, and using favorites."
         }
     },
     "nav": {
@@ -88,5 +92,57 @@
     "footer": {
         "disclaimer": "This service is built using the NEXON Open API and is not officially affiliated with Nexon or MapleStory.",
         "privacy": "Privacy Policy"
+    },
+    "guide": {
+        "heading": "Guide",
+        "subheading": "New to DanpungGG? Check out the guide below.",
+        "sections": {
+            "intro": {
+                "title": "What is DanpungGG?",
+                "body": "DanpungGG is an unofficial lookup service for MapleStory character and guild info, built on the NEXON Open API. A single character search shows stats, equipment, skills, Union, cosmetics, achievements, and Mu Lung Dojo records all on one page, and a guild name lookup shows the member list and Noblesse skill status. You can also see the #1-ranked characters in Mu Lung Dojo, The Seed, and Achievement, plus the latest notices and updates, right on the main screen."
+            },
+            "userInfo": {
+                "title": "Looking up character info",
+                "intro": "Enter a character's nickname in the search bar at the top and search to go to that character's detail page. The detail page has 6 tabs:",
+                "items": {
+                    "equipment": "Set effects, Symbols (Arcane/Sacred), Ability, equipped gear/Android/Title, Pet info",
+                    "stat": "Hyper Stats, base stats, detail stats (Attack, Ignore Defense, Critical Rate, etc.)",
+                    "skill": "HEXA Stat cores, 5th/6th job skills, Link Skill preset",
+                    "union": "Union level, Champion placement, Artifact effects, Raider stats",
+                    "codi": "Cash item cosmetics and presets",
+                    "etc": "Achievement grade/score, best Mu Lung Dojo record"
+                }
+            },
+            "guild": {
+                "title": "Looking up guild info",
+                "body": "Go to the <b>Guild</b> menu at the top, then enter a world (server) and guild name to open the guild detail page. There you can see the guild emblem and basic info, the member list (scrollable), and Noblesse skill status."
+            },
+            "recentFavorites": {
+                "title": "Using recent searches & favorites",
+                "body": "Clicking the search bar shows your recently viewed characters and favorited characters in separate tabs. Add characters you check often to favorites so you can pull them back up without retyping the name. Recent searches and favorites aren't stored on a server — they're saved only in the browser you're using, so they won't show up on other devices or browsers."
+            },
+            "faq": {
+                "title": "FAQ",
+                "items": [
+                    {
+                        "q": "Q. I searched for a character but nothing shows up.",
+                        "a": "A. Under Nexon's Open API policy, lookups can be limited for characters with no ranking history, characters set to private, or characters created very recently."
+                    },
+                    {
+                        "q": "Q. The info shown doesn't match the actual game state.",
+                        "a": "A. DanpungGG pulls data directly from the NEXON Open API's daily refresh, so in-game changes can take up to about a day to show up here."
+                    },
+                    {
+                        "q": "Q. Is this an official Nexon/MapleStory service?",
+                        "a": "A. No. DanpungGG is an unofficial service built by an individual using the NEXON Open API, and it's not officially affiliated with Nexon or MapleStory."
+                    },
+                    {
+                        "q": "Q. How do I turn on light mode?",
+                        "a": "A. Use the theme toggle button in the top right to switch between light and dark mode instantly."
+                    }
+                ]
+            }
+        },
+        "footer": "If you have more questions, please reach out via the contact email on the <link>Privacy Policy</link> page."
     }
 }
