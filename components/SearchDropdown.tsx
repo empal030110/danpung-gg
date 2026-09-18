@@ -2,6 +2,7 @@
 
 import { FiX } from "react-icons/fi";
 import { FaStar } from "react-icons/fa";
+import { useTranslations } from "next-intl";
 import { DropdownTab } from "@/hooks/useSearchDropdown";
 
 interface SearchDropdownProps {
@@ -29,6 +30,7 @@ export default function SearchDropdown({
     onSelect,
     positionClassName = "left-0 right-0",
 }: SearchDropdownProps) {
+    const t = useTranslations("searchDropdown");
     // 바깥 행 안에 삭제용 <button>이 중첩돼 있어 행 자체를 <button>으로 만들 수 없음(버튼 중첩은 유효하지 않은 HTML) ->
     // role/tabIndex/onKeyDown으로 키보드 접근성을 직접 부여
     const handleRowKeyDown = (e: React.KeyboardEvent, name: string) => {
@@ -51,14 +53,14 @@ export default function SearchDropdown({
                         onClick={() => setActiveTab("recent")}
                         className={`text-[12px] cursor-pointer ${activeTab === "recent" ? "font-bold text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400"}`}
                     >
-                        최근 검색어
+                        {t("recentTab")}
                     </button>
                     <button
                         type="button"
                         onClick={() => setActiveTab("favorite")}
                         className={`text-[12px] cursor-pointer ${activeTab === "favorite" ? "font-bold text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400"}`}
                     >
-                        즐겨찾기
+                        {t("favoriteTab")}
                     </button>
                 </div>
                 {activeTab === "recent" && recentSearches.length > 0 && (
@@ -67,7 +69,7 @@ export default function SearchDropdown({
                         onClick={clearSearches}
                         className="text-[12px] text-neutral-500 dark:text-neutral-400 cursor-pointer hover:underline"
                     >
-                        전체삭제
+                        {t("clearAll")}
                     </button>
                 )}
                 {activeTab === "favorite" && favorites.length > 0 && (
@@ -76,7 +78,7 @@ export default function SearchDropdown({
                         onClick={clearFavorites}
                         className="text-[12px] text-neutral-500 dark:text-neutral-400 cursor-pointer hover:underline"
                     >
-                        전체삭제
+                        {t("clearAll")}
                     </button>
                 )}
             </div>
@@ -99,7 +101,7 @@ export default function SearchDropdown({
                                         e.stopPropagation(); // 상위 항목의 재검색 클릭으로 전파되지 않도록 막음
                                         removeSearch(name);
                                     }}
-                                    aria-label={`${name} 최근 검색어 삭제`}
+                                    aria-label={t("removeRecent", { name })}
                                     className="text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 cursor-pointer"
                                 >
                                     <FiX size={14} />
@@ -108,7 +110,7 @@ export default function SearchDropdown({
                         ))}
                     </div>
                 ) : (
-                    <p className="text-[12px] text-neutral-400 py-[8px]">최근 검색어가 없습니다.</p>
+                    <p className="text-[12px] text-neutral-400 py-[8px]">{t("recentEmpty")}</p>
                 )
             ) : favorites.length > 0 ? (
                 <div className="flex flex-col gap-[2px] max-h-[180px] overflow-y-auto scrollbar-hide">
@@ -128,7 +130,7 @@ export default function SearchDropdown({
                                     e.stopPropagation(); // 상위 항목의 재검색 클릭으로 전파되지 않도록 막음
                                     removeFavorite(name);
                                 }}
-                                aria-label={`${name} 즐겨찾기 해제`}
+                                aria-label={t("removeFavorite", { name })}
                                 className="text-yellow-400 cursor-pointer"
                             >
                                 <FaStar size={12} />
@@ -137,7 +139,7 @@ export default function SearchDropdown({
                     ))}
                 </div>
             ) : (
-                <p className="text-[12px] text-neutral-400 py-[8px]">즐겨찾기가 없습니다.</p>
+                <p className="text-[12px] text-neutral-400 py-[8px]">{t("favoriteEmpty")}</p>
             )}
         </div>
     );

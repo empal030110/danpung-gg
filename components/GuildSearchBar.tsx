@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { FiSearch } from "react-icons/fi";
 import { IoIosArrowDown } from "react-icons/io";
 
@@ -28,6 +29,7 @@ const WORLD_LIST = [
 
 export default function GuildSearchBar() {
     const router = useRouter();
+    const t = useTranslations("guildSearch");
     const [world, setWorld] = useState(WORLD_LIST[0]);
     const [inputValue, setInputValue] = useState("");
 
@@ -36,7 +38,7 @@ export default function GuildSearchBar() {
 
         const trimmed = inputValue.replace(/\s+/g, "");
         if (!trimmed) {
-            alert("길드 이름을 입력하세요.");
+            alert(t("emptyAlert"));
             return;
         }
 
@@ -66,7 +68,7 @@ export default function GuildSearchBar() {
                 <div className="relative flex items-center flex-1">
                     <input
                         type="text"
-                        placeholder="길드 이름을 입력하세요"
+                        placeholder={t("placeholder")}
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         className="w-full h-full max-h-[47px] border py-[12px] px-[16px] rounded-[12px] bg-[#fff] text-black dark:bg-[#171717] dark:text-white"

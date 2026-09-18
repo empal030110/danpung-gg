@@ -1,6 +1,7 @@
 "use client";
 
 import { FiSearch } from "react-icons/fi";
+import { useTranslations } from "next-intl";
 
 interface SearchFormProps {
     inputValue: string;
@@ -11,11 +12,13 @@ interface SearchFormProps {
 }
 
 export default function SearchForm({ inputValue, onChange, onSubmit, onFocus, onBlur }: SearchFormProps) {
+    const t = useTranslations("search");
+
     return (
         <form onSubmit={onSubmit} className={"relative z-10 flex items-center w-full pc:max-w-[540px]"}>
             <input
                 type="text"
-                placeholder="캐릭터 이름을 입력하세요"
+                placeholder={t("placeholder")}
                 value={inputValue}
                 onChange={(e) => onChange(e.target.value)}
                 onFocus={onFocus}

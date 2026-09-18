@@ -1,11 +1,13 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useCharacterSearch } from "@/hooks/useCharacterSearch";
 import { useSearchDropdown } from "@/hooks/useSearchDropdown";
 import SearchForm from "./SearchForm";
 import SearchDropdown from "./SearchDropdown";
 
 export default function SearchBar() {
+    const t = useTranslations("search");
     const { inputValue, setInputValue, goToUser, handleSubmit } = useCharacterSearch();
     const {
         showDropdown,
@@ -31,7 +33,7 @@ export default function SearchBar() {
                 }
             }}
         >
-            <h1 className="text-center text-[14px] mb-[16px] font-normal">메이플스토리 캐릭터 정보 검색 서비스</h1>
+            <h1 className="text-center text-[14px] mb-[16px] font-normal">{t("heading")}</h1>
             <SearchForm
                 inputValue={inputValue}
                 onChange={setInputValue}
