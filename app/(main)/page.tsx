@@ -1,5 +1,6 @@
 import SearchBar from "@/components/SearchBar";
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import { dojangUrl, ocidUrl, userUrl, theseedUrl, achievementUrl, noticeUrl, updateUrl } from "@/lib/url/apiUrl";
 import ssrFetcher from "@/lib/ssrFetcher";
 import ssrRankingFetcher from "@/lib/ssrRankingFetcher";
@@ -19,6 +20,8 @@ async function fetchTopRankUserInfo(rankingUrl: (date: string) => string) {
 }
 
 export default async function Home() {
+    const t = await getTranslations("home");
+
     // 무릉도장/더시드/업적 1등 조회와 공지/업데이트 조회는 서로 의존관계가 없어서 병렬로 요청
     const [
         { rankingUser: dojangUser, userInfo: dojangUserInfo },
@@ -67,7 +70,7 @@ export default async function Home() {
             <div className="relative w-full h-[300px] flex items-center justify-center">
                 <Image
                     src="/main/header.png"
-                    alt="메인"
+                    alt={t("mainImageAlt")}
                     sizes="(max-width: 768px) 100vw, 940px"
                     fill
                     style={{ objectFit: "cover" }}
@@ -78,14 +81,14 @@ export default async function Home() {
             </div>
             <div className="w-full h-auto mt-[40px] text-center flex gap-[16px] flex-col items-center justify-center pc:flex-row">
                 {/* 랭킹 box */}
-                <RankBox data={dojangUserInfoData} color="yellow" rankingTitle={"무릉도장"} />
-                <RankBox data={theseedUserInfoData} color="green" rankingTitle={"더시드"} />
-                <RankBox data={achievementUserInfoData} color="blue" rankingTitle={"업적"} />
+                <RankBox data={dojangUserInfoData} color="yellow" rankingTitle={t("dojang")} />
+                <RankBox data={theseedUserInfoData} color="green" rankingTitle={t("theseed")} />
+                <RankBox data={achievementUserInfoData} color="blue" rankingTitle={t("achievement")} />
             </div>
             <div className="w-full h-auto mt-[40px] pb-[40px]">
                 <div className="w-full flex flex-col gap-[16px] items-center justify-center pc:flex-row pc:gap-[32px]">
-                    <InfomationBox data={noticeData[0].notice.slice(0, 5)} InfomationTitle={"공지사항"} />
-                    <InfomationBox data={updateData[0].update_notice.slice(0, 5)} InfomationTitle={"업데이트"} />
+                    <InfomationBox data={noticeData[0].notice.slice(0, 5)} kind="notice" title={t("notice")} />
+                    <InfomationBox data={updateData[0].update_notice.slice(0, 5)} kind="update" title={t("update")} />
                 </div>
             </div>
         </div>

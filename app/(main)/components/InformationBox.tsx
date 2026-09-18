@@ -1,23 +1,33 @@
+import { getTranslations } from "next-intl/server";
 import { noticeProps } from "../props/props";
 import { IoIosArrowForward } from "react-icons/io";
 
-export default function InfomationBox({ data, InfomationTitle }: { data: noticeProps[]; InfomationTitle: string }) {
+export default async function InfomationBox({
+    data,
+    kind,
+    title,
+}: {
+    data: noticeProps[];
+    kind: "notice" | "update";
+    title: string;
+}) {
+    const t = await getTranslations("home");
     const moreLink =
-        InfomationTitle === "공지사항"
+        kind === "notice"
             ? "https://maplestory.nexon.com/News/Notice"
             : "https://maplestory.nexon.com/News/Update";
 
     return (
         <div className="w-full border-2 border-gray-400 rounded-[16px]">
             <div className="flex items-center justify-between p-[8px] border-b-2 border-gray-400 font-bold">
-                <p>{InfomationTitle}</p>
+                <p>{title}</p>
                 <a
                     href={moreLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex gap-[2px] items-center text-[14px]"
                 >
-                    더보기
+                    {t("more")}
                     <span>
                         <IoIosArrowForward />
                     </span>

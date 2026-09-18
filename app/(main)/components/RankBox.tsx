@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { userProps } from "../props/props";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { userProps } from "../props/props";
 
 const colorInfo = {
     yellow: { border: "border-yellow-400", bg: "bg-yellow-400" },
@@ -10,7 +11,7 @@ const colorInfo = {
 
 type colorKey = keyof typeof colorInfo;
 
-export default function RankBox({
+export default async function RankBox({
     data,
     color,
     rankingTitle,
@@ -19,13 +20,17 @@ export default function RankBox({
     color: colorKey;
     rankingTitle: string;
 }) {
+    const t = await getTranslations("home");
+
     return (
         <Link
             href={`/user/${data.name}`}
             prefetch={false}
             className={`w-full max-w-[235px] flex flex-col items-center justify-center border ${colorInfo[color].border} rounded-[16px]`}
         >
-            <p className={`w-full p-[8px] border-b-[2px] text-[14px] ${colorInfo[color].border}`}>{rankingTitle} 1위</p>
+            <p className={`w-full p-[8px] border-b-[2px] text-[14px] ${colorInfo[color].border}`}>
+                {t("rankFirst", { title: rankingTitle })}
+            </p>
             <div className="w-full flex gap-[4px] items-center justify-center text-[12px] p-[8px] pt-[12px]">
                 <p>{data.name}</p>
                 <p>Lv.{data.level}</p>
@@ -35,13 +40,13 @@ export default function RankBox({
                 <Image src={data.img} alt={data.name} width={96} height={96} className="scale-[2]" priority />
             </div>
             <p className="w-full text-[18px] font-bold p-[8px] pb-[16px] flex items-center justify-center gap-[2px]">
-                {data.floor ? `${data.floor}층` : `${data.trophyGrade}`}
+                {data.floor ? t("floor", { n: data.floor }) : `${data.trophyGrade}`}
                 {data.trophyScore && <span className="text-[12px]">({data.trophyScore})</span>}
             </p>
             <div
                 className={`w-full border-t font-bold p-[8px] rounded-b-[16px] ${colorInfo[color].border} ${colorInfo[color].bg}`}
             >
-                상세보기
+                {t("viewDetail")}
             </div>
         </Link>
     );
