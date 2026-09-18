@@ -1,0 +1,92 @@
+{
+    "metadata": {
+        "root": {
+            "title": "단풍지지 - 메이플스토리 통계 & 분석 플랫폼",
+            "description": "메이플스토리 직업 통계, 길드 분석, 유저 정보 등을 제공하는 단풍지지 플랫폼입니다."
+        },
+        "favorites": {
+            "title": "즐겨찾기 - 단풍지지",
+            "description": "즐겨찾기한 캐릭터의 최신 정보를 한눈에 확인하세요."
+        },
+        "guild": {
+            "title": "길드 검색 - 단풍지지",
+            "description": "월드와 길드명으로 메이플스토리 길드원 목록과 노블레스 스킬 정보를 조회하세요."
+        }
+    },
+    "nav": {
+        "ariaLabel": "주요 메뉴",
+        "home": "메인",
+        "guild": "길드",
+        "favorites": "즐겨찾기",
+        "guide": "가이드"
+    },
+    "theme": {
+        "toLight": "라이트 모드로 전환",
+        "toDark": "다크 모드로 전환"
+    },
+    "locale": {
+        "ariaLabel": "언어 선택"
+    },
+    "search": {
+        "heading": "메이플스토리 캐릭터 정보 검색 서비스",
+        "placeholder": "캐릭터 이름을 입력하세요"
+    },
+    "guildSearch": {
+        "placeholder": "길드 이름을 입력하세요",
+        "emptyAlert": "길드 이름을 입력하세요."
+    },
+    "searchDropdown": {
+        "recentTab": "최근 검색어",
+        "favoriteTab": "즐겨찾기",
+        "clearAll": "전체삭제",
+        "recentEmpty": "최근 검색어가 없습니다.",
+        "favoriteEmpty": "즐겨찾기가 없습니다.",
+        "removeRecent": "{name} 최근 검색어 삭제",
+        "removeFavorite": "{name} 즐겨찾기 해제"
+    },
+    "errors": {
+        "retryHeading": "Oops!",
+        "retryCountdown": "{count}초 뒤 재시도 합니다.",
+        "notFoundHeading": "정보를 불러오지 못했어요.",
+        "refresh": "새로고침",
+        "toHome": "홈으로",
+        "userNotFound": "오타가 있거나 정지된 캐릭터일 수 있습니다. (영어 대소문자 구분 필요)",
+        "guildNotFound": "오타가 있거나 존재하지 않는 길드일 수 있습니다."
+    },
+    "favoriteButton": {
+        "add": "즐겨찾기 추가",
+        "remove": "즐겨찾기 해제"
+    },
+    "userTabs": {
+        "equipment": "장비",
+        "stat": "스탯",
+        "skill": "스킬",
+        "union": "유니온",
+        "codi": "코디",
+        "etc": "기타"
+    },
+    "home": {
+        "mainImageAlt": "메인",
+        "rankFirst": "{title} 1위",
+        "floor": "{n}층",
+        "viewDetail": "상세보기",
+        "dojang": "무릉도장",
+        "theseed": "더시드",
+        "achievement": "업적",
+        "notice": "공지사항",
+        "update": "업데이트",
+        "more": "더보기"
+    },
+    "favorites": {
+        "heading": "즐겨찾기",
+        "description": "즐겨찾기한 캐릭터의 최신 정보를 한눈에 확인하세요.",
+        "empty": "즐겨찾기한 캐릭터가 없습니다. 캐릭터 페이지의 별 아이콘을 눌러 추가해보세요.",
+        "level": "레벨",
+        "combatPower": "전투력",
+        "loadFailed": "정보를 불러올 수 없습니다."
+    },
+    "footer": {
+        "disclaimer": "본 서비스는 NEXON Open API를 이용하여 제작되었으며, 넥슨 및 메이플스토리와 공식적으로 제휴되어 있지 않습니다.",
+        "privacy": "개인정보처리방침"
+    }
+}

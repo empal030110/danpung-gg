@@ -1,0 +1,92 @@
+{
+    "metadata": {
+        "root": {
+            "title": "DanpungGG - MapleStory Stats & Analysis Platform",
+            "description": "DanpungGG provides MapleStory job stats, guild analysis, and character info."
+        },
+        "favorites": {
+            "title": "Favorites - DanpungGG",
+            "description": "See the latest info for your favorite characters at a glance."
+        },
+        "guild": {
+            "title": "Guild Search - DanpungGG",
+            "description": "Look up a guild's member list and Noblesse skill status by world and guild name."
+        }
+    },
+    "nav": {
+        "ariaLabel": "Main menu",
+        "home": "Home",
+        "guild": "Guild",
+        "favorites": "Favorites",
+        "guide": "Guide"
+    },
+    "theme": {
+        "toLight": "Switch to light mode",
+        "toDark": "Switch to dark mode"
+    },
+    "locale": {
+        "ariaLabel": "Select language"
+    },
+    "search": {
+        "heading": "MapleStory character info search",
+        "placeholder": "Enter a character name"
+    },
+    "guildSearch": {
+        "placeholder": "Enter a guild name",
+        "emptyAlert": "Please enter a guild name."
+    },
+    "searchDropdown": {
+        "recentTab": "Recent",
+        "favoriteTab": "Favorites",
+        "clearAll": "Clear all",
+        "recentEmpty": "No recent searches.",
+        "favoriteEmpty": "No favorites yet.",
+        "removeRecent": "Remove {name} from recent searches",
+        "removeFavorite": "Remove {name} from favorites"
+    },
+    "errors": {
+        "retryHeading": "Oops!",
+        "retryCountdown": "Retrying in {count}s.",
+        "notFoundHeading": "Couldn't load this info.",
+        "refresh": "Refresh",
+        "toHome": "Go home",
+        "userNotFound": "The name may be misspelled, or the character may be blocked. (case-sensitive)",
+        "guildNotFound": "The name may be misspelled, or the guild may not exist."
+    },
+    "favoriteButton": {
+        "add": "Add to favorites",
+        "remove": "Remove from favorites"
+    },
+    "userTabs": {
+        "equipment": "Equipment",
+        "stat": "Stats",
+        "skill": "Skills",
+        "union": "Union",
+        "codi": "Cosmetics",
+        "etc": "Etc"
+    },
+    "home": {
+        "mainImageAlt": "Main",
+        "rankFirst": "#1 {title}",
+        "floor": "Floor {n}",
+        "viewDetail": "View details",
+        "dojang": "Mu Lung Dojo",
+        "theseed": "The Seed",
+        "achievement": "Achievement",
+        "notice": "Notices",
+        "update": "Updates",
+        "more": "More"
+    },
+    "favorites": {
+        "heading": "Favorites",
+        "description": "See the latest info for your favorite characters at a glance.",
+        "empty": "No favorite characters yet. Tap the star icon on a character page to add one.",
+        "level": "Level",
+        "combatPower": "Combat Power",
+        "loadFailed": "Couldn't load this character."
+    },
+    "footer": {
+        "disclaimer": "This service is built using the NEXON Open API and is not officially affiliated with Nexon or MapleStory.",
+        "privacy": "Privacy Policy"
+    }
+}
