@@ -15,6 +15,9 @@
         "guide": {
             "title": "Guide - DanpungGG",
             "description": "A guide to looking up MapleStory character and guild info on DanpungGG, and using favorites."
+        },
+        "privacy": {
+            "title": "Privacy Policy - DanpungGG"
         }
     },
     "nav": {
@@ -144,5 +147,44 @@
             }
         },
         "footer": "If you have more questions, please reach out via the contact email on the <link>Privacy Policy</link> page."
+    },
+    "privacy": {
+        "heading": "Privacy Policy",
+        "effectiveDate": "Effective date: 2026-08-24",
+        "sections": {
+            "collection": {
+                "title": "1. Personal information we collect",
+                "body": "DanpungGG (the \"Service\") does not offer sign-up or login, and does not collect or store on our servers any personal information you enter yourself (name, email, phone number, etc.)."
+            },
+            "localStorage": {
+                "title": "2. Information stored in your browser (local storage)",
+                "body": "Recent searches and favorites are stored only in your browser's localStorage and are never sent to the Service's servers. They are removed immediately if you clear your browser data or use the delete feature within the Service."
+            },
+            "autoCollected": {
+                "title": "3. Information collected automatically (access logs, analytics tools)",
+                "body": "While you use the Service, the analytics tools below may automatically collect information such as device info, IP address, pages visited, and browser type, for visit statistics and service improvement.",
+                "items": {
+                    "vercel": "Vercel Analytics (visit statistics)",
+                    "nexon": "NEXON Open API analytics script"
+                }
+            },
+            "cookiesAds": {
+                "title": "4. Cookies and advertising",
+                "body": "The Service displays third-party ads, including Google AdSense. These ad services may use cookies and advertising identifiers to deliver personalized ads. You can opt out of personalized ads via your browser settings or <link>Google Ads Settings</link>."
+            },
+            "thirdParty": {
+                "title": "5. Sharing personal information with third parties",
+                "body": "The Service does not separately collect your personal information, so it is not shared with third parties."
+            },
+            "externalApi": {
+                "title": "6. Use of an external API",
+                "body": "Character and ranking info provided by the Service comes from the NEXON Open API, and the Service is not officially affiliated with Nexon or MapleStory."
+            },
+            "contact": {
+                "title": "7. Contact",
+                "intro": "For questions about personal information, please contact us at the email below.",
+                "emailLabel": "Email: {email}"
+            }
+        }
     }
 }
