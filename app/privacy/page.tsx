@@ -21,6 +21,10 @@ export default async function PrivacyPage() {
             body: <p>{t("sections.localStorage.body")}</p>,
         },
         {
+            title: t("sections.likeAbuse.title"),
+            body: <p>{t("sections.likeAbuse.body")}</p>,
+        },
+        {
             title: t("sections.autoCollected.title"),
             body: (
                 <>
