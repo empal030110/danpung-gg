@@ -18,6 +18,10 @@
         },
         "privacy": {
             "title": "Privacy Policy - DanpungGG"
+        },
+        "popular": {
+            "title": "Popular Characters - DanpungGG",
+            "description": "Check out the top 10 most-liked characters."
         }
     },
     "nav": {
@@ -25,7 +29,8 @@
         "home": "Home",
         "guild": "Guild",
         "favorites": "Favorites",
-        "guide": "Guide"
+        "guide": "Guide",
+        "popular": "Popular"
     },
     "theme": {
         "toLight": "Switch to light mode",
@@ -63,6 +68,18 @@
     "favoriteButton": {
         "add": "Add to favorites",
         "remove": "Remove from favorites"
+    },
+    "likeButton": {
+        "add": "Like",
+        "remove": "Unlike"
+    },
+    "popular": {
+        "heading": "Popular Characters",
+        "description": "The top 10 most-liked characters.",
+        "empty": "No characters have been liked yet.",
+        "rankLabel": "#{rank}",
+        "likeCount": "{count, plural, one {# like} other {# likes}}",
+        "viewAll": "View all"
     },
     "userTabs": {
         "equipment": "Equipment",
@@ -160,8 +177,12 @@
                 "title": "2. Information stored in your browser (local storage)",
                 "body": "Recent searches and favorites are stored only in your browser's localStorage and are never sent to the Service's servers. They are removed immediately if you clear your browser data or use the delete feature within the Service."
             },
+            "likeAbuse": {
+                "title": "3. The Like feature and IP addresses",
+                "body": "To prevent the same user from repeatedly liking the same character, the Like feature stores the IP address used when liking, together with the character name. This information is used only to check for duplicate likes, and is not used for any other purpose or shared with third parties."
+            },
             "autoCollected": {
-                "title": "3. Information collected automatically (access logs, analytics tools)",
+                "title": "4. Information collected automatically (access logs, analytics tools)",
                 "body": "While you use the Service, the analytics tools below may automatically collect information such as device info, IP address, pages visited, and browser type, for visit statistics and service improvement.",
                 "items": {
                     "vercel": "Vercel Analytics (visit statistics)",
@@ -169,19 +190,19 @@
                 }
             },
             "cookiesAds": {
-                "title": "4. Cookies and advertising",
+                "title": "5. Cookies and advertising",
                 "body": "The Service displays third-party ads, including Google AdSense. These ad services may use cookies and advertising identifiers to deliver personalized ads. You can opt out of personalized ads via your browser settings or <link>Google Ads Settings</link>."
             },
             "thirdParty": {
-                "title": "5. Sharing personal information with third parties",
+                "title": "6. Sharing personal information with third parties",
                 "body": "The Service does not separately collect your personal information, so it is not shared with third parties."
             },
             "externalApi": {
-                "title": "6. Use of an external API",
+                "title": "7. Use of an external API",
                 "body": "Character and ranking info provided by the Service comes from the NEXON Open API, and the Service is not officially affiliated with Nexon or MapleStory."
             },
             "contact": {
-                "title": "7. Contact",
+                "title": "8. Contact",
                 "intro": "For questions about personal information, please contact us at the email below.",
                 "emailLabel": "Email: {email}"
             }
