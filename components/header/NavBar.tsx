@@ -10,6 +10,7 @@ export default function NavBar() {
     const navItems = [
         { href: "/", label: t("home") },
         { href: "/guild", label: t("guild") },
+        { href: "/popular", label: t("popular") },
         { href: "/favorites", label: t("favorites") },
         { href: "/guide", label: t("guide") },
     ];
