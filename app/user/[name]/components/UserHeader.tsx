@@ -1,15 +1,24 @@
 import { userDataProps, userStatProps } from "../../userProps/props";
 import Image from "next/image";
 import Link from "next/link";
+import { headers } from "next/headers";
 import { popularityUrl, overallUrl, unionUrl, statUrl } from "@/lib/url/apiUrl";
 import ssrFetcher from "@/lib/ssrFetcher";
 import ssrRankingFetcher from "@/lib/ssrRankingFetcher";
+import { getClientIp, getLikeState } from "@/lib/likes";
 import FavoriteButton from "./FavoriteButton";
+import LikeButton from "./LikeButton";
 
 export default async function UserHeader({ data, ocid }: { data: userDataProps; ocid: string }) {
     // data는 기본 정보
     // 인기도 정보
     const userPopularity = await ssrFetcher(popularityUrl(ocid));
+
+    // 좋아요 상태 - DB 문제로 실패해도 캐릭터 페이지 전체가 죽으면 안 되므로 기본값(0, false)으로 대체
+    const likeState = await getLikeState(data.characterName, getClientIp(await headers())).catch(() => ({
+        liked: false,
+        count: 0,
+    }));
 
     // 랭킹
     const userOverallData = await ssrRankingFetcher((date) => overallUrl(ocid, data.worldName, date)); // 전체 랭킹
@@ -43,6 +52,11 @@ export default async function UserHeader({ data, ocid }: { data: userDataProps; 
                     unoptimized
                 />
                 <FavoriteButton characterName={data.characterName} />
+                <LikeButton
+                    characterName={data.characterName}
+                    initialLiked={likeState.liked}
+                    initialCount={likeState.count}
+                />
             </div>
             <div className="flex flex-col gap-[12px]">
                 <div>
