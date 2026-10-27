@@ -1,6 +1,6 @@
 ## 단풍지지 (danpung-gg)
 
-메이플스토리 넥슨 오픈 API를 활용한 캐릭터·길드 정보 검색 서비스입니다. 캐릭터 이름만 검색하면 스탯, 장비, 유니온, 업적, 랭킹 정보를 한 번에 확인할 수 있고, 길드명으로는 길드원 목록과 노블레스 스킬 현황을 조회할 수 있습니다. PWA와 Capacitor 기반 iOS/Android 앱으로도 제공됩니다.
+메이플스토리 넥슨 오픈 API를 활용한 캐릭터·길드 정보 검색 서비스입니다. 캐릭터 이름만 검색하면 스탯, 장비, 유니온, 업적, 랭킹 정보를 한 번에 확인할 수 있고, 길드명으로는 길드원 목록과 노블레스 스킬 현황을 조회할 수 있습니다. 한국어/영어 UI를 지원하고, 캐릭터에 좋아요를 눌러 인기 순위를 볼 수 있습니다. PWA와 Capacitor 기반 iOS/Android 앱으로도 제공됩니다.
 
 > 문제 정의, 주요 의사결정, 결과 및 회고, 컴포넌트 설계 방식은 [RETROSPECTIVE.md](RETROSPECTIVE.md) 참고
 
@@ -21,6 +21,8 @@
 - **Validation**: Zod (넥슨 API 응답 20종 런타임 검증)
 - **UI**: Tailwind CSS v4 (커스텀 브레이크포인트 `pc: 940px`)
 - **State**: Zustand (즐겨찾기/최근 검색어, `localStorage` 영속화)
+- **i18n**: next-intl (쿠키 기반 ko/en, URL 접두사 없음) — UI 텍스트만 번역하고 넥슨 API 게임 데이터는 한국어 유지
+- **Database**: Neon(Serverless Postgres, Vercel Marketplace) + Drizzle ORM, `@neondatabase/serverless` HTTP 드라이버 — 좋아요 저장용
 - **Test**: Vitest(유닛/컴포넌트) + Testing Library + jsdom, Playwright(E2E)
 - **Format**: Prettier + `eslint-config-prettier`
 - **CI**: GitHub Actions
@@ -44,6 +46,7 @@
 - **코디**: 장착 코디, 코디 프리셋 1·2·3
 - **기타**: 업적 등급/점수, 무릉도장 최고 기록 (당일 데이터 미집계 시 전날 데이터로 자동 재시도)
 - 즐겨찾기 등록 버튼, 검색 시 최근 검색어 자동 기록
+- 좋아요 버튼(하트, 토글) — 아래 "인기 캐릭터" 참고
 
 ### 길드 검색 (`/guild`, `/guild/[world]/[name]`)
 - 월드(서버) + 길드명으로 길드 상세 페이지 조회
@@ -54,6 +57,12 @@
 - 즐겨찾기에 등록한 캐릭터를 카드 목록으로 모아 보여주는 대시보드
 - `app/api/favorites/route.ts`에서 캐릭터별로 최신 레벨/전투력 등을 조회해 요약 정보 제공 (한 캐릭터 조회가 실패해도 나머지는 정상 처리)
 
+### 인기 캐릭터 (`/popular`)
+- 캐릭터 상세 페이지의 하트 버튼으로 좋아요/취소(토글), `/popular`에서 좋아요 TOP 10(순위·닉네임·좋아요 수, 클릭 시 캐릭터 페이지로 이동)
+- 좋아요 수와 내 좋아요 여부는 마운트 후 `GET /api/likes/[name]`으로 조회하고, 클릭은 낙관적으로 반영한 뒤 `POST`로 확정(실패 시 롤백)
+- 어뷰징 방지: 로그인 없이 `(캐릭터명, IP)` 복합 기본키로 한 IP당 캐릭터별 1회만 인정. IP는 `x-vercel-forwarded-for` → `x-forwarded-for` → `x-real-ip` 순으로 읽고, 저장 목적은 개인정보처리방침에 고지
+- DB가 응답하지 않으면 좋아요 버튼이 비활성화되고 `/popular`은 빈 목록이 되지만, 캐릭터·길드 조회 등 나머지 기능은 그대로 동작
+
 ### 메인 대시보드 (`/`)
 - 무릉도장/더시드/업적 랭킹 1위 하이라이트
 - 공지사항/업데이트 목록
@@ -62,6 +71,7 @@
 ### 기타
 - 이용 가이드 (`/guide`)
 - 라이트/다크 테마 토글
+- 한국어/영어 언어 전환 (헤더 버튼, 선택한 언어는 쿠키 `locale`에 저장)
 - 개인정보처리방침 (`/privacy`)
 
 ---
@@ -81,15 +91,16 @@ mapleGG/
     gradeColor.ts              # 등급별 텍스트/테두리/배경 색상 매핑
     constants.ts                # 등급명/장비 슬롯명 등 여러 파일에서 반복되는 도메인 문자열 상수
     url/apiUrl.ts              # 엔드포인트 생성기 (랭킹/캐릭터/유니온/길드/공지 등)
+    likes.ts                   # 좋아요 조회/토글/TOP N 쿼리 + 요청 IP 추출 (Drizzle)
   app/
     (main)/page.tsx            # 메인: 랭킹 TOP 3 + 공지/업데이트, 검색바
-    (main)/components/         # RankBox, InformationBox
+    (main)/components/         # RankBox, InformationBox, PopularTicker(좋아요 티커, 현재 메인에선 미사용)
     user/[name]/page.tsx       # 캐릭터 상세 페이지 (SSR, API 병렬 조회 → mapUserData로 가공)
     user/[name]/utils/mapUserData.ts  # 넥슨 API 원본 응답 20종 → 화면용 데이터로 가공하는 순수 함수 (유닛 테스트 대상)
     user/[name]/utils/filterItem.ts   # 장비/안드로이드/칭호를 슬롯 기준으로 필터링 (오버로드 시그니처)
     user/[name]/components/UserInfoTabs.tsx  # 탭 전환 UI만 담당 (panels로 완성된 패널을 받아 렌더링만 함)
     user/[name]/components/User{Equipment,Stat,Skill,Union,Codi,Etc}Panel.tsx  # 탭별 콘텐츠 (각자 필요한 데이터만 props로 받음)
-    user/[name]/components/    # 그 외 UserHeader/UserBasicStat/UserItem/UserSkill/UserUnion/ItemDetailModal 등 섹션 컴포넌트
+    user/[name]/components/    # 그 외 UserHeader/FavoriteButton/LikeButton/UserBasicStat/UserItem/UserSkill/UserUnion/ItemDetailModal 등 섹션 컴포넌트
     user/userProps/props.ts       # 상세 페이지 타입 정의 (대부분 zod 스키마에서 z.infer로 추출)
     user/userProps/itemSchema.ts  # 장비/안드로이드/칭호 zod 스키마
     user/userProps/rawSchemas.ts  # 나머지 19개 엔드포인트 원본 응답 zod 스키마
@@ -100,9 +111,12 @@ mapleGG/
     favorites/page.tsx          # 즐겨찾기 대시보드
     favorites/components/       # FavoritesClient, FavoriteCard
     api/favorites/route.ts      # 즐겨찾기 캐릭터 요약 조회 API (동시성 제한 + 부분 실패 허용)
+    api/likes/[name]/route.ts   # 좋아요 상태 조회(GET)/토글(POST) API
+    popular/page.tsx            # 인기 캐릭터 TOP 10
+    actions/locale.ts           # 언어 쿠키를 저장하는 서버 액션
     guide/page.tsx               # 이용 가이드
     privacy/page.tsx             # 개인정보처리방침
-    layout.tsx                  # 글로벌 레이아웃/메타/PWA·서비스워커/광고 스크립트
+    layout.tsx                  # 글로벌 레이아웃/메타/PWA·서비스워커/광고 스크립트/NextIntlClientProvider
     robots.ts, sitemap.ts
     globals.css                 # Tailwind 4 전역 스타일, 커스텀 브레이크포인트 정의
   components/
@@ -110,7 +124,7 @@ mapleGG/
     PresetTabs.tsx               # 프리셋 전환 공용 탭 컴포넌트
     NotInfoText.tsx, ErrorPage.tsx, ErrorInfoPage.tsx, PageLoader.tsx
     ServiceWorkerRegister.tsx    # App Router용 수동 서비스워커 등록
-    header/                      # NavBar, HeaderSearchBar, ThemeBtn
+    header/                      # NavBar, HeaderSearchBar, ThemeBtn, LocaleSwitcher
   hooks/
     useCharacterSearch.ts        # 검색창 입력/제출 로직
     useSearchDropdown.ts         # 최근 검색어·즐겨찾기 드롭다운 열림/닫힘 로직
@@ -118,6 +132,17 @@ mapleGG/
   store/
     useFavoriteStore.ts          # 즐겨찾기 (zustand + localStorage)
     useRecentSearchStore.ts      # 최근 검색어 (zustand + localStorage)
+  db/
+    schema.ts                    # character_likes(character_name, ip, created_at), PK (character_name, ip)
+    index.ts                     # getDb() — 첫 쿼리 시점에 Neon 연결을 만드는 지연 초기화
+    migrate.ts                   # 마이그레이션 적용 스크립트 (npm run db:migrate)
+    migrations/                  # drizzle-kit이 생성한 SQL
+  i18n/
+    config.ts, request.ts        # 지원 로케일(ko/en)과 요청별 로케일·메시지 결정 (locale 쿠키, 기본 ko)
+  messages/
+    ko.json, en.json             # 번역 메시지
+  test/
+    renderWithIntl.tsx           # next-intl Provider로 감싸 렌더링하는 컴포넌트 테스트 헬퍼
   e2e/
     character-search.spec.ts     # Playwright 골든패스 E2E (검색 → 상세 → 탭 전환 → 즐겨찾기 → 에러 페이지)
   public/
@@ -128,7 +153,8 @@ mapleGG/
     ci.yml                       # lint/타입체크/테스트/빌드 (필수 게이트)
     e2e.yml                      # Playwright E2E (수동 실행/매일 스케줄)
   capacitor.config.ts
-  next.config.ts                 # 이미지 도메인, 이미지 최적화 비활성화(Vercel 무료 한도 보호), PWA 구성
+  next.config.ts                 # 이미지 도메인, 이미지 최적화 비활성화(Vercel 무료 한도 보호), PWA·next-intl 플러그인 구성
+  drizzle.config.ts              # drizzle-kit 설정 (db/schema.ts → db/migrations)
   vitest.config.mts, vitest.setup.ts   # 컴포넌트/훅 테스트만 jsdom, 나머지는 node 환경
   playwright.config.ts
   tsconfig.json, eslint.config.mjs, tailwind/postcss 설정
@@ -142,6 +168,7 @@ mapleGG/
 - `/guild` 길드 검색
 - `/guild/[world]/[name]` 길드 상세
 - `/favorites` 즐겨찾기 대시보드
+- `/popular` 인기 캐릭터 TOP 10
 - `/guide` 이용 가이드
 - `/privacy` 개인정보처리방침
 
@@ -162,6 +189,16 @@ mapleGG/
 
 ---
 
+## 데이터베이스 (Neon + Drizzle)
+좋아요 기능에만 사용합니다. 넥슨 API 데이터나 즐겨찾기/최근 검색어는 DB에 저장하지 않습니다.
+
+- 연결: Vercel Marketplace의 Neon(Serverless Postgres), 환경변수 `DATABASE_URL`
+- 스키마: `db/schema.ts`의 `character_likes` 테이블 하나. `(character_name, ip)` 복합 기본키가 "한 IP당 캐릭터별 1회"를 DB 레벨에서 보장하고, 좋아요 수는 별도 카운터 없이 `COUNT(*) ... GROUP BY`로 구합니다.
+- 마이그레이션: `npm run db:generate`(스키마 → `db/migrations/` SQL 생성), `npm run db:migrate`(적용). `db:migrate`는 Next 런타임 밖에서 실행되어 `.env.local`을 자동으로 읽지 않으므로 `@next/env`로 직접 로드합니다.
+- 지연 초기화: `getDb()`는 모듈 로드 시점이 아니라 첫 쿼리 시점에 연결을 만듭니다. `DATABASE_URL` 없이도 `next build`가 통과하고, DB 문제가 있어도 해당 쿼리를 호출하는 곳에서만 실패합니다.
+
+---
+
 ## 실행 방법
 사전 준비: Node 20+ 권장, npm
 
@@ -170,8 +207,9 @@ mapleGG/
 npm install
 ```
 
-2) Nexon Open API Key 설정
+2) 환경변수 설정
 - `.env.example`을 `.env.local`로 복사한 뒤 `NX_OPEN_API_KEY=...` 값을 본인 키로 교체
+- 좋아요/인기 캐릭터를 쓰려면 `DATABASE_URL=...`(Neon 연결 문자열)도 채우고, 한 번 `npm run db:migrate`로 테이블을 생성합니다. `DATABASE_URL`이 없어도 캐릭터/길드 조회 등 나머지 기능은 동작하고 좋아요만 비활성화됩니다.
 - `.env.local`은 `.gitignore`에 포함되어 커밋되지 않습니다
 
 3) 개발 서버
@@ -198,7 +236,7 @@ npm start
 ---
 
 ## CI
-- **`.github/workflows/ci.yml`** (필수 게이트): `main`/`master` push와 모든 PR에서 `lint` → `tsc --noEmit` → `test` → `build`를 순서대로 실행합니다. `build`는 넥슨 API 키가 필요해 저장소 시크릿 `NX_OPEN_API_KEY`가 있어야 동작합니다.
+- **`.github/workflows/ci.yml`** (필수 게이트): `main`/`master` push와 모든 PR에서 `lint` → `tsc --noEmit` → `test` → `build`를 순서대로 실행합니다. `build`는 넥슨 API 키가 필요해 저장소 시크릿 `NX_OPEN_API_KEY`가 있어야 동작합니다(`DATABASE_URL`은 빌드에 필요 없습니다).
 - **`.github/workflows/e2e.yml`** (수동/스케줄): Playwright E2E는 실제 넥슨 API에 의존해 API 장애 시 실패할 수 있는 테스트라, push/PR을 막는 필수 게이트에 넣지 않았습니다. `workflow_dispatch`(수동 실행)와 매일 스케줄로만 돌고, 실패 시 `playwright-report`를 아티팩트로 남깁니다. 마찬가지로 `NX_OPEN_API_KEY` 시크릿이 필요합니다.
 
 ---
@@ -211,7 +249,7 @@ npm start
 | 순수 로직 | Vitest (node 환경) | `lib/*`, `app/user/userProps/itemSchema.ts`·`rawSchemas.ts`(zod 스키마), `app/user/[name]/utils/mapUserData.ts`·`filterItem.ts` |
 | 상태관리 | Vitest | `store/useFavoriteStore.ts`, `store/useRecentSearchStore.ts` |
 | API route | Vitest | `app/api/favorites/route.ts` (`ssrFetcher`만 모킹, `runLimited`는 실제 사용) |
-| 컴포넌트/훅 | Vitest + Testing Library + jsdom | `hooks/useCharacterSearch.ts`·`useSearchDropdown.ts`, `PresetTabs`·`SearchForm`·`FavoriteButton` 등 (파일 상단에 `// @vitest-environment jsdom` 지정, 나머지는 기본 node 환경 유지) |
+| 컴포넌트/훅 | Vitest + Testing Library + jsdom | `hooks/useCharacterSearch.ts`·`useSearchDropdown.ts`, `PresetTabs`·`SearchForm`·`FavoriteButton`·`LikeButton` 등 (파일 상단에 `// @vitest-environment jsdom` 지정, 나머지는 기본 node 환경 유지. next-intl을 쓰는 컴포넌트는 `test/renderWithIntl.tsx`로 감싸 렌더링) |
 | E2E | Playwright | `e2e/character-search.spec.ts` — 검색 → 상세 페이지 탭 전환 → 즐겨찾기 추가/반영 → 존재하지 않는 캐릭터 에러까지, 실제 dev 서버 + 실제 넥슨 API로 검증. 특정 캐릭터 이름을 하드코딩하지 않고 메인 페이지의 "무릉도장 1위" 캐릭터를 매번 동적으로 조회해서 사용 |
 
 zod 스키마와 `getDate`/`formatExpireDate` 등은 실제 API 응답이나 KST 자정 경계처럼 놓치기 쉬운 케이스를 실제로 재현해서 테스트로 고정했습니다 (예: 잠재옵션 없는 아이템이 `undefined`가 아니라 `null`로 오는 것, `Intl.DateTimeFormat('ko-KR', {hour12:true})`가 Node ICU 버전에 따라 "오후"/"PM"으로 갈리는 것).
@@ -251,6 +289,7 @@ npm run test:e2e    # E2E (Playwright)
 - 도메인 상수: 등급명·장비 슬롯명처럼 여러 파일에서 반복되는 문자열은 `lib/constants.ts`에 모아두고 리터럴을 직접 쓰지 않습니다.
 - 즐겨찾기/최근검색어: `store/`의 zustand 스토어가 `localStorage`에 영속화하며 서버로 전송하지 않습니다.
 - 이미지: 캐릭터/장비 아이콘은 넥슨 API가 이미 적정 크기로 내려주므로 `next.config.ts`에서 이미지 최적화를 비활성화(`unoptimized: true`)해 Vercel 무료 변환 한도를 보호합니다.
+- 다국어: 번역 키는 `messages/{ko,en}.json`에 두고, 서버 컴포넌트는 `getTranslations`, 클라이언트 컴포넌트는 `useTranslations`를 씁니다. 문장 안에 링크/강조가 섞이면 `t.rich`를 씁니다. 로케일은 URL이 아니라 `locale` 쿠키로 결정되어(기본 `ko`) 라우트 구조를 바꾸지 않습니다. 넥슨 API가 내려주는 아이템/스킬/스탯명 같은 게임 데이터와 월드명, 캐릭터 상세 패널 내용은 번역하지 않고, 게임 데이터의 날짜(`getDate`, `formatExpireDate`)는 로케일과 무관하게 KST/한국어 포맷을 유지합니다.
 - 다크모드: `components/header/ThemeBtn.tsx`에서 `document.documentElement`에 `dark` 클래스를 토글.
 - 반응형: Tailwind 커스텀 브레이크포인트 `pc`(940px)를 기준으로 모바일/데스크탑 레이아웃을 분기합니다.
 
@@ -258,3 +297,6 @@ npm run test:e2e    # E2E (Playwright)
 
 ## 알려진 제한사항
 - **E2E의 실데이터 의존**: `e2e/character-search.spec.ts`는 실제 넥슨 API를 호출합니다. 특정 캐릭터 이름에 대한 의존은 없앴지만(메인 페이지의 "무릉도장 1위" 캐릭터를 매번 동적으로 조회), 넥슨 API 자체가 장애 상태면 여전히 실패할 수 있습니다. 완전히 없애려면 MSW 같은 API 모킹 레이어가 필요한데, 이 프로젝트 규모 대비 투자가 커서 보류했습니다. 그래서 필수 게이트가 아닌 수동/스케줄 워크플로(`e2e.yml`)로만 돌립니다.
+- **IP 기반 좋아요 중복 방지의 한계**: 같은 공유 IP(학교·회사·카페 등)에서는 한 명이 누르면 다른 사람은 누를 수 없고, VPN/모바일 데이터로 IP를 바꾸면 우회할 수 있습니다. 로그인 시스템을 새로 만들 만큼의 기능은 아니라고 판단해 감수했습니다.
+- **Neon Free 플랜 한도**: 월 100 CU-hours를 넘으면 다음 결제 주기까지 compute가 정지됩니다. 그동안 좋아요 버튼은 비활성화되고 `/popular`은 빈 목록이 되며, 나머지 기능은 정상 동작합니다.
+- **다국어 범위**: UI 텍스트(메뉴/검색/에러/즐겨찾기/가이드/개인정보처리방침 등)만 번역합니다. 넥슨 API 원본 데이터와 캐릭터 상세 패널(스탯/장비/스킬 등)의 내용은 한국어로 남습니다.
