@@ -1,55 +1,62 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 
-export default function LikeButton({
-    characterName,
-    initialLiked,
-    initialCount,
-}: {
-    characterName: string;
-    initialLiked: boolean;
-    initialCount: number;
-}) {
+type LikeState = { liked: boolean; count: number };
+
+export default function LikeButton({ characterName }: { characterName: string }) {
     const t = useTranslations("likeButton");
-    const [liked, setLiked] = useState(initialLiked);
-    const [count, setCount] = useState(initialCount);
+    const [state, setState] = useState<LikeState | null>(null);
     const [isPending, startTransition] = useTransition();
 
+    // SSR에서 DB를 조회하면 봇 트래픽만으로도 DB가 계속 깨어 있어서, JS를 실행하는 클라이언트에서만 조회
+    useEffect(() => {
+        let cancelled = false;
+
+        fetch(`/api/likes/${encodeURIComponent(characterName)}`)
+            .then((res) => (res.ok ? res.json() : Promise.reject(new Error("좋아요 상태 조회 실패"))))
+            .then((data: LikeState) => {
+                if (!cancelled) setState(data);
+            })
+            .catch(() => {}); // 실패하면 state가 null로 남아 버튼이 비활성 상태로 유지됨
+
+        return () => {
+            cancelled = true;
+        };
+    }, [characterName]);
+
     const handleClick = () => {
-        const prevLiked = liked;
-        const prevCount = count;
-        setLiked(!prevLiked);
-        setCount(prevLiked ? prevCount - 1 : prevCount + 1);
+        if (!state) return;
+        const prev = state;
+        setState({ liked: !prev.liked, count: prev.liked ? prev.count - 1 : prev.count + 1 });
 
         startTransition(async () => {
             try {
                 const res = await fetch(`/api/likes/${encodeURIComponent(characterName)}`, { method: "POST" });
                 if (!res.ok) throw new Error("좋아요 요청 실패");
-                const data: { liked: boolean; count: number } = await res.json();
-                setLiked(data.liked);
-                setCount(data.count);
+                setState(await res.json());
             } catch {
                 // 실패 시 낙관적 업데이트를 되돌림
-                setLiked(prevLiked);
-                setCount(prevCount);
+                setState(prev);
             }
         });
     };
+
+    const liked = state?.liked ?? false;
 
     return (
         <button
             type="button"
             onClick={handleClick}
-            disabled={isPending}
+            disabled={!state || isPending}
             aria-label={liked ? t("remove") : t("add")}
             aria-pressed={liked}
             className="absolute top-[80px] right-[40px] flex flex-col justify-center items-center text-red-400 cursor-pointer disabled:opacity-50"
         >
             {liked ? <FaHeart size={24} /> : <FaRegHeart size={24} />}
-            <span className="text-[12px] font-bold">{count}</span>
+            <span className={`text-[12px] font-bold ${state ? "" : "invisible"}`}>{state?.count ?? 0}</span>
         </button>
     );
 }
